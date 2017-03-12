@@ -3,11 +3,14 @@
 # 第一章 mysql基础操作
 ```
 [1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql登录编码权限赋予.txt) . 
-
 [2、mysql索引函数存储过程相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql索引函数存储过程.txt) .
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-[保存](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/edit/master/README.md) .
+```markdown
+# 第二章 jvm相关
+```
+[1、编译openjdk](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/编译openjdk.txt) . 
+[1、linux中.so库的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/linux中.so库的问题.txt) . 
+[1、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu取消桌面.txt) . 
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
