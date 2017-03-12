@@ -2,9 +2,10 @@
 # 说明:本blog目的是存储本地学习记录
 ```markdown
 第一章 mysql基础操作
+```
 [1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/edit/master/数据库相关/mysql登录编码权限赋予.txt) .
 [保存](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/edit/master/README.md) .
-```
+
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 [保存](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/edit/master/README.md) .
 ### Markdown
