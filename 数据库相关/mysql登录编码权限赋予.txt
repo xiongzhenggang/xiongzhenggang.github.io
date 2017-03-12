@@ -1,14 +1,14 @@
-=========================µ«¬º==================
- ˝æ›ø‚∞≤◊∞‘⁄C:DOS√¸¡Ó¥∞ø⁄÷– ‰»Î net start mysql£®∞≤◊∞∞Ê£©πÿ±’£∫net stop mysql
-mysql∑«∞≤◊∞∞Ê£∫÷±Ω”‘⁄bin÷–’“µΩmysqld.exeÀ´ª˜ªÚ’ﬂ πÿ±’£∫mysqladmin -uroot -p shutdown
+=========================ÁôªÂΩï===================
+Êï∞ÊçÆÂ∫ìÂÆâË£ÖÂú®C:DOSÂëΩ‰ª§Á™óÂè£‰∏≠ËæìÂÖ• net start mysqlÔºàÂÆâË£ÖÁâàÔºâÂÖ≥Èó≠Ôºönet stop mysql
+mysqlÈùûÂÆâË£ÖÁâàÔºöÁõ¥Êé•Âú®bin‰∏≠ÊâæÂà∞mysqld.exeÂèåÂáªÊàñËÄÖ ÂÖ≥Èó≠Ôºömysqladmin -uroot -p shutdown
 
-‘⁄D£∫cd D:\Tools\MySQL5.5.25\binΩ¯»ÎµΩmysqlµƒbinƒø¬ºœ¬≤≈ø…“‘ ‰»Î mysql -hlocalhost -uroot -p
+Âú®DÔºöcd D:\Tools\MySQL5.5.25\binËøõÂÖ•Âà∞mysqlÁöÑbinÁõÆÂΩï‰∏ãÊâçÂèØ‰ª•ËæìÂÖ• mysql -hlocalhost -uroot -p
 
- java¡¥Ω”// MySQLµƒJDBC URL±‡–¥∑Ω Ω£∫jdbc:mysql://÷˜ª˙√˚≥∆£∫¡¨Ω”∂Àø⁄/ ˝æ›ø‚µƒ√˚≥∆?≤Œ ˝=÷µ
+ javaÈìæÊé•// MySQLÁöÑJDBC URLÁºñÂÜôÊñπÂºèÔºöjdbc:mysql://‰∏ªÊú∫ÂêçÁß∞ÔºöËøûÊé•Á´ØÂè£/Êï∞ÊçÆÂ∫ìÁöÑÂêçÁß∞?ÂèÇÊï∞=ÂÄº
 
-–ﬁ∏ƒπ‹¿Ì‘±√‹¬Î
+‰øÆÊîπÁÆ°ÁêÜÂëòÂØÜÁ†Å
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '***'
-≤Èø¥∂Àø⁄∫≈
+Êü•ÁúãÁ´ØÂè£Âè∑
 mysql> show global variables like 'port';
 +---------------+-------+
 | Variable_name | Value |
@@ -17,160 +17,160 @@ mysql> show global variables like 'port';
 +---------------+-------+
 1 row in set, 1 warning (0.12 sec)
 
-======================================”√ªß»®œﬁπ‹¿Ì…Ë÷√==================================
+======================================Áî®Êà∑ÊùÉÈôêÁÆ°ÁêÜËÆæÁΩÆ==================================
 
-¥¥Ω®
-mysql> create user zx_root IDENTIFIED by '12345';   //identified by ª·Ω´¥øŒƒ±æ√‹¬Îº”√‹◊˜Œ™…¢¡–÷µ¥Ê¥¢
+ÂàõÂª∫
+mysql> create user zx_root IDENTIFIED by '12345';   //identified by ‰ºöÂ∞ÜÁ∫ØÊñáÊú¨ÂØÜÁ†ÅÂä†ÂØÜ‰Ωú‰∏∫Êï£ÂàóÂÄºÂ≠òÂÇ®
 
-≤Èø¥∆‰»®œﬁ
+Êü•ÁúãÂÖ∂ÊùÉÈôê
 mysql>show grants for zx_root;
 
-–ﬁ∏ƒ
-mysql>rename   user  feng  to   newuser£ª//mysql 5÷Æ∫Ûø…“‘ π”√£¨÷Æ«∞–Ë“™ π”√update ∏¸–¬user±Ì
-…æ≥˝
-mysql>drop user newuser;   //mysql5÷Æ«∞…æ≥˝”√ªß ±±ÿ–Îœ» π”√revoke …æ≥˝”√ªß»®œﬁ£¨»ª∫Û…æ≥˝”√ªß£¨mysql5÷Æ∫Ûdrop √¸¡Óø…“‘…æ≥˝”√ªßµƒÕ¨ ±…æ≥˝”√ªßµƒœ‡πÿ»®œﬁ
-∏¸∏ƒ√‹¬Î
+‰øÆÊîπ
+mysql>rename   user  feng  to   newuserÔºõ//mysql 5‰πãÂêéÂèØ‰ª•‰ΩøÁî®Ôºå‰πãÂâçÈúÄË¶Å‰ΩøÁî®update Êõ¥Êñ∞userË°®
+Âà†Èô§
+mysql>drop user newuser;   //mysql5‰πãÂâçÂà†Èô§Áî®Êà∑Êó∂ÂøÖÈ°ªÂÖà‰ΩøÁî®revoke Âà†Èô§Áî®Êà∑ÊùÉÈôêÔºåÁÑ∂ÂêéÂà†Èô§Áî®Êà∑Ôºåmysql5‰πãÂêédrop ÂëΩ‰ª§ÂèØ‰ª•Âà†Èô§Áî®Êà∑ÁöÑÂêåÊó∂Âà†Èô§Áî®Êà∑ÁöÑÁõ∏ÂÖ≥ÊùÉÈôê
+Êõ¥ÊîπÂØÜÁ†Å
 mysql> set password for zx_root =password('xxxxxx');
  mysql> update  mysql.user  set  password=password('xxxx')  where user='otheruser'
-≤Èø¥”√ªß»®œﬁ
+Êü•ÁúãÁî®Êà∑ÊùÉÈôê
 mysql> show grants for zx_root;
-∏≥”Ë»®œﬁ
+Ëµã‰∫àÊùÉÈôê
 mysql> grant select on dmc_db.*  to zx_root;
-ªÿ ’»®œﬁ
-mysql> revoke  select on dmc_db.*  from  zx_root;  //»Áπ˚»®œﬁ≤ª¥Ê‘⁄ª·±®¥Ì
+ÂõûÊî∂ÊùÉÈôê
+mysql> revoke  select on dmc_db.*  from  zx_root;  //Â¶ÇÊûúÊùÉÈôê‰∏çÂ≠òÂú®‰ºöÊä•Èîô
  
-…œ√Êµƒ√¸¡Ó“≤ø… π”√∂‡∏ˆ»®œﬁÕ¨ ±∏≥”Ë∫Õªÿ ’£¨»®œﬁ÷Æº‰ π”√∂∫∫≈∑÷∏Ù
-mysql> grant select£¨update£¨delete  £¨insert  on dmc_db.*  to  zx_root;
-»Áπ˚œÎ¡¢º¥ø¥µΩΩ·π˚ π”√
+‰∏äÈù¢ÁöÑÂëΩ‰ª§‰πüÂèØ‰ΩøÁî®Â§ö‰∏™ÊùÉÈôêÂêåÊó∂Ëµã‰∫àÂíåÂõûÊî∂ÔºåÊùÉÈôê‰πãÈó¥‰ΩøÁî®ÈÄóÂè∑ÂàÜÈöî
+mysql> grant selectÔºåupdateÔºådelete  Ôºåinsert  on dmc_db.*  to  zx_root;
+Â¶ÇÊûúÊÉ≥Á´ãÂç≥ÁúãÂà∞ÁªìÊûú‰ΩøÁî®
 flush  privileges ;
-√¸¡Ó∏¸–¬ 
-…Ë÷√»®œﬁ ±±ÿ–Î∏¯≥ˆ“ªœ¬–≈œ¢
-1£¨“™ ⁄”Ëµƒ»®œﬁ
-2£¨±ª ⁄”Ë∑√Œ »®œﬁµƒ ˝æ›ø‚ªÚ±Ì
-3£¨”√ªß√˚
-grant∫Õrevokeø…“‘‘⁄º∏∏ˆ≤„¥Œ…œøÿ÷∆∑√Œ »®œﬁ
-1£¨’˚∏ˆ∑˛ŒÒ∆˜£¨ π”√ grant ALL  ∫Õrevoke  ALL
-2£¨’˚∏ˆ ˝æ›ø‚£¨ π”√on  database.*
-3£¨Ãÿµ„±Ì£¨ π”√on  database.table
-4£¨Ãÿ∂®µƒ¡–
-5£¨Ãÿ∂®µƒ¥Ê¥¢π˝≥Ã
+ÂëΩ‰ª§Êõ¥Êñ∞ 
+ËÆæÁΩÆÊùÉÈôêÊó∂ÂøÖÈ°ªÁªôÂá∫‰∏Ä‰∏ã‰ø°ÊÅØ
+1ÔºåË¶ÅÊéà‰∫àÁöÑÊùÉÈôê
+2ÔºåË¢´Êéà‰∫àËÆøÈóÆÊùÉÈôêÁöÑÊï∞ÊçÆÂ∫ìÊàñË°®
+3ÔºåÁî®Êà∑Âêç
+grantÂíårevokeÂèØ‰ª•Âú®Âá†‰∏™Â±ÇÊ¨°‰∏äÊéßÂà∂ËÆøÈóÆÊùÉÈôê
+1ÔºåÊï¥‰∏™ÊúçÂä°Âô®Ôºå‰ΩøÁî® grant ALL  Âíårevoke  ALL
+2ÔºåÊï¥‰∏™Êï∞ÊçÆÂ∫ìÔºå‰ΩøÁî®on  database.*
+3ÔºåÁâπÁÇπË°®Ôºå‰ΩøÁî®on  database.table
+4ÔºåÁâπÂÆöÁöÑÂàó
+5ÔºåÁâπÂÆöÁöÑÂ≠òÂÇ®ËøáÁ®ã
  
-user±Ì÷–host¡–µƒ÷µµƒ“‚“Â
-%              ∆•≈‰À˘”–÷˜ª˙
-localhost    localhost≤ªª·±ªΩ‚Œˆ≥…IPµÿ÷∑£¨÷±Ω”Õ®π˝UNIXsocket¡¨Ω”
-127.0.0.1      ª·Õ®π˝TCP/IP–≠“È¡¨Ω”£¨≤¢«“÷ªƒ‹‘⁄±æª˙∑√Œ £ª
-::1                 ::1æÕ «ºÊ»›÷ß≥÷ipv6µƒ£¨±Ì æÕ¨ipv4µƒ127.0.0.1
+userË°®‰∏≠hostÂàóÁöÑÂÄºÁöÑÊÑè‰πâ
+%              ÂåπÈÖçÊâÄÊúâ‰∏ªÊú∫
+localhost    localhost‰∏ç‰ºöË¢´Ëß£ÊûêÊàêIPÂú∞ÂùÄÔºåÁõ¥Êé•ÈÄöËøáUNIXsocketËøûÊé•
+127.0.0.1      ‰ºöÈÄöËøáTCP/IPÂçèËÆÆËøûÊé•ÔºåÂπ∂‰∏îÂè™ËÉΩÂú®Êú¨Êú∫ËÆøÈóÆÔºõ
+::1                 ::1Â∞±ÊòØÂÖºÂÆπÊîØÊåÅipv6ÁöÑÔºåË°®Á§∫Âêåipv4ÁöÑ127.0.0.1
 
 
-grant ∆’Õ® ˝æ›”√ªß£¨≤È—Ø°¢≤Â»Î°¢∏¸–¬°¢…æ≥˝  ˝æ›ø‚÷–À˘”–±Ì ˝æ›µƒ»®¿˚°£
+grant ÊôÆÈÄöÊï∞ÊçÆÁî®Êà∑ÔºåÊü•ËØ¢„ÄÅÊèíÂÖ•„ÄÅÊõ¥Êñ∞„ÄÅÂà†Èô§ Êï∞ÊçÆÂ∫ì‰∏≠ÊâÄÊúâË°®Êï∞ÊçÆÁöÑÊùÉÂà©„ÄÇ
 
-grant select on testdb.* to common_user@°Ø%°Ø
+grant select on testdb.* to common_user@‚Äô%‚Äô
 
-grant insert on testdb.* to common_user@°Ø%°Ø
+grant insert on testdb.* to common_user@‚Äô%‚Äô
 
-grant update on testdb.* to common_user@°Ø%°Ø
+grant update on testdb.* to common_user@‚Äô%‚Äô
 
-grant delete on testdb.* to common_user@°Ø%°Ø
+grant delete on testdb.* to common_user@‚Äô%‚Äô
 
-ªÚ’ﬂ£¨”√“ªÃı MySQL √¸¡Ó¿¥ÃÊ¥˙£∫
+ÊàñËÄÖÔºåÁî®‰∏ÄÊù° MySQL ÂëΩ‰ª§Êù•Êõø‰ª£Ôºö
 
-grant select, insert, update, delete on testdb.* to common_user@°Ø%°Ø
+grant select, insert, update, delete on testdb.* to common_user@‚Äô%‚Äô
 
-9>.grant  ˝æ›ø‚ø™∑¢»À‘±£¨¥¥Ω®±Ì°¢À˜“˝°¢ ”Õº°¢¥Ê¥¢π˝≥Ã°¢∫Ø ˝°£°£°£µ»»®œﬁ°£
+9>.grant Êï∞ÊçÆÂ∫ìÂºÄÂèë‰∫∫ÂëòÔºåÂàõÂª∫Ë°®„ÄÅÁ¥¢Âºï„ÄÅËßÜÂõæ„ÄÅÂ≠òÂÇ®ËøáÁ®ã„ÄÅÂáΩÊï∞„ÄÇ„ÄÇ„ÄÇÁ≠âÊùÉÈôê„ÄÇ
 
-grant ¥¥Ω®°¢–ﬁ∏ƒ°¢…æ≥˝ MySQL  ˝æ›±ÌΩ·ππ»®œﬁ°£
+grant ÂàõÂª∫„ÄÅ‰øÆÊîπ„ÄÅÂà†Èô§ MySQL Êï∞ÊçÆË°®ÁªìÊûÑÊùÉÈôê„ÄÇ
 
-grant create on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant create on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant alter on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant alter on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant drop on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant drop on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant ≤Ÿ◊˜ MySQL Õ‚º¸»®œﬁ°£
+grant Êìç‰Ωú MySQL Â§ñÈîÆÊùÉÈôê„ÄÇ
 
-grant references on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant references on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant ≤Ÿ◊˜ MySQL ¡Ÿ ±±Ì»®œﬁ°£
+grant Êìç‰Ωú MySQL ‰∏¥Êó∂Ë°®ÊùÉÈôê„ÄÇ
 
-grant create temporary tables on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant create temporary tables on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant ≤Ÿ◊˜ MySQL À˜“˝»®œﬁ°£
+grant Êìç‰Ωú MySQL Á¥¢ÂºïÊùÉÈôê„ÄÇ
 
-grant index on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant index on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant ≤Ÿ◊˜ MySQL  ”Õº°¢≤Èø¥ ”Õº‘¥¥˙¬Î »®œﬁ°£
+grant Êìç‰Ωú MySQL ËßÜÂõæ„ÄÅÊü•ÁúãËßÜÂõæÊ∫ê‰ª£Á†Å ÊùÉÈôê„ÄÇ
 
-grant create view on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant create view on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant show view on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant show view on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-grant ≤Ÿ◊˜ MySQL ¥Ê¥¢π˝≥Ã°¢∫Ø ˝ »®œﬁ°£
+grant Êìç‰Ωú MySQL Â≠òÂÇ®ËøáÁ®ã„ÄÅÂáΩÊï∞ ÊùÉÈôê„ÄÇ
 
-grant create routine on testdb.* to developer@°Ø192.168.0.%°Ø; -- now, can show procedure status
+grant create routine on testdb.* to developer@‚Äô192.168.0.%‚Äô; -- now, can show procedure status
 
-grant alter routine on testdb.* to developer@°Ø192.168.0.%°Ø; -- now, you can drop a procedure
+grant alter routine on testdb.* to developer@‚Äô192.168.0.%‚Äô; -- now, you can drop a procedure
 
-grant execute on testdb.* to developer@°Ø192.168.0.%°Ø;
+grant execute on testdb.* to developer@‚Äô192.168.0.%‚Äô;
 
-10>.grant ∆’Õ® DBA π‹¿Ìƒ≥∏ˆ MySQL  ˝æ›ø‚µƒ»®œﬁ°£
+10>.grant ÊôÆÈÄö DBA ÁÆ°ÁêÜÊüê‰∏™ MySQL Êï∞ÊçÆÂ∫ìÁöÑÊùÉÈôê„ÄÇ
 
-grant all privileges on testdb to dba@°Ølocalhost°Ø
+grant all privileges on testdb to dba@‚Äôlocalhost‚Äô
 
-∆‰÷–£¨πÿº¸◊÷ °∞privileges°± ø…“‘ °¬‘°£
+ÂÖ∂‰∏≠ÔºåÂÖ≥ÈîÆÂ≠ó ‚Äúprivileges‚Äù ÂèØ‰ª•ÁúÅÁï•„ÄÇ
 
-11>.grant ∏ﬂº∂ DBA π‹¿Ì MySQL ÷–À˘”– ˝æ›ø‚µƒ»®œﬁ°£
+11>.grant È´òÁ∫ß DBA ÁÆ°ÁêÜ MySQL ‰∏≠ÊâÄÊúâÊï∞ÊçÆÂ∫ìÁöÑÊùÉÈôê„ÄÇ
 
-grant all on *.* to dba@°Ølocalhost°Ø
+grant all on *.* to dba@‚Äôlocalhost‚Äô
 
 ---------------------------------------------
-12>.MySQL grant »®œﬁ£¨∑÷±ø…“‘◊˜”√‘⁄∂‡∏ˆ≤„¥Œ…œ°£
+12>.MySQL grant ÊùÉÈôêÔºåÂàÜÂà´ÂèØ‰ª•‰ΩúÁî®Âú®Â§ö‰∏™Â±ÇÊ¨°‰∏ä„ÄÇ
 
-1. grant ◊˜”√‘⁄’˚∏ˆ MySQL ∑˛ŒÒ∆˜…œ£∫
+1. grant ‰ΩúÁî®Âú®Êï¥‰∏™ MySQL ÊúçÂä°Âô®‰∏äÔºö
 
-grant select on *.* to dba@localhost; -- dba ø…“‘≤È—Ø MySQL ÷–À˘”– ˝æ›ø‚÷–µƒ±Ì°£
+grant select on *.* to dba@localhost; -- dba ÂèØ‰ª•Êü•ËØ¢ MySQL ‰∏≠ÊâÄÊúâÊï∞ÊçÆÂ∫ì‰∏≠ÁöÑË°®„ÄÇ
 
-grant all on *.* to dba@localhost; -- dba ø…“‘π‹¿Ì MySQL ÷–µƒÀ˘”– ˝æ›ø‚
+grant all on *.* to dba@localhost; -- dba ÂèØ‰ª•ÁÆ°ÁêÜ MySQL ‰∏≠ÁöÑÊâÄÊúâÊï∞ÊçÆÂ∫ì
 
-2. grant ◊˜”√‘⁄µ•∏ˆ ˝æ›ø‚…œ£∫
+2. grant ‰ΩúÁî®Âú®Âçï‰∏™Êï∞ÊçÆÂ∫ì‰∏äÔºö
 
-grant select on testdb.* to dba@localhost; -- dba ø…“‘≤È—Ø testdb ÷–µƒ±Ì°£
+grant select on testdb.* to dba@localhost; -- dba ÂèØ‰ª•Êü•ËØ¢ testdb ‰∏≠ÁöÑË°®„ÄÇ
 
-3. grant ◊˜”√‘⁄µ•∏ˆ ˝æ›±Ì…œ£∫
+3. grant ‰ΩúÁî®Âú®Âçï‰∏™Êï∞ÊçÆË°®‰∏äÔºö
 
 grant select, insert, update, delete on testdb.orders to dba@localhost;
 
-4. grant ◊˜”√‘⁄±Ì÷–µƒ¡–…œ£∫
+4. grant ‰ΩúÁî®Âú®Ë°®‰∏≠ÁöÑÂàó‰∏äÔºö
 
 grant select(id, se, rank) on testdb.apache_log to dba@localhost;
 
-5. grant ◊˜”√‘⁄¥Ê¥¢π˝≥Ã°¢∫Ø ˝…œ£∫
+5. grant ‰ΩúÁî®Âú®Â≠òÂÇ®ËøáÁ®ã„ÄÅÂáΩÊï∞‰∏äÔºö
 
-grant execute on procedure testdb.pr_add to °Ødba°Ø@°Ølocalhost°Ø
+grant execute on procedure testdb.pr_add to ‚Äôdba‚Äô@‚Äôlocalhost‚Äô
 
-grant execute on function testdb.fn_add to °Ødba°Ø@°Ølocalhost°Ø
+grant execute on function testdb.fn_add to ‚Äôdba‚Äô@‚Äôlocalhost‚Äô
 
-◊¢“‚£∫–ﬁ∏ƒÕÍ»®œﬁ“‘∫Û “ª∂®“™À¢–¬∑˛ŒÒ£¨ªÚ’ﬂ÷ÿ∆Ù∑˛ŒÒ£¨À¢–¬∑˛ŒÒ”√£∫FLUSH PRIVILEGES°£
+Ê≥®ÊÑèÔºö‰øÆÊîπÂÆåÊùÉÈôê‰ª•Âêé ‰∏ÄÂÆöË¶ÅÂà∑Êñ∞ÊúçÂä°ÔºåÊàñËÄÖÈáçÂêØÊúçÂä°ÔºåÂà∑Êñ∞ÊúçÂä°Áî®ÔºöFLUSH PRIVILEGES„ÄÇ
 
 ===============================================================================================================
-ÃÌº”◊÷∂Œ
+Ê∑ªÂä†Â≠óÊÆµ
 mysql> alter table abc add timetest datetime;
 Query OK, 2 rows affected (0.73 sec)
 Records: 2  Duplicates: 0  Warnings: 0
-MySQL£∫MySQL»’∆⁄ ˝æ›¿‡–Õ°¢MySQL ±º‰¿‡–Õ π”√◊‹Ω· MySQL »’∆⁄¿‡–Õ£∫»’∆⁄∏Ò Ω°¢À˘’º¥Ê¥¢ø’º‰°¢»’∆⁄∑∂Œß ±»Ωœ°£ 
-»’∆⁄¿‡–Õ        ¥Ê¥¢ø’º‰      »’∆⁄∏Ò Ω                »’∆⁄∑∂Œß
+MySQLÔºöMySQLÊó•ÊúüÊï∞ÊçÆÁ±ªÂûã„ÄÅMySQLÊó∂Èó¥Á±ªÂûã‰ΩøÁî®ÊÄªÁªì MySQL Êó•ÊúüÁ±ªÂûãÔºöÊó•ÊúüÊ†ºÂºè„ÄÅÊâÄÂç†Â≠òÂÇ®Á©∫Èó¥„ÄÅÊó•ÊúüËåÉÂõ¥ ÊØîËæÉ„ÄÇ 
+Êó•ÊúüÁ±ªÂûã        Â≠òÂÇ®Á©∫Èó¥      Êó•ÊúüÊ†ºÂºè                Êó•ÊúüËåÉÂõ¥
 ------------  ---------  --------------------- -----------------------------------------
 datetime      8 bytes  YYYY-MM-DD HH:MM:SS  1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
 timestamp      4 bytes  YYYY-MM-DD HH:MM:SS  1970-01-01 00:00:01 ~ 2038
 date          3 bytes  YYYY-MM-DD            1000-01-01          ~ 9999-12-31
 year          1 bytes  YYYY                  1901                ~ 2155
 
-‘⁄ MySQL ÷–¥¥Ω®±Ì ±£¨∂‘’’…œ√Êµƒ±Ì∏Ò£¨∫‹»›“◊æÕƒ‹—°‘ÒµΩ∫œ  ◊‘º∫µƒ ˝æ›¿‡–Õ°£≤ªπ˝µΩµ◊ «—°‘Ò datetime ªπ « timestamp£¨ø…ƒ‹ª·”–µ„∑∏ƒ—°£’‚¡Ω∏ˆ»’∆⁄ ±º‰¿‡–Õ∏˜”–”≈µ„£∫datetime µƒ»’∆⁄∑∂Œß±»Ωœ¥Û£ªtimestamp À˘’º¥Ê¥¢ø’º‰±»Ωœ–°£¨÷ª « datetime µƒ“ª∞Î°£ 
+Âú® MySQL ‰∏≠ÂàõÂª∫Ë°®Êó∂ÔºåÂØπÁÖß‰∏äÈù¢ÁöÑË°®Ê†ºÔºåÂæàÂÆπÊòìÂ∞±ËÉΩÈÄâÊã©Âà∞ÂêàÈÄÇËá™Â∑±ÁöÑÊï∞ÊçÆÁ±ªÂûã„ÄÇ‰∏çËøáÂà∞Â∫ïÊòØÈÄâÊã© datetime ËøòÊòØ timestampÔºåÂèØËÉΩ‰ºöÊúâÁÇπÁäØÈöæ„ÄÇËøô‰∏§‰∏™Êó•ÊúüÊó∂Èó¥Á±ªÂûãÂêÑÊúâ‰ºòÁÇπÔºödatetime ÁöÑÊó•ÊúüËåÉÂõ¥ÊØîËæÉÂ§ßÔºõtimestamp ÊâÄÂç†Â≠òÂÇ®Á©∫Èó¥ÊØîËæÉÂ∞èÔºåÂè™ÊòØ datetime ÁöÑ‰∏ÄÂçä„ÄÇ 
 
-¡ÌÕ‚£¨timestamp ¿‡–Õµƒ¡–ªπ”–∏ˆÃÿ–‘£∫ƒ¨»œ«Èøˆœ¬£¨‘⁄ insert, update  ˝æ› ±£¨timestamp ¡–ª·◊‘∂Ø“‘µ±«∞ ±º‰£®CURRENT_TIMESTAMP£©ÃÓ≥‰/∏¸–¬°£°∞◊‘∂Ø°±µƒ“‚ÀºæÕ «£¨ƒ„≤ª»•π‹À¸£¨MySQL ª·ÃÊƒ„»•¥¶¿Ì°£ 
+Âè¶Â§ñÔºåtimestamp Á±ªÂûãÁöÑÂàóËøòÊúâ‰∏™ÁâπÊÄßÔºöÈªòËÆ§ÊÉÖÂÜµ‰∏ãÔºåÂú® insert, update Êï∞ÊçÆÊó∂Ôºåtimestamp Âàó‰ºöËá™Âä®‰ª•ÂΩìÂâçÊó∂Èó¥ÔºàCURRENT_TIMESTAMPÔºâÂ°´ÂÖÖ/Êõ¥Êñ∞„ÄÇ‚ÄúËá™Âä®‚ÄùÁöÑÊÑèÊÄùÂ∞±ÊòØÔºå‰Ω†‰∏çÂéªÁÆ°ÂÆÉÔºåMySQL ‰ºöÊõø‰Ω†ÂéªÂ§ÑÁêÜ„ÄÇ 
 
-“ª∞„«Èøˆœ¬£¨Œ“«„œÚ”⁄ π”√ datetime »’∆⁄¿‡–Õ°£ 
-======================================–ﬁ∏ƒ◊÷∂Œ=============
-–ﬁ∏ƒƒ≥“ª◊÷∂Œ÷µ
+‰∏ÄËà¨ÊÉÖÂÜµ‰∏ãÔºåÊàëÂÄæÂêë‰∫é‰ΩøÁî® datetime Êó•ÊúüÁ±ªÂûã„ÄÇ 
+======================================‰øÆÊîπÂ≠óÊÆµ=============
+‰øÆÊîπÊüê‰∏ÄÂ≠óÊÆµÂÄº
 mysql> update abc set timetest='2015-12-11 11:25:45' where a=2;
 Query OK, 2 rows affected (0.00 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
@@ -183,31 +183,31 @@ mysql> select * from abc;
 +---+----+---+---+---------------------+
 2 rows in set (0.00 sec)
 
-1.‘ˆº”◊÷∂Œ£∫
+1.Â¢ûÂä†Â≠óÊÆµÔºö
     alter table   tablename    add   new_field_id   type   not null default '0'; 
-    ¿˝£∫ 
+    ‰æãÔºö 
     alter table mmanapp_mmanmedia add appid_id integer not null default 372;
-    ‘ˆº”÷˜º¸£∫
+    Â¢ûÂä†‰∏ªÈîÆÔºö
     alter table  tabelname   add   new_field_id   type    default 0 not null auto_increment ,add   primary key (new_field_id); 
-    ‘ˆº”Õ‚º¸£∫
-    ‘⁄“—æ≠¥Ê‘⁄µƒ◊÷∂Œ…œ‘ˆº”Õ‚º¸‘º ¯
+    Â¢ûÂä†Â§ñÈîÆÔºö
+    Âú®Â∑≤ÁªèÂ≠òÂú®ÁöÑÂ≠óÊÆµ‰∏äÂ¢ûÂä†Â§ñÈîÆÁ∫¶Êùü
     ALTER TABLE yourtablename    ADD [CONSTRAINT symbol] FOREIGN KEY [id] (index_col_name, ...)    REFERENCES tbl_name (index_col_name, ...)    [ON DELETE {RESTRICT | CASCADE | SET NULL | NO ACTION}]    [ON UPDATE {RESTRICT | CASCADE | SET NULL | NO ACTION}] 
  
-2.…æ≥˝◊÷∂Œ:
+2.Âà†Èô§Â≠óÊÆµ:
     alter table    tablename    drop column      colname; 
-     ¿˝£∫ 
+     ‰æãÔºö 
      alter table   mmanapp_mmanmedia    drop column     appid_id;
 
-3.–ﬁ∏ƒ◊÷∂Œ√˚£∫
+3.‰øÆÊîπÂ≠óÊÆµÂêçÔºö
      alter table     tablename    change   old_field_name    new_field_name  old_type;
 
-4.–ﬁ∏ƒ◊÷∂Œ¿‡–Õ£∫
+4.‰øÆÊîπÂ≠óÊÆµÁ±ªÂûãÔºö
     alter table     tablename     change    filed_name   filed_name   new_type;  
 
-–ﬁ∏ƒ¿‡–Õø…“‘”√£®Ω˜…˜–ﬁ∏ƒ¿‡–Õ£¨ø…ƒ‹ª·µº÷¬‘≠”– ˝æ›≥ˆ¥Ì£©
+‰øÆÊîπÁ±ªÂûãÂèØ‰ª•Áî®ÔºàË∞®ÊÖé‰øÆÊîπÁ±ªÂûãÔºåÂèØËÉΩ‰ºöÂØºËá¥ÂéüÊúâÊï∞ÊçÆÂá∫ÈîôÔºâ
 MySQL> alter table address modify column city char(30);
 
-Ω®±Ì…Ë÷√÷˜º¸◊‘‘ˆ
+Âª∫Ë°®ËÆæÁΩÆ‰∏ªÈîÆËá™Â¢û
 
 CREATE TABLE EM_VOTE_INFO
 (
@@ -220,16 +220,16 @@ CREATE TABLE EM_VOTE_INFO
     PRIMARY KEY(F_ID) 
 );
 
-===========================mysql±‡¬ÎŒ Ã‚==================
-◊÷∑˚Œ Ã‚≥ˆœ÷£ø£ø
+===========================mysqlÁºñÁ†ÅÈóÆÈ¢ò==================
+Â≠óÁ¨¶ÈóÆÈ¢òÂá∫Áé∞ÔºüÔºü
 mysql> select * from role;
 +--------+----------+----------+---------+-----------+
 | roleId | roleInfo | roleName | proleId | proleName |
 +--------+----------+----------+---------+-----------+
 | T_EMP  | NULL     | ??????   | NULL    | NULL      |
 +--------+----------+----------+---------+-----------+
-show variables like 'character%';≤Èø¥◊÷∑˚±‡¬Î
---∏¸∏ƒ◊÷∑˚ºØ  
+show variables like 'character%';Êü•ÁúãÂ≠óÁ¨¶ÁºñÁ†Å
+--Êõ¥ÊîπÂ≠óÁ¨¶ÈõÜ  
 SET character_set_client = utf8 ;  
 SET character_set_connection = utf8 ;  
 SET character_set_database = utf8 ;  
@@ -238,15 +238,15 @@ SET character_set_server = utf8 ;
 SET collation_connection = utf8 ;  
 SET collation_database = utf8 ;  
 SET collation_server = utf8 ;  
-¡¨Ω” ˝æ›ø‚ ±£∫
-jdbc:mysql://localhost:3306/ ˝æ›ø‚√˚?useUnicode=true&amp;characterEncoding=utf8
-≤È—Ø÷Æ«∞£∫
+ËøûÊé•Êï∞ÊçÆÂ∫ìÊó∂Ôºö
+jdbc:mysql://localhost:3306/Êï∞ÊçÆÂ∫ìÂêç?useUnicode=true&amp;characterEncoding=utf8
+Êü•ËØ¢‰πãÂâçÔºö
 set names gbk;
-¥Ê÷–Œƒœ‘ æ≥§∂»Ã´≥§,µ´ «◊÷∂Œ≥§∂»πª≥§,Àµ√˜◊÷∑˚ºØ√ª…Ë÷√
+Â≠ò‰∏≠ÊñáÊòæÁ§∫ÈïøÂ∫¶Â§™Èïø,‰ΩÜÊòØÂ≠óÊÆµÈïøÂ∫¶Â§üÈïø,ËØ¥ÊòéÂ≠óÁ¨¶ÈõÜÊ≤°ËÆæÁΩÆ
 C:\Program Files\MySQL\MySQL Server 5.0\my.ini\
 default-character-set=utf8
 default-character-set=utf8
-∂˛°¢∏¸∏ƒ±ÌΩ·ππ”Î ˝æ›ø‚±‡¬ÎÕ≥“ª
+‰∫å„ÄÅÊõ¥ÊîπË°®ÁªìÊûÑ‰∏éÊï∞ÊçÆÂ∫ìÁºñÁ†ÅÁªü‰∏Ä
 CREATE TABLE role 
 (
     roleId                        	VARCHAR(20) NOT NULL,
@@ -257,12 +257,12 @@ CREATE TABLE role
     PRIMARY KEY(roleId) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-mysql> INSERT INTO role(roleId, roleName) VALUES ('T_MAN', 'æ≠¿Ì');
+mysql> INSERT INTO role(roleId, roleName) VALUES ('T_MAN', 'ÁªèÁêÜ');
 Query OK, 1 row affected (0.06 sec)
 
 mysql> select * from role;
 +--------+----------+----------+---------+-----------+
 | roleId | roleInfo | roleName | proleId | proleName |
 +--------+----------+----------+---------+-----------+
-| T_MAN  | NULL     | æ≠¿Ì     | NULL    | NULL      |
+| T_MAN  | NULL     | ÁªèÁêÜ     | NULL    | NULL      |
 +--------+----------+----------+---------+-----------+
