@@ -1,7 +1,7 @@
 ## Welcome to GitHub 
 # 说明:本blog目的是存储本地学习记录
 ```markdown
-第一章 mysql基础操作
+# 第一章 mysql基础操作
 ```
 [1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql登录编码权限赋予.txt) .</br>
 [1、mysql索引函数存储过程相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql索引函数存储过程.txt) .
