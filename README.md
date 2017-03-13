@@ -11,9 +11,15 @@
 ```
 [1、编译openjdk](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/编译openjdk.txt) . 
 
-[1、linux中.so库的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/linux中.so库的问题.txt) . 
+[2、linux中.so库的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/linux中.so库的问题.txt) . 
 
-[1、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu取消桌面.txt) . 
+[3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu取消桌面.txt) . 
+
+```markdown
+# 第三章 数据结构和算法
+```
+[1、排序（插入、选择、希尔、快速、归并）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序) .
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
