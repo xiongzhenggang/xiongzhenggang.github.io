@@ -32,7 +32,8 @@ public class QuickSort {
 	  * @param right 
 	  * @return 
 	  */  
-	 private int partition(int[] array,int left,int right)  
+	//为了方便选择数组最右边的的值为枢纽	
+private int partition(int[] array,int left,int right)  
 	 {  
 	  int pivot = array[left];//设置基准元素
 	  int pivotPos = left;//基准元素下标
