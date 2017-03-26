@@ -18,7 +18,7 @@ public class TestJdbcBlog {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "123456");
             // 3. 创建语句对象
             PreparedStatement ps = con.prepareStatement("insert into tb_user values (default, ?, ?)");
-            ps.setString(1, "骆昊");              // 将SQL语句中第一个占位符换成字符串
+            ps.setString(1, "名字");              // 将SQL语句中第一个占位符换成字符串
             try (InputStream in = new FileInputStream("test.jpg")) {    // Java 7的TWR
                 ps.setBinaryStream(2, in);      // 将SQL语句中第二个占位符换成二进制流
                 // 4. 发出SQL语句获得受影响行数
