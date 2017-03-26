@@ -1,4 +1,4 @@
-# 说明:本blog目的是存储本地学习记录
+# 说明:作为博客的学习记录
 ```markdown
 # 第一章 mysql基础操作
 ```
@@ -19,7 +19,13 @@
 # 第三章 数据结构和算法
 ```
 [1、排序（插入、选择、希尔、快速、归并）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序) .
+[2、二叉树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/树) .
 
+```markdown
+# 第三章 java
+```
+[1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/nio例子) .
+[2、反射和jdbc操作模板](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/反射) .
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
