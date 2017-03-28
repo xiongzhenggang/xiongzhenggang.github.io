@@ -55,6 +55,11 @@
 ```
 [1、web中js应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关) . 
 
+
+```markdown
+## 其他资源url
+```
+[1、java netty](https://waylau.com/essential-netty-in-action/CORE FUNCTIONS) . 
 # Header头 1
 ## Header头 2
 ### Header头 3
