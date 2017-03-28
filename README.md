@@ -57,18 +57,12 @@
 
 
 ```markdown
-## 其他资源url
+# 其他资源url
 ```
-[1、java netty](https://waylau.com/essential-netty-in-action/) . 
-# Header头 1
-## Header头 2
-### Header头 3
+- netty和nio相关文章
+[1、java netty](https://waylau.com/essential-netty-in-action/) .   [2、一篇详细介绍NIO](http://www.iteye.com/magazines/132-Java-NIO)
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
+- 其他
 
 **Bold** and _Italic_ and `Code` text
 
@@ -77,10 +71,6 @@
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+### Author 熊正刚
+github设置博客样式模板[repository settings](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
