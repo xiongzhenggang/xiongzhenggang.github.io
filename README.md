@@ -59,7 +59,7 @@
 ```markdown
 ## 其他资源url
 ```
-[1、java netty](https://waylau.com/essential-netty-in-action/CORE) . 
+[1、java netty](https://waylau.com/essential-netty-in-action/) . 
 # Header头 1
 ## Header头 2
 ### Header头 3
