@@ -1,9 +1,14 @@
+如图：
+![image](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
+
 举一个发送邮件和短信的例子）
 首先，创建二者的共同接口：
 [java] view plaincopy
+```java  
 1. public interface Sender {  
 2.     public void Send();  
 3. }  
+```
 其次，创建实现类：
 [java] view plaincopy
 1. public class MailSender implements Sender {  
