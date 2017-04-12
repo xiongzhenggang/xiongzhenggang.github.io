@@ -31,7 +31,7 @@
 
 [3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/多线程) .
 
-[4、java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Factory_Method.md) .
+[4、java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
 
 ```markdown
 # 第五章 java项目存档点
