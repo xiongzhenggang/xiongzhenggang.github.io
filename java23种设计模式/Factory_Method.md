@@ -1,11 +1,11 @@
 ### 第一种 工厂方法模式
 如图：
 
-![factory01 icon](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
+![factory01](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
 
 ![alt text][id]
 
-[id]: /master/edit/master/java23种设计模式/img/factory01.png "Title"
+[id]: /java23种设计模式/img/factory01.png "factory01"
 
 
 举一个发送邮件和短信的例子）
