@@ -1,6 +1,6 @@
 如图：
 ![image](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
-![Alt text](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
+![factory01 icon](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java23种设计模式/img/factory01.png)
 
 举一个发送邮件和短信的例子）
 首先，创建二者的共同接口：
@@ -44,7 +44,7 @@
 12.     }  
 13. }  
 ```
-我们来测试下：
+测试下：
 ```java 
 1. public class FactoryTest {  
 2.   
