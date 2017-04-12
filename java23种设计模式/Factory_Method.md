@@ -43,5 +43,5 @@
 5.         Sender sender = factory.produce("sms");  
 6.         sender.Send();  
 7.     }  
-8. }  
+8. } 
 输出：this is sms sender!
