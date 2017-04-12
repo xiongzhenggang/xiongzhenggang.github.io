@@ -1,5 +1,5 @@
 # 第一种 工厂方法模式
-### 1.1简单工厂模式如图：
+### 1.1简单工厂模式就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建 如图：
 
 ![factory01](/java23种设计模式/img/factory01.png)
 
@@ -57,3 +57,30 @@
 8. } 
 ```
 输出：this is sms sender!
+
+### 1.2多个工厂方法模式，是对普通工厂方法模式的改进，在普通工厂方法模式中，如果传递的字符串出错，则不能正确创建对象，而多个工厂方法模式是提供多个工厂方法，分别创建对象。关系图：
+
+![factory01](/java23种设计模式/img/factory02.png)
+将上面的代码做下修改，改动下SendFactory类就行，如下：
+```java 
+   public Sender produceMail(){  
+         return new MailSender();  
+     }  
+            
+  public Sender produceSms(){  
+         return new SmsSender();  
+     }  
+ }  
+```
+测试类如下：
+```java 
+ public class FactoryTest {  
+ 
+     public static void main(String[] args) {  
+         SendFactory factory = new SendFactory();  
+         Sender sender = factory.produceMail();  
+         sender.Send();  
+     }  
+ } 
+```
+输出：this is mailsender!
