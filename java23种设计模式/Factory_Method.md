@@ -1,12 +1,7 @@
 ### 第一种 工厂方法模式
-如图：
+# 1.1简单工厂模式如图：
 
 ![factory01](/java23种设计模式/img/factory01.png)
-
-![alt text][id]
-
-[id]: /java23种设计模式/img/factory01.png "factory01"
-
 
 举一个发送邮件和短信的例子）
 首先，创建二者的共同接口：
