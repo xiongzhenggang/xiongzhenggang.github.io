@@ -39,7 +39,7 @@
 7.             return new SmsSender();  
 8.         } else {  
 9.             System.out.println("请输入正确的类型!");  
-10.             return null;  
+10.             return null;  
 11.         }  
 12.     }  
 13. }  
