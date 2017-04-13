@@ -1,4 +1,4 @@
-## spring 分析
+## spring IOC 分析
 ### 1、需要了解spring的主要作用
 ### 一、 这里给出spring简概：[spring简述](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/spring/spring_ioc原理一语道之.md) .
 ### 二、 spring的核心组件，包括beans、core、context。其中是以beans为主体，context作为容器、core则是操作两者的桥梁。
