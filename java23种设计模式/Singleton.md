@@ -148,7 +148,7 @@ public class Singleton {  
 ```java
  public class SingletonTest {  
    
-     private static SingletonTest instance = null;  
+     private static SingletonTest instance = null; 
      private Vector properties = null;  
    
      public Vector getProperties() {  
