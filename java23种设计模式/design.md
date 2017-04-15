@@ -10,8 +10,7 @@
 
 [2、抽象工厂模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Abstract_Factory.md) .
 
-[3、单例模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设
-计模式/Singleton.md) .
+[3、单例模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Singleton.md) .
 
 [4、建造者模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Builder.md) .
 
