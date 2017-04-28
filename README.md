@@ -23,34 +23,34 @@
 [2、二叉树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/树) .
 
 ```markdown
-# 第四章 java相关
+# 第四章 java运用
 ```
-[1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/nio例子) .
+[1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/nio例子) .
 
-[2、反射和jdbc操作模板](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/反射) .
+[2、反射和jdbc操作模板](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/反射) .
 
-[3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java相关/多线程) .
+[3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程) .
 
 [4、java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
 
 ```markdown
-# 第五章 java项目存档点
+# 第五章 java框架
 ```
-[1、activiti](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/activiti).
+[1、activiti](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti).
 
-[2、jsp内置对象](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/jsp内置对象).
+[2、jsp内置对象](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象).
 
-[3、maven](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/maven).
+[3、maven](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven).
 
-[4、redis](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/redis).
+[4、redis](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis).
 
-[5、spring](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/spring).
+[5、spring](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring).
 
-[6、编码](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/编码).
+[6、编码](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/编码).
 
-[7、持久层](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/持久层).
+[7、持久层](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层).
 
-[8、负载均衡](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java项目存档点/负载均衡).
+[8、负载均衡](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡).
 
 ```markdown
 # 第六章 web相关
