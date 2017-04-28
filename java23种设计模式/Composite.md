@@ -1,80 +1,108 @@
-# 第22种 解释器模式
-### 一般主要应用在OOP开发中的编译器的开发中，所以适用面比较窄。
-![解释器模式](/java23种设计模式/img/itnerpreter.png)
-### Context类是一个上下文环境类，Plus和Minus分别是用来计算的实现，代码如下：
-```java  
+# 第14种 组合模式
+### 组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，看看关系图：
+![组合模式](/java23种设计模式/img/composite.png)
+### 代码:
+```java 
 /**
  * @author xzg
- *	持有上下文数据的容器类
+ *	定义基础节点、组件
  */
-class IContext{
-	private int num1;
-	private int num2;
-	public IContext(int num1,int num2){
-		this.num1 = num1;
-		this.num2 = num2;
+class TreeNode{
+	public TreeNode(String name){
+		this.name = name;
 	}
-	public int getNum1() {
-		return num1;
+	private String name;
+	private TreeNode parent;
+	private Vector<TreeNode> child = new Vector<TreeNode>();
+	public String getName() {
+		return name;
 	}
-	public void setNum1(int num1) {
-		this.num1 = num1;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public int getNum2() {
-		return num2;
+	public TreeNode getParent() {
+		return parent;
 	}
-	public void setNum2(int num2) {
-		this.num2 = num2;
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+	public Vector<TreeNode> getChild() {
+		return child;
+	}
+	public void setChild(Vector<TreeNode> child) {
+		this.child = child;
+	}
+	/**
+	 * @param treeNode
+	 * 增加孩子节点
+	 */
+	public void add(TreeNode treeNode){
+		child.addElement(treeNode);
+	}
+	/**
+	 * @param treeNode
+	 *	删除孩子节点
+	 */
+	public void remove(TreeNode treeNode){
+		child.remove(treeNode);
+	}
+	/**
+	 * @return
+	 * 取得所有的孩子节点
+	 */
+	public Enumeration<TreeNode> getChildren(){
+		return child.elements();
 	}
 }
 ```
 ```java
 /**
  * @author xzg
- *	提供一个公有的计算接口
+ *	组合这些基础组件
  */
-interface Expression{
-	public int interpret(IContext context);
-}
-```
-```java
-/**
- * @author xzg
- *	加法实现
- */
-class IPlus implements Expression{
-
-	public int interpret(IContext context) {
-		// TODO Auto-generated method stub
-		return context.getNum1()+context.getNum2();
+class Tree{
+	TreeNode root = null;
+	public Tree(String name){
+		this.root = new TreeNode(name);
+	}
+	/**
+	 * 测试
+	 * 初始化一棵树
+	 */
+	public void composite(){
+		//创建节点
+		TreeNode node01 = new TreeNode("第一个分支");
+		TreeNode node02 = new TreeNode("第一片叶子");
+		TreeNode node03 = new TreeNode("第二片叶子");
+		//组合这棵树
+		this.root.add(node01);
+		node01.add(node02);
+		node01.add(node03);
+	}
+	public void display(){
+		
+		System.out.println(this.root.getName());
+		for(TreeNode treeNode:this.root.getChild()){
+			System.out.println(treeNode.getName());
+			for(TreeNode treeNode2: treeNode.getChild()){
+				System.out.print(treeNode2.getName()+"  ");
+			}
+		}
 	}
 }
-/**
- * @author xzg
- *	减法实现
- */
-class IMinus implements Expression{
 
-	public int interpret(IContext context) {
-		// TODO Auto-generated method stub
-		return context.getNum1() - context.getNum2();
-	}
-}
 ```
 
 ### 测试类
 ```java
-public class InterpreterTest {
+public class CompositeTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		IContext context = new IContext(6, 3);
-		IPlus plus = new IPlus();
-		IMinus minus = new IMinus();
-		System.out.println(plus.interpret(context));
-		System.out.println(minus.interpret(context));
+		Tree tree = new Tree("我是一棵树");
+		tree.composite();
+		tree.display();
 	}
 }
 ```
-### 解释器模式用来做各种各样的解释器，如正则表达式等的解释器等等。
-## 到这里的java 23中设计模式就告一段落了。不过整体来说，每一种设计模式都有其适合的应用场景，所以在开发的过程中，根据合适的场景使用。理解上面的设计模式并不难，难在如何在开发的过程中选择合适的，这就需要对软件开发有深刻的理解和足够的经验。以上 
+### 使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。
