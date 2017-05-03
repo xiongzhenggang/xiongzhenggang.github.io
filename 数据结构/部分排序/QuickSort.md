@@ -108,13 +108,14 @@ public void quickSort(){
 		while(true){
 			while(theArrays[++leftpar]<pvot)
 				;
-			while(rightptr>0&&theArrays[--right]>pvot)
+			while(rightptr>0&&theArrays[--rightptr]>pvot)
 				;
 			if(leftpar>=rightptr)//
 				break;
 			else
 				swap(leftpar, rightptr);
 		}
+		swap(leftpar, right);
 		return leftpar;
 	}
 	public void swap(int dex1,int dex2){
