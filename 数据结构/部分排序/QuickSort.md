@@ -88,7 +88,21 @@ private int partition(int[] array,int left,int right)
 * 在partitionIt方法需要注意，while(theArrays[++leftpar]<pvot) 和 while(rightptr>0&&theArrays[--right]>pvot) 这两个循环帮助找到需要调换的左右节点。
 * while(true)这个死循环则是将遍历整个数组，确定枢纽位置的坐标
 ```java
-public void quickSort(){
+class Array{
+	private long[] theArrays;
+	private int nElems;
+	public Array(int max){
+		theArrays = new long[max];
+		nElems = 0;
+	}
+	public void insert(long value){
+		theArrays[nElems++] = value;
+	}
+	public void display(){
+		for(int i =0;i<nElems;i++)
+			System.out.print(theArrays[i]+" ");
+	}
+	public void quickSort(){
 		recQuickSort(0,nElems-1);
 	}
 	public void recQuickSort(int left , int right){
@@ -123,5 +137,7 @@ public void quickSort(){
 		long tmp = theArrays[dex1];
 		theArrays[dex1] = theArrays[dex2];
 		theArrays[dex2] = tmp;
-	}
+	}	
+}
+
 ```
