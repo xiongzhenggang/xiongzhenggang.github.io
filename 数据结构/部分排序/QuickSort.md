@@ -115,6 +115,7 @@ public void quickSort(){
 			else
 				swap(leftpar, rightptr);
 		}
+		//最后跳出循环，可知当前左边的下标和右边的下标重合且指向枢纽坐标，所以将右边初始枢纽（初始指定）和当前枢纽交换保存。
 		swap(leftpar, right);
 		return leftpar;
 	}
