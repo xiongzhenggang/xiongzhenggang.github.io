@@ -1,5 +1,5 @@
-package xzg.paixun.com;
-
+### 快速在大多数的情况下是这几种排序中最快的排序，快速排序本质上是把一个数组划分为两个子数组，然后递归的调用自身进行排序实现的。
+```java
 public class QuickSort {  
 	 /** 
 	  * 快速排序原理：在序列中找到基准元素，大于基准元素的放在右边，小于基准元素的放在左边，然后对基准元素两边再次进行排序 
@@ -83,3 +83,43 @@ private int partition(int[] array,int left,int right)
 	  qs.print(qs.quickSort(array, 0, array.length-1));  
 	 }  
 	}  
+```
+* 另外一种实现的方式的部分代码片段，其中核心为partitionIt方法，该方法的作用是找到枢纽点的所在位置，然后recQuickSort方法调用自身实现。
+* 在partitionIt方法需要注意，while(theArrays[++leftpar]<pvot) 和 while(rightptr>0&&theArrays[--right]>pvot) 这两个循环帮助找到需要调换的左右节点。
+* while(true)这个死循环则是将遍历整个数组，确定枢纽位置的坐标
+```java
+public void quickSort(){
+		recQuickSort(0,nElems-1);
+	}
+	public void recQuickSort(int left , int right){
+		if(right - left <=0)
+			return;
+		else
+		{
+			long pvot = theArrays[right];
+			int position = partitionIt(left, right, pvot);
+			recQuickSort(left, position - 1);
+			recQuickSort(position+1, right);
+		}
+	}
+	public int partitionIt(int left, int right,long pvot){
+		int leftpar = left - 1;
+		int rightptr = right;
+		while(true){
+			while(theArrays[++leftpar]<pvot)
+				;
+			while(rightptr>0&&theArrays[--right]>pvot)
+				;
+			if(leftpar>=rightptr)//
+				break;
+			else
+				swap(leftpar, rightptr);
+		}
+		return leftpar;
+	}
+	public void swap(int dex1,int dex2){
+		long tmp = theArrays[dex1];
+		theArrays[dex1] = theArrays[dex2];
+		theArrays[dex2] = tmp;
+	}
+```
