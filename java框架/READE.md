@@ -7,6 +7,7 @@
 ``` markdown
 # Activiti
 ```
+1、![activiti中解决自定义用户角色几种方案](://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/Activiti解决API不友好的设计方案.md).
 
 ``` markdown
 # jsp内置对象
