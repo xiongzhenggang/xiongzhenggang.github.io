@@ -34,23 +34,11 @@
 [4、java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
 
 ```markdown
-# 第五章 java框架
+### 第五章 java框架
 ```
-[1、activiti](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti).
 
-[2、jsp内置对象](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象).
+[目录链接](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/READE.md).
 
-[3、maven](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven).
-
-[4、redis](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis).
-
-[5、spring](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring).
-
-[6、编码](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/编码).
-
-[7、持久层](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层).
-
-[8、负载均衡](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡).
 
 ```markdown
 # 第六章 web相关

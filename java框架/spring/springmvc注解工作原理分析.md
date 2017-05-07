@@ -225,6 +225,7 @@ protected Class<?> determineContextClass(ServletContext servletContext) {
     }
 ```
    这个方法先判断我们servletContext中有没有contextClass这个初始化属性（在web.xml的init-param标签中配置），通常我们不会配置这个属性。那肯定是null了，所以它接着去查看defaultStrategy中有没有相应属性，那这个defaultStrategy是什么呢？下面是ContextLoader中一个静态代码块，也就说只要ContextLoader被加载，defaultStrategy便会被赋值。
+
 ```java
 static {
         try {

@@ -1,110 +1,186 @@
-spring½ÓÊÕÇëÇó²ÎÊı:
-1,Ê¹ÓÃHttpServletRequest»ñÈ¡
+## springæ¥æ”¶è¯·æ±‚å‚æ•°:
+
+1. ä½¿ç”¨HttpServletRequestè·å–
+```java
 @RequestMapping("/login.do")  
+
 public String login(HttpServletRequest request){  
+
     String name = request.getParameter("name")  
+
     String pass = request.getParameter("pass")  
-} 
 
- 2,Spring»á×Ô¶¯½«±íµ¥²ÎÊı×¢Èëµ½·½·¨²ÎÊı£¬ºÍ±íµ¥µÄnameÊôĞÔ±£³ÖÒ»ÖÂ¡£ºÍStruts2Ò»Ñù
+} 
+```
+ 2. Springä¼šè‡ªåŠ¨å°†è¡¨å•å‚æ•°æ³¨å…¥åˆ°æ–¹æ³•å‚æ•°ï¼Œå’Œè¡¨å•çš„nameå±æ€§ä¿æŒä¸€è‡´ã€‚å’ŒStruts2ä¸€æ ·
+```java
 @RequestMapping("/login.do")  
+
 public String login(HttpServletRequest request,  
+
                                 String name,  
- @RequestParam("pass")String password) // ±íµ¥ÊôĞÔÊÇpass,ÓÃ±äÁ¿password½ÓÊÕ  
+
+ @RequestParam("pass")String password) // è¡¨å•å±æ€§æ˜¯pass,ç”¨å˜é‡passwordæ¥æ”¶  
+
 {  
+
    syso(name);  
+
    syso(password)  
-} 
 
-3,×Ô¶¯×¢ÈëBeanÊôĞÔ
+} 
+```
+3. è‡ªåŠ¨æ³¨å…¥Beanå±æ€§
+
+```html
 <form action="login.do">  
-ÓÃ»§Ãû£º<input name="name"/>  
-ÃÜÂë£º<input name="pass"/>  
-<input type="submit" value="µÇÂ½">  
+
+ç”¨æˆ·åï¼š<input name="name"/>  
+
+å¯†ç ï¼š<input name="pass"/>  
+
+<input type="submit" value="ç™»é™†">  
+
 </form>  
-  
-//·â×°µÄUserÀà  
+```
+```java
+//å°è£…çš„Userç±»  
+
 public class User{  
+
   private String name;  
+
   private String pass;  
+
 } 
 
 @RequestMapping("/login.do")  
+
 public String login(User user)  
+
 {  
+
    syso(user.getName());  
+
    syso(user.getPass());  
+
 } 
+```
+### å‘é¡µé¢ä¼ å€¼ï¼š
 
+å½“Controllerç»„ä»¶å¤„ç†åï¼Œå‘jspé¡µé¢ä¼ å€¼ï¼Œ
 
-ÏòÒ³Ãæ´«Öµ£º
-µ±Controller×é¼ş´¦Àíºó£¬ÏòjspÒ³Ãæ´«Öµ£¬
-1£¬Ê¹ÓÃHttpServletRequest ºÍ Session  È»ºósetAttribute()£¬¾ÍºÍServletÖĞÒ»Ñù
-2£¬Ê¹ÓÃModelAndView¶ÔÏó
-3£¬Ê¹ÓÃModelMap¶ÔÏó
-4£¬Ê¹ÓÃ@ModelAttribute×¢½â
- 
-ModelÊı¾İ»áÀûÓÃHttpServletRequestµÄAttribute´«Öµµ½success.jspÖĞ
+1. ä½¿ç”¨HttpServletRequest å’Œ Session  ç„¶åsetAttribute()ï¼Œå°±å’ŒServletä¸­ä¸€æ ·
 
+2. ä½¿ç”¨ModelAndViewå¯¹è±¡
 
+3. ä½¿ç”¨ModelMapå¯¹è±¡
+
+4. ä½¿ç”¨@ModelAttributeæ³¨è§£
+
+### Modelæ•°æ®ä¼šåˆ©ç”¨HttpServletRequestçš„Attributeä¼ å€¼åˆ°success.jspä¸­
+```java
 @RequestMapping("/login.do")  
+
 public ModelAndView  login(String name,String pass){  
+
     User user = userService.login(name,pwd);  
+
     Map<String,Object> data = new HashMap<String,Object>();  
+
     data.put("user",user);  
+
     return new ModelAndView("success",data);  
+
 }
+```
+###ä½¿ç”¨ModelMapå‚æ•°å¯¹è±¡ç¤ºä¾‹:
 
-Ê¹ÓÃModelMap²ÎÊı¶ÔÏóÊ¾Àı:
-ModelMapÊı¾İ»áÀûÓÃHttpServletRequestµÄAttribute´«Öµµ½success.jspÖĞ
-Java´úÂë  ÊÕ²Ø´úÂë
+ModelMapæ•°æ®ä¼šåˆ©ç”¨HttpServletRequestçš„Attributeä¼ å€¼åˆ°success.jspä¸­
+```java
 @RequestMapping("/login.do")  
-public¡¡String login(String name,String pass ,ModelMap model){  
+
+publicã€€String login(String name,String pass ,ModelMap model){  
+
     User user  = userService.login(name,pwd);  
+
     model.addAttribute("user",user);  
+
     model.put("name",name);  
+
     return "success";  
+
 } 
+```
 
- Ê¹ÓÃ@ModelAttributeÊ¾Àı
-ÔÚController·½·¨µÄ²ÎÊı²¿·Ö»òBeanÊôĞÔ·½·¨ÉÏÊ¹ÓÃ
-@ModelAttributeÊı¾İ»áÀûÓÃHttpServletRequestµÄAttribute´«Öµµ½success.jspÖĞ
-Java´úÂë  ÊÕ²Ø´úÂë
+* ä½¿ç”¨@ModelAttributeç¤ºä¾‹
+
+åœ¨Controlleræ–¹æ³•çš„å‚æ•°éƒ¨åˆ†æˆ–Beanå±æ€§æ–¹æ³•ä¸Šä½¿ç”¨
+@ModelAttributeæ•°æ®ä¼šåˆ©ç”¨HttpServletRequestçš„Attributeä¼ å€¼åˆ°success.jspä¸­
+
+```java
 @RequestMapping("/login.do")  
+
 public String login(@ModelAttribute("user") User user){  
+
     //TODO  
+
    return "success";  
+
 }  
-  
+
 @ModelAttribute("name")  
+
 public String getName(){  
+
     return name;  
-}  
 
-Session´æ´¢£º
-¿ÉÒÔÀûÓÃHttpServletReequestµÄgetSession()·½·¨
-Java´úÂë  ÊÕ²Ø´úÂë
+}  
+```
+* Sessionå­˜å‚¨ï¼š
+
+å¯ä»¥åˆ©ç”¨HttpServletReequestçš„getSession()æ–¹æ³•
+```java
 @RequestMapping("/login.do")  
-public String login(String name,String pwd  
-                            ModelMap model,HttpServletRequest request){  
-     User user = serService.login(name,pwd);  
-     HttpSession session = request.getSession();  
-     session.setAttribute("user",user);  
-     model.addAttribute("user",user);  
-     return "success";  
-}  
 
-Spring MVC Ä¬ÈÏ²ÉÓÃµÄÊÇ×ª·¢À´¶¨Î»ÊÓÍ¼£¬Èç¹ûÒªÊ¹ÓÃÖØ¶¨Ïò£¬¿ÉÒÔÈçÏÂ²Ù×÷
-1£¬Ê¹ÓÃRedirectView
-2£¬Ê¹ÓÃredirect:Ç°×º
-Java´úÂë  ÊÕ²Ø´úÂë
+public String login(String name,String pwd  
+
+                            ModelMap model,HttpServletRequest request){  
+
+     User user = serService.login(name,pwd);  
+
+     HttpSession session = request.getSession();  
+
+     session.setAttribute("user",user);  
+
+     model.addAttribute("user",user);  
+
+     return "success";  
+
+}  
+```
+### Spring MVC é»˜è®¤é‡‡ç”¨çš„æ˜¯è½¬å‘æ¥å®šä½è§†å›¾ï¼Œå¦‚æœè¦ä½¿ç”¨é‡å®šå‘ï¼Œå¯ä»¥å¦‚ä¸‹æ“ä½œ
+
+1. ä½¿ç”¨RedirectView
+
+2. ä½¿ç”¨redirect:å‰ç¼€
+```java
 public ModelAndView login(){  
+
    RedirectView view = new RedirectView("regirst.do");  
+
    return new ModelAndView(view);  
+
 }  
-   »òÕßÓÃÈçÏÂ·½·¨£¬¹¤×÷ÖĞ³£ÓÃµÄ·½·¨£º
-Java´úÂë  ÊÕ²Ø´úÂë
+```
+* æˆ–è€…ç”¨å¦‚ä¸‹æ–¹æ³•ï¼Œå·¥ä½œä¸­å¸¸ç”¨çš„æ–¹æ³•ï¼š
+
+```java
 public String login(){  
+
     //TODO  
+
     return "redirect:regirst.do";  
+
 }  
+```
