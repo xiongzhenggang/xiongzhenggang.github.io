@@ -50,6 +50,11 @@
 ``` markdown
 #   持久层
 ```
+1、![Hibernate持久化主键生成策略等问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/Hibernate学习.md).
+
+2、![mybits相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/mybitis相关问题.md).
+
+3、![订单号生成策略](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/订单号生成策略.md).
 
 ``` markdown
 #  编码
