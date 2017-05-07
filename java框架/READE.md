@@ -25,14 +25,27 @@
 ``` markdown
 # 负载均衡
 ```
+1、![nginx作为和tomcat反向代理配置](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/nginx配置反向代理.md).
+
+2、![基于普通socket和反射的rpc](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/Rpc_Simple.md).
+
+3、![基于netty和zeekooper简单rpc](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/Rpc_Netty_zooKeeper.md).
 
 ``` markdown
 # Maven
 ```
+1、![maven标签介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven/maven标签.xml).
+
+2、![maven创建web项目完整教学docx文档下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven/maven学习.docx).
 
 ``` markdown
 # redis
 ```
+1、![redis相关介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/redis相关.md).
+
+2、![redis过期策略介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/redis过期策略.md).
+
+3、![aop策略实现redis缓存](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/ssm框架aop策略实现redis缓存.java).
 
 ``` markdown
 #   持久层
@@ -41,8 +54,4 @@
 ``` markdown
 #  编码
 ```
-
-
-[1、工厂模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Factory_Method.md) .
-
-![结构型模式关系图](/java23种设计模式/img/7.png)
+1、![网络数据传递编码问题01](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/编码/网络数据传递编码问题.md).
