@@ -323,6 +323,5 @@ ProcessInstance processInstance = executionService.startProcessInstanceByKey("ex
   </process>
 ```
 </p>
-### 任务见下一节
 
-
+![BPMN2.0 任务一节](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/BPMN2_next.md).
