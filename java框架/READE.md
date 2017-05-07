@@ -21,6 +21,14 @@
 ``` markdown
 # jsp内置对象
 ```
+1、![session监听单点登录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/session监听单点登录.md).
+
+2、![同一个浏览器多个用户登录session相同问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/同一个浏览器多个用户登录session相同问题.md).
+
+3、![本地cookie自动登录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/本地cookie自动登录.md).
+
+
+
 
 ``` markdown
 # 负载均衡
