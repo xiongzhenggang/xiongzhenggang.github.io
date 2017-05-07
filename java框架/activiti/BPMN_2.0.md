@@ -43,7 +43,8 @@ BPMN2规范定义了非常丰富的语言，为建模和执行业务流程。 �
 
 ### 配置
 <p>
-在你的应用中使用BPMN 2.0是很简单的：只要把下面一行 加入jbpm.cfg.xml文件。 
+在你的应用中使用BPMN 2.0是很简单的：只要把下面一行 加入jbpm.cfg.xml文件.
+
 ```xml
 <import resource="jbpm.bpmn.cfg.xml" />
 ```
@@ -81,6 +82,7 @@ BPMN2规范定义了非常丰富的语言，为建模和执行业务流程。 �
 如果一个process元素定义了id，它会作为业务流程的key使用 （比如，启动流程可以通过调用executionService.startProcessInstanceByKey("myBusinessProcess")， 否则jBPM引擎会创建一个唯一流程key（与jPDL相同）。 
 </p>
 ### 基本结构
+
 * 事件
 <p>
 与活动和网关一起，事件用来在实际的每个业务流程中。 事件让业务建模工具用很自然的方式描述业务流程，比如 '当我接收到客户的订单，这个流程就启动'， '如果两天内任务没结束，就终止流程' 或者'当我收到一封取消邮件，当流程在运行时， 使用子流程处理邮件'。注意典型的业务 通常使用这种事件驱动的方式。人们不会硬编码顺序创建， 但是他们倾向于使用在他们的环境中发生的事情（比如，事件）。 在BPMN规范中，描述了很多事件类型，为了覆盖可能的事情， 在业务环境中可能出现的情况。
@@ -140,6 +142,7 @@ ProcessInstance processInstance = executionService.startProcessInstanceByKey("no
 
 ![图02](/java框架/activiti/img/act03.png)
 参考jBPM发布包中的实例， 单元测试和业务流程对应XML。 
+
 * 顺序流
 <p>
 顺序流是事件，活动和网关之间的连线，显示为一条实线 带有箭头，在BPMN图形中（jPDL中等效的是transition）。 每个顺序流都有一个源头和一个 目标引用，包含了 活动，事件或网关的id。 
@@ -156,6 +159,7 @@ ProcessInstance processInstance = executionService.startProcessInstanceByKey("no
 <p>
 为了避免使用一个顺序流，必须添加condition条件到顺序流中。 在运行时，只有当condition条件结果为true， 顺序流才会被执行。 
 为了给顺序流添加condition条件，添加一个conditionExpression 元素到顺序流中。条件可以放在 ${}中。
+
 ```xml
 <sequenceFlow id=....>
   <conditionExpression xsi:type="tFormalExpression">${amount >= 500}</conditionExpression>
@@ -165,10 +169,160 @@ ProcessInstance processInstance = executionService.startProcessInstanceByKey("no
 活动（比如用户任务）和网关（比如唯一网关）可以用户默认顺序流。 默认顺序流只会在活动或网关的 所有其他外向顺序流的condition条件为false时才会使用。 默认顺序流图形像是顺序流多了一个斜线标记。 
 
 ![图04](/java框架/activiti/img/act05.png)
-默认顺序流通过指定活动或网关的 'default' 属性 来使用。 
+	默认顺序流通过指定活动或网关的 'default' 属性 来使用。 
 也要注意，默认顺序流上的表达式会被忽略。</p>
 
 * 网关
 
+<p>
+BPMN中的网关是用来控制流程中的流向的。更确切的是， 当一个token（BPMN 2.0中execution的概念注解）到达一个网关， 它会根据网关的类型进行合并或切分。 
+网关描绘成一个菱形，使用一个内部图标来指定类型 （唯一，广泛，其他）。 
+所有网关类型，都可以设置gatewayDirection。 下面的值可以使用： 
+unspecificed (默认)：网关可能拥有多个 进入和外出顺序流。 
+mixed：网关必须拥有多个 进入和外出顺序流。 
+converging：网关必须拥有多个进入顺序流， 但是只能有一个外出顺序流。 
+diverging：网关必须拥有一个进入顺序流， 和多个外出顺序流。 
+比如下面的例子：并行网关的gatewayDirection属性为'converging'， 会拥有json行为。 
+
+```xml
+<parallelGateway id="myJoin" name="My synchronizing join" gatewayDirection="converging" />
+```
+<strong>注意：</strong>gatewayDirection属性根据规范是可选的。 这意味着我们不能通过这个属性来 在运行时知道一个网关的行为（比如，一个并行网关， 如果我们用够切分和合并行为）。然而，gatewayDirection属性用在解析时 作为约束条件对进入、外出顺序流。所以使用这个属性 会减低出错的机会，当引用顺序流时， 但不是必填的。 
+</p>
+
+* 网关：唯一网关
+
+<p>
+	唯一网关表达了一个流程中的唯一决策。 会有一个外向顺序流被使用，根据定义在 顺序流中的条件。 对应的jPDL结构，相同的语法是 decision活动。唯一网关的 完全技术名称是'基于数据的唯一网关'， 但是也经常称为XOR 网关。 XOR网关被描绘为一个菱形，内部有一个'X'， 一个空的菱形，没有网关也象征着唯一网关。 
+	下面图形显示了唯一网关的用法：根据amount变量的值， 会选择唯一网关外向的三个外向顺序流 中的一个。 
+
+![图05](/java框架/activiti/img/act06.png)
+
+</br>
+	这个流程对应的可执行XML看起来像下面这样。 注意定义在顺序流中的条件。唯一网关会选择一个顺序流， 如果条件执行为true。如果多个条件 执行为true，第一个遇到的就会被使用 （日志信息会显示这种情况.
+
+```xml
+<process id="exclusiveGateway" name="BPMN2 Example exclusive gateway">
+
+    <startEvent id="start" />
+
+   <sequenceFlow id="flow1" name="fromStartToExclusiveGateway"
+      sourceRef="start" targetRef="decideBasedOnAmountGateway" />
+
+   <exclusiveGateway id="decideBasedOnAmountGateway" name="decideBasedOnAmount" />
+
+   <sequenceFlow id="flow2" name="fromGatewayToEndNotEnough"
+      sourceRef="decideBasedOnAmountGateway" targetRef="endNotEnough">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${amount < 100}
+      </conditionExpression>
+   </sequenceFlow>
+
+   <sequenceFlow id="flow3" name="fromGatewayToEnEnough"
+      sourceRef="decideBasedOnAmountGateway" targetRef="endEnough">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${amount <= 500 && amount >= 100}
+        </conditionExpression>
+   </sequenceFlow>
+
+   <sequenceFlow id="flow4" name="fromGatewayToMoreThanEnough"
+      sourceRef="decideBasedOnAmountGateway" targetRef="endMoreThanEnough">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${amount > 500}
+      </conditionExpression>
+   </sequenceFlow>
+
+   <endEvent id="endNotEnough" name="not enough" />
+
+   <endEvent id="endEnough" name="enough" />
+
+   <endEvent id="endMoreThanEnough" name="more than enough" />
+
+  </process>
+```
+	这个流程需要一个变量，这样表达式就可以在运行期间执行。 变量可以被提供，当流程实例执行的时候（类似jPDL）。
+
+```java
+Map<String, Object> vars = new HashMap<String, Object>();
+vars.put("amount", amount);
+ProcessInstance processInstance = executionService.startProcessInstanceByKey("exclusiveGateway", vars);
+```
+	唯一网关需要所有外向顺序流上都定义条件。 对这种规则一种例外是默认顺序流。 使用default 属性来引用一个已存在的 顺序流的id。这个顺序流会被使用 当其他外向顺序流的条件都执行为false时.
+
+```xml
+<exclusiveGateway id="decision" name="decideBasedOnAmountAndBankType" default="myFlow"/>
+
+<sequenceFlow id="myFlow" name="fromGatewayToStandard"
+    sourceRef="decision" targetRef="standard">
+</sequenceFlow>
+```
+</p> 
+
+* 网关：并行网关
+
+<p>
+	并行网关用来切分或同步相关的进入或外出 顺序流。 
+并行网关拥有一个进入顺序流的和多于一个的外出顺序流 叫做'并行切分或 'AND-split'。所有外出顺序流都会 被并行使用。注意：像规范中定义的那样， 外出顺序流中的条件都会被忽略。 
+	并行网关拥有多个进入顺序流和一个外出顺序流 叫做'并行归并'或 AND-join。所有进入顺序流需要 到达这个并行归并，在外向顺序流使用之前。 
+并行网关像下面这样定义:
+
+```xml
+<parallelGateway id="myParallelGateway" name="My Parallel Gateway" />
+```
+	注意，gatewayDirection属性可以被使用， 已获得建模错误，在解析阶段（参考上面）。 
+下面的图形显示了一个并行网关可以如何使用。在流程启动后， 'prepare shipment' 和 'bill customer'用户任务都会被激活。 并行网关被描绘为一个菱形，内部图标是一个十字， 对切分和归并行为都是一样。
+
+![图06](/java框架/activiti/img/act07.png)
+
+图形对应的XML如下所示：
+
+```xml
+<process id="parallelGateway" name="BPMN2 example parallel gatewar">
+
+    <startEvent id="Start" />
+
+    <sequenceFlow id="flow1" name="fromStartToSplit"
+      sourceRef="Start"
+      targetRef="parallelGatewaySplit"  />
+
+    <parallelGateway id="parallelGatewaySplit" name="Split"
+      gatewayDirection="diverging"/>
+
+    <sequenceFlow id="flow2a" name="Leg 1"
+      sourceRef="parallelGatewaySplit"
+      targetRef="prepareShipment" />
+
+    <userTask id="prepareShipment" name="Prepare shipment"
+      implementation="other" />
+
+    <sequenceFlow id="flow2b" name="fromPrepareShipmentToJoin"
+      sourceRef="prepareShipment"
+      targetRef="parallelGatewayJoin"  />
+
+    <sequenceFlow id="flow3a" name="Leg 2"
+      sourceRef="parallelGatewaySplit"
+      targetRef="billCustomer" />
+
+    <userTask id="billCustomer" name="Bill customer"
+      implementation="other" />
+
+    <sequenceFlow id="flow3b" name="fromLeg2ToJoin"
+      sourceRef="billCustomer"
+      targetRef="parallelGatewayJoin"  />
+
+    <parallelGateway id="parallelGatewayJoin" name="Join"
+      gatewayDirection="converging"/>
+
+    <sequenceFlow id="flow4"
+      sourceRef="parallelGatewayJoin"
+      targetRef="End">
+    </sequenceFlow>
+
+    <endEvent id="End" name="End" />
+
+  </process>
+```
+</p>
+### 任务见下一节
 
 
