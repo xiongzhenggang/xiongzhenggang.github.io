@@ -1,4 +1,4 @@
-## rpc简单实现
+## rpc简单实现(参考网上案例)
 *  首先理解rpc 即Remote Procedure Call（远程过程调用），说得通俗一点就是：调用远程计算机上的服务，就像调用本地服务一样。
 * RPC 可基于 HTTP 或 TCP 协议。
 * 本案使用简单的例传统的阻塞式 IO 以及java的动态代理。
@@ -27,19 +27,21 @@ public class EchoServiceImple implements EchoService{
 }
 
 ```
-### 在使用java的动态代理中,核心是先下面代码，其中前面两个参数分别为，调用远程接口的加载器和class。第三个参数作为客户端调用服务度的核心部分。器主要功能;
+### 在使用java的动态代理中,核心是先下面代码，其中前面两个参数分别为，调用远程接口的加载器和class。第三个参数作为客户端调用服务度的核心部分，主要功能：
 * 1、与服务端建立tcp链接。 
 * 2、发送客户端要调用的全类名（作为服务端反射需要的类名）、方法名（服务端反射所需的方法参数）、方法的参数类型method.getParameterTypes()以及方法参数值args。最后接收服务端发送的执行结果。
 * 3、服务端获取这些参数后，通过放射调用服务端的程序，得到的结果发送给客户端
+#### 下面是使用动态代理的api
 ```java
 Proxy.newProxyInstance(ClassLoader loader,
                                           Class<?>[] interfaces,
                                           InvocationHandler h)
 ```
-下面为客户端通信的处理代码如下：
+下面为客户端(InvocationHandler具体实现)通信的处理代码如下：
 ```java
 public class DynamicProxyHandler implements InvocationHandler {
 	//this class is used to invoke proxyed instance
+	//方法重写，返回服务端执行的结果
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Socket s = null;
         ObjectOutputStream oos = null;
