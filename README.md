@@ -47,10 +47,6 @@
 
 
 ```markdown
-# 第七章 java23种设计模式
-```
-
-```markdown
 # 其他资源url
 ```
 - netty和nio相关文章
@@ -59,9 +55,6 @@
 
 [2、一篇详细介绍NIO](http://www.iteye.com/magazines/132-Java-NIO)
 
-- 其他
-
-**Bold** and _Italic_ and `Code` text
 
 [Link](url) and ![Image](src)
 ```
