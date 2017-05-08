@@ -164,9 +164,11 @@ loginUserMap.put(result.getFuUserName(), sessionId);
 ```
 * B.登录考虑完之后，来考虑考虑退出。
 <p>
-用户正常退出时，我们需要将该用户的登录信息从session中移除。我们可以写一个Session监听器，监听sessioon销毁的时候，我们将登录的用户注销掉，也就是从application中移除。表示该用户已经下线了。另外，还有一个问题，如果说登录的用户突然关闭了浏览器而没有点击退出按钮。那么可以利用beforeunload 事件，在浏览器刷新或者关闭的时候触发。
+  用户正常退出时，我们需要将该用户的登录信息从session中移除。我们可以写一个Session监听器，监听sessioon销毁的时候，我们将登录的用户注销掉，也就是从application中移除。表示该用户已经下线了。另外，还有一个问题，如果说登录的用户突然关闭了浏览器而没有点击退出按钮。那么可以利用beforeunload 事件，在浏览器刷新或者关闭的时候触发。
 </p>
+
 ```java
+
 //在session销毁的时候 把loginUserMap中保存的键值对清除   
 
         User user = (User)event.getSession().getAttribute("loginUser");  
