@@ -12,6 +12,11 @@
 
 [5、orcale使用指南](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/orcal用户相关的操作.md) .
 
+[6、mysql主从同步步骤](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql主从同步.md) .
+
+[7、关于设计表时应该注意的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/关于设计表时应该注意的问题.md) .
+
+
 ```markdown
 # 第二章 jvm相关
 ```
@@ -24,10 +29,31 @@
 ```markdown
 # 第三章 数据结构和算法
 ```
-[1、排序（插入、选择、希尔、快速、归并）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序) .
+[1.1、冒泡排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/BubbleSort.md).
 
-[2、二叉树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/树) .
+[1.2、插入排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/InsertSort.md).
 
+[1.3、选择排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/SelectSort.md).
+
+[1.4、堆排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/HeapSort.md).
+
+[1.5、归并排序）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/Merge.md).
+
+[1.6、快速排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/QuickSort.md).
+
+[1.7、希尔排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/ShellSort.md).
+
+[1.8、折半排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/BinaryInsertSort.md).
+
+[2、二叉树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/树/TreeApp.md) .
+
+[3、Heap堆](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/Heap堆.md) .
+
+[4、广度优先算法](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/广度优先算法.md) .
+
+[5、深度优先算法与最小生成树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/深度优先算法与最小生成树.md) .
+
+[6、有向图的拓扑排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/有向图的拓扑排序.md) .
 
 
 ```markdown
