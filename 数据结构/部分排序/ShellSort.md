@@ -1,6 +1,5 @@
-package xzg.paixun.com;
+## 希尔排序
 
-public class ShellSort {  
 	 /** 
 	  * 希尔排序原理：设置间隔变量，将数组进行分组，组内排序，然后缩小间隔变量，直至间隔变量为1(结束条件) 
 	  * 希尔排序的空间占用率为O(1), 
@@ -11,6 +10,9 @@ public class ShellSort {
 	  * 
 	  * @param array 
 	  */  
+代码如下：
+```java
+public class ShellSort {  
 	 public static int[] shellSort(int[] array)  
 	 {  
 	  int len = array.length;//获取数组长度  
@@ -49,4 +51,4 @@ public class ShellSort {
 	  ShellSort.print(ShellSort.shellSort(array));  
 	 }  
 	}  
-
+```

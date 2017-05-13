@@ -1,6 +1,4 @@
-package xzg.paixun.com;
-
-public class InsertSort {  
+## 插入排序 
 	 /** 
 	  * 直接插入排序原理：将新元素插入到已排好序的子序列 
 	  * 元素比较次数：O(n2) 
@@ -10,7 +8,10 @@ public class InsertSort {
 	  * 空间占用情况：只需利用一个临时变量，故空间占用率为O(1); 
 	  * @param array 
 	  * @return 
-	  */  
+	  */
+代码如下：
+```java  
+public class InsertSort {  
 	 public static int[] insertSort(int[] array)  
 	 {  
 	  int i,j,len=array.length;  
@@ -45,3 +46,4 @@ public class InsertSort {
 	  InsertSort.print(InsertSort.insertSort(array));  
 	 }  
 	}  
+```

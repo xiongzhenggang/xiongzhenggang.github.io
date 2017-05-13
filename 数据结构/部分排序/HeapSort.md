@@ -1,6 +1,4 @@
-package xzg.paixun.com;
-
-public class HeapSort {  
+##堆排序 
 	 /** 
 	  * 堆排序原理：首先构建一个最大堆，然后将堆顶元素和末尾元素进行交换，交换之后自上而下进行一次排序, 
 	  * 堆排序时间复杂度为O(nlog2n),只是用了一个临时变量，所以空间占用率为O(1) 
@@ -9,7 +7,11 @@ public class HeapSort {
 	  * 空间占用情况： 
 	  * @param array 
 	  * @return 
-	  */  
+	  */
+代码如下：
+```java  
+public class HeapSort {  
+
 	 public int[] heapSort(int[] array)  
 	 {  
 	  int len = array.length;//获取元素个数  
@@ -78,3 +80,4 @@ public class HeapSort {
 	  hs.print(hs.heapSort(array));  
 	 }  
 	}  
+```

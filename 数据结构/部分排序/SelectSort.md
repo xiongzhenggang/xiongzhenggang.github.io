@@ -1,6 +1,5 @@
-package xzg.paixun.com;
+## 选择排序
 
-public class SelectSort {  
 	 /** 
 	  * 选择排序原理：从待排序序列中选出最小的元素，放入到已排好序列 
 	  * 元素比较次数：需要比较的次数为n(n-1)/2，总的元素移动次数为3(n-1) ,空间占用情况为O(1) 
@@ -11,6 +10,8 @@ public class SelectSort {
 	  * @param array 
 	  * @return 
 	  */  
+```java
+public class SelectSort {  
 	 public int[] selectSort(int[] array)  
 	 {  
 	  int i,j,len=array.length;  
@@ -61,3 +62,4 @@ public class SelectSort {
 	  ss.print(ss.selectSort(array));  
 	 }  
 	}  
+```
