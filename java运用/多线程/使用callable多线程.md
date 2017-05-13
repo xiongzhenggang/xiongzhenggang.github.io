@@ -1,4 +1,3 @@
-## ¿¿callable
 ```java
 class TaskWithResult implements Callable<String>{
     private int id;
@@ -16,7 +15,6 @@ class TaskWithResult implements Callable<String>{
      
 }
 ```
-¿¿¿¿
 ```java
 public class CallableDemo {
  
