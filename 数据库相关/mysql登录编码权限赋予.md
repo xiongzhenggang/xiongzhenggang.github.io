@@ -1,14 +1,19 @@
-=========================登录===================
+## mysql使用指南
+在windows下：
+<p>
 数据库安装在C:DOS命令窗口中输入 net start mysql（安装版）关闭：net stop mysql
 mysql非安装版：直接在bin中找到mysqld.exe双击或者 关闭：mysqladmin -uroot -p shutdown
 
 在D：cd D:\Tools\MySQL5.5.25\bin进入到mysql的bin目录下才可以输入 mysql -hlocalhost -uroot -p
 
  java链接// MySQL的JDBC URL编写方式：jdbc:mysql://主机名称：连接端口/数据库的名称?参数=值
-
-修改管理员密码
+</P>
+* 修改管理员密码
+```xml
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '***'
+
 查看端口号
+
 mysql> show global variables like 'port';
 +---------------+-------+
 | Variable_name | Value |
@@ -16,9 +21,9 @@ mysql> show global variables like 'port';
 | port          | 3307  |
 +---------------+-------+
 1 row in set, 1 warning (0.12 sec)
-
-======================================用户权限管理设置==================================
-
+```
+### 用户权限管理设置
+```xml
 创建
 mysql> create user zx_root IDENTIFIED by '12345';   //identified by 会将纯文本密码加密作为散列值存储
 
@@ -61,6 +66,8 @@ localhost    localhost不会被解析成IP地址，直接通过UNIXsocket连接
 127.0.0.1      会通过TCP/IP协议连接，并且只能在本机访问；
 ::1                 ::1就是兼容支持ipv6的，表示同ipv4的127.0.0.1
 
+```
+### 以下一些命令操作
 
 grant 普通数据用户，查询、插入、更新、删除 数据库中所有表数据的权利。
 
@@ -122,7 +129,8 @@ grant all privileges on testdb to dba@’localhost’
 
 grant all on *.* to dba@’localhost’
 
----------------------------------------------
+### 权限划分
+
 12>.MySQL grant 权限，分别可以作用在多个层次上。
 
 1. grant 作用在整个 MySQL 服务器上：
@@ -149,10 +157,10 @@ grant execute on procedure testdb.pr_add to ’dba’@’localhost’
 
 grant execute on function testdb.fn_add to ’dba’@’localhost’
 
-注意：修改完权限以后 一定要刷新服务，或者重启服务，刷新服务用：FLUSH PRIVILEGES。
+* 注意：修改完权限以后 一定要刷新服务，或者重启服务，刷新服务用：FLUSH PRIVILEGES。
 
-===============================================================================================================
-添加字段
+### 添加字段
+```xml
 mysql> alter table abc add timetest datetime;
 Query OK, 2 rows affected (0.73 sec)
 Records: 2  Duplicates: 0  Warnings: 0
@@ -167,10 +175,10 @@ year          1 bytes  YYYY                  1901                ~ 2155
 在 MySQL 中创建表时，对照上面的表格，很容易就能选择到合适自己的数据类型。不过到底是选择 datetime 还是 timestamp，可能会有点犯难。这两个日期时间类型各有优点：datetime 的日期范围比较大；timestamp 所占存储空间比较小，只是 datetime 的一半。 
 
 另外，timestamp 类型的列还有个特性：默认情况下，在 insert, update 数据时，timestamp 列会自动以当前时间（CURRENT_TIMESTAMP）填充/更新。“自动”的意思就是，你不去管它，MySQL 会替你去处理。 
-
-一般情况下，我倾向于使用 datetime 日期类型。 
-======================================修改字段=============
-修改某一字段值
+```
+### 一般情况下，我倾向于使用 datetime 日期类型。 
+* 修改某一字段值
+```
 mysql> update abc set timetest='2015-12-11 11:25:45' where a=2;
 Query OK, 2 rows affected (0.00 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
@@ -219,8 +227,9 @@ CREATE TABLE EM_VOTE_INFO
     F_VOTE_IS_DISPLAY                    TINYINT,
     PRIMARY KEY(F_ID) 
 );
-
-===========================mysql编码问题==================
+```
+### mysql编码问题
+```
 字符问题出现？？
 mysql> select * from role;
 +--------+----------+----------+---------+-----------+
@@ -246,7 +255,9 @@ set names gbk;
 C:\Program Files\MySQL\MySQL Server 5.0\my.ini\
 default-character-set=utf8
 default-character-set=utf8
-二、更改表结构与数据库编码统一
+```
+2. 更改表结构与数据库编码统一
+```sql
 CREATE TABLE role 
 (
     roleId                        	VARCHAR(20) NOT NULL,
@@ -256,7 +267,8 @@ CREATE TABLE role
     proleName			 			VARCHAR(50), 
     PRIMARY KEY(roleId) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+```
+```sql
 mysql> INSERT INTO role(roleId, roleName) VALUES ('T_MAN', '经理');
 Query OK, 1 row affected (0.06 sec)
 
@@ -266,3 +278,4 @@ mysql> select * from role;
 +--------+----------+----------+---------+-----------+
 | T_MAN  | NULL     | 经理     | NULL    | NULL      |
 +--------+----------+----------+---------+-----------+
+```

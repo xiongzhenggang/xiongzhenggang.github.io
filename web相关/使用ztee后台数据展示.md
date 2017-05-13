@@ -1,94 +1,181 @@
-Ê×ÏÈÒıÈëjQueryztreeµÄÔ´Âë¼°Ïà¹ØÅäÖÃÎÄ¼ş
+## ç®€å•ä½¿ç”¨jQuery ztree
+é¦–å…ˆå¼•å…¥jQueryztreeçš„æºç åŠç›¸å…³é…ç½®æ–‡ä»¶
+```jsp
 <script  src="js/jQuery/jquery-2.1.3.min.js"  type="text/javascript"></script> 
+
 <script src="js/ztree/jquery.ztree.core.min.js" type="text/javascript"></script>
+
 <script src="js/ztree/jquery.ztree.excheck.min.js" type="text/javascript"></script>
+
 <link href="js/ztree/zTreeStyle.css"  type="text/css" rel="stylesheet">
 
+
 <script type="text/javascript">
-/**
- * Ò³Ãæ³õÊ¼»¯
- */
+
+
+ // é¡µé¢åˆå§‹åŒ– 
+
 $(document).ready(function(){
+
   onLoadZTree();
+
 });
-/**
- * ¼ÓÔØÊ÷ĞÎ½á¹¹Êı¾İ
- */
- var url="${ctx}/treeList.do";
+
+
+ // åŠ è½½æ ‘å½¢ç»“æ„æ•°æ®
+
+ 
+var url="${ctx}/treeList.do";
+
 function onLoadZTree(){
+
   var treeNodes;
+
   $.ajax({
-    async:false,//ÊÇ·ñÒì²½
-    cache:false,//ÊÇ·ñÊ¹ÓÃ»º´æ
-    type:'POST',//ÇëÇó·½Ê½£ºpost
-    dataType:'json',//Êı¾İ´«Êä¸ñÊ½£ºjson
-    url:url,//ÇëÇóµÄactionÂ·¾¶
+
+    async:false,//æ˜¯å¦å¼‚æ­¥
+
+    cache:false,//æ˜¯å¦ä½¿ç”¨ç¼“å­˜
+
+    type:'POST',//è¯·æ±‚æ–¹å¼ï¼špost
+
+    dataType:'json',//æ•°æ®ä¼ è¾“æ ¼å¼ï¼šjson
+
+    url:url,//è¯·æ±‚çš„actionè·¯å¾„
+
     error:function(){
-      //ÇëÇóÊ§°Ü´¦Àíº¯Êı
-      alert('Ç×£¬ÇëÇóÊ§°Ü£¡');
+
+      //è¯·æ±‚å¤±è´¥å¤„ç†å‡½æ•°
+
+      alert('äº²ï¼Œè¯·æ±‚å¤±è´¥ï¼');
+
     },
+
     success:function(data){
+
       //console.log(data);
-      //ÇëÇó³É¹¦ºó´¦Àíº¯Êı
-      treeNodes = data;//°ÑºóÌ¨·â×°ºÃµÄ¼òµ¥Json¸ñÊ½¸³¸øtreeNodes
+
+      //è¯·æ±‚æˆåŠŸåå¤„ç†å‡½æ•°
+
+      treeNodes = data;//æŠŠåå°å°è£…å¥½çš„ç®€å•Jsonæ ¼å¼èµ‹ç»™treeNodes
+
     }
+
   });
+
   var zTree;
+
   var setting = {
+
     view: {
-      dblClickExpand: false,//Ë«»÷½ÚµãÊ±£¬ÊÇ·ñ×Ô¶¯Õ¹¿ª¸¸½ÚµãµÄ±êÊ¶
-      showLine: true,//ÊÇ·ñÏÔÊ¾½ÚµãÖ®¼äµÄÁ¬Ïß
-      fontCss:{'color':'black','font-weight':'bold'},//×ÖÌåÑùÊ½º¯Êı
-      selectedMulti: false //ÉèÖÃÊÇ·ñÔÊĞíÍ¬Ê±Ñ¡ÖĞ¶à¸ö½Úµã
+
+      dblClickExpand: false,//åŒå‡»èŠ‚ç‚¹æ—¶ï¼Œæ˜¯å¦è‡ªåŠ¨å±•å¼€çˆ¶èŠ‚ç‚¹çš„æ ‡è¯†
+
+      showLine: true,//æ˜¯å¦æ˜¾ç¤ºèŠ‚ç‚¹ä¹‹é—´çš„è¿çº¿
+
+      fontCss:{'color':'black','font-weight':'bold'},//å­—ä½“æ ·å¼å‡½æ•°
+
+      selectedMulti: false //è®¾ç½®æ˜¯å¦å…è®¸åŒæ—¶é€‰ä¸­å¤šä¸ªèŠ‚ç‚¹
+
     },
+
     check:{
+
       //chkboxType: { "Y": "ps", "N": "ps" },
-      chkStyle: "checkbox",//¸´Ñ¡¿òÀàĞÍ
-      enable: true //Ã¿¸ö½ÚµãÉÏÊÇ·ñÏÔÊ¾ CheckBox 
+
+      chkStyle: "checkbox",//å¤é€‰æ¡†ç±»å‹
+
+      enable: true //æ¯ä¸ªèŠ‚ç‚¹ä¸Šæ˜¯å¦æ˜¾ç¤º CheckBox 
+
     },
+
     data: {
-      simpleData: {//¼òµ¥Êı¾İÄ£Ê½
+
+      simpleData: {//ç®€å•æ•°æ®æ¨¡å¼
+
         enable:true,
+
         idKey: "id",
+
         pIdKey: "pId",
+
         rootPId: ""
+
       },
+
       key{
+
     	  checked: "id",
+
     	  url:"url"
+
       }
+
     },
+
     callback: {
+
       beforeClick: function(treeId, treeNode) {
+
         zTree = $.fn.zTree.getZTreeObj("user_tree");
+
         if (treeNode.isParent) {
-          zTree.expandNode(treeNode);//Èç¹ûÊÇ¸¸½Úµã£¬ÔòÕ¹¿ª¸Ã½Úµã
+
+          zTree.expandNode(treeNode);//å¦‚æœæ˜¯çˆ¶èŠ‚ç‚¹ï¼Œåˆ™å±•å¼€è¯¥èŠ‚ç‚¹
+
         }else{
-          zTree.checkNode(treeNode, !treeNode.checked, true, true);//µ¥»÷¹´Ñ¡£¬ÔÙ´Îµ¥»÷È¡Ïû¹´Ñ¡
+
+          zTree.checkNode(treeNode, !treeNode.checked, true, true);//å•å‡»å‹¾é€‰ï¼Œå†æ¬¡å•å‡»å–æ¶ˆå‹¾é€‰
+
         }
+
       }
+
     }
+
   };
+
   var t = $("#user_tree");
+
   t = $.fn.zTree.init(t,setting,treeNodes);
+
 }
+
 </script>
+
      <style type="text/css">
+
      a{
+
      font-size: 20px;
+
      }
+
      </style>
+
      <script type="text/javascript">
+
      $(function(){
+
          $("#reg01").click(function(){
+
             $.get("showUser.do",function(data){
+
             	  window.location.href = "showUser.do";  
+
             });
+
      });
+
      });
+
      </script>
 
 
 <div class="zTreeDemoBackgroundleft">
+
     <ul id="user_tree" class="ztree" style="border: 1px solid #617775;overflow-y: scroll;height: 500px;"></ul>
+
   </div> 
+```
+

@@ -1,6 +1,3 @@
-###
-
-
 
 ## 参考自制证书
 ![自制https证书](http://www.cnblogs.com/xinzhao/p/4950689.html)

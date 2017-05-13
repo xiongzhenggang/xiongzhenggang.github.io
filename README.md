@@ -2,18 +2,24 @@
 ```markdown
 # 第一章 mysql基础操作
 ```
-[1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql登录编码权限赋予.txt) . 
+[1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql登录编码权限赋予.md) . 
 
-[2、mysql索引函数存储过程相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql索引函数存储过程.txt) .
+[2、mysql索引函数存储过程相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql索引函数存储过程.md) .
+
+[3、mysql处理海量数据时的一些优化查询速度方法](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql处理海量数据时的一些优化查询速度方法.md) .
+
+[4、树结构数据在关系数据库中的表示与查询方法下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/树结构数据在关系数据库中的表示与查询方法.pdf) .
+
+[5、orcale使用指南](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/orcal用户相关的操作.md) .
 
 ```markdown
 # 第二章 jvm相关
 ```
-[1、编译openjdk](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/编译openjdk.txt) . 
+[1、编译openjdk](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/编译openjdk.md) . 
 
-[2、linux中.so库的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/linux中.so库的问题.txt) . 
+[2、linux中.so库的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/linux中so库的问题.md) . 
 
-[3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu取消桌面.txt) . 
+[3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu操作记录.md). 
 
 ```markdown
 # 第三章 数据结构和算法
@@ -21,6 +27,8 @@
 [1、排序（插入、选择、希尔、快速、归并）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序) .
 
 [2、二叉树](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/树) .
+
+
 
 ```markdown
 # 第四章 java运用
@@ -43,8 +51,11 @@
 ```markdown
 # 第六章 web相关
 ```
-[1、web中js应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关) . 
+[1、web中js应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/js部分.md). 
 
+[2、自制https证书以及使用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/myselfhttps.md) .
+
+[1、使用jQuery ztree](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/使用ztee后台数据展示.md) .
 
 ```markdown
 # 其他资源url
