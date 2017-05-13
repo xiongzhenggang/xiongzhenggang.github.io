@@ -76,7 +76,7 @@
 ```markdown
 # 第六章 java23中设计模式
 ```
-[java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
+[java 23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
 
 ```markdown
 # 第七章 web相关
