@@ -37,7 +37,7 @@
 
 [1.4、堆排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/HeapSort.md).
 
-[1.5、归并排序）](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/Merge.md).
+[1.5、归并排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/Merge.md).
 
 [1.6、快速排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/QuickSort.md).
 
@@ -59,23 +59,27 @@
 ```markdown
 # 第四章 java运用
 ```
-[1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/nio例子) .
+[1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/nio例子/NIO典型的Socket模型.md) .
 
-[2、反射和jdbc操作模板](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/反射) .
+[2、反射和jdbc操作模板](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/反射/READE.md) .
 
-[3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程) .
+[3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程/使用callable多线程.md). 
 
-[4、java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
+[4、socket问题一览](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程/socket问题一览.md) .
 
 ```markdown
 ### 第五章 java框架
 ```
 
-[目录链接](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/READE.md).
-
+[java框架目录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/READE.md).
 
 ```markdown
-# 第六章 web相关
+# 第六章 java23中设计模式
+```
+[java23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
+
+```markdown
+# 第七章 web相关
 ```
 [1、web中js应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/js部分.md). 
 
@@ -86,18 +90,13 @@
 ```markdown
 # 其他资源url
 ```
-- netty和nio相关文章
+* netty和nio相关文章
 
 [1、java netty](https://waylau.com/essential-netty-in-action/) .   
 
-[2、一篇详细介绍NIO](http://www.iteye.com/magazines/132-Java-NIO)
-
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[2、一篇详细介绍NIO](http://www.iteye.com/magazines/132-Java-NIO).
 
 ### Author 熊正刚
+
 github设置博客样式模板[repository settings](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 

@@ -1,70 +1,139 @@
 /**
+
  * 
+
  */
+
 package com.xzg.cn.nio;
 
+
+
 import java.io.IOException;
+
 import java.net.InetSocketAddress;
+
 import java.nio.ByteBuffer;
+
 import java.nio.channels.SocketChannel;
+
 import java.util.concurrent.TimeUnit;
 
+
+
 /**
+
  * @author xzg
- * @TIME 2017Äê1ÔÂ3ÈÕ
- * ×¢ÒâÀàµÄÒş²ØºÍÊµÀı´´½¨
+
+ * @TIME 2017å¹´1æœˆ3æ—¥
+
+ * æ³¨æ„ç±»çš„éšè—å’Œå®ä¾‹åˆ›å»º
+
  */
+
 public class TestSockNioCkient {
+
 	public static  void  main(String arg[]){
+
 		client();
+
 		}
+
 	public static void client(){
-        SocketChannel socketChannel = null;//¶¨Òå¹ÜµÀ£¬Ïàµ±ÓÚ¹«½»³µ
-        ByteBuffer buffer = ByteBuffer.allocate(1024);//¶¨»áÓĞ¶àÉÙµÄ×÷Îª
+
+        SocketChannel socketChannel = null;//å®šä¹‰ç®¡é“ï¼Œç›¸å½“äºå…¬äº¤è½¦
+
+        ByteBuffer buffer = ByteBuffer.allocate(1024);//å®šä¼šæœ‰å¤šå°‘çš„ä½œä¸º
+
         try
+
         {
-        	//´ò¿ªSocketChannel£º
-            socketChannel = SocketChannel.open();//¾²Ì¬·½·¨»ñÈ¡ÊµÀı
-            socketChannel.configureBlocking(false);//ÉèÖÃ·Ç×èÈû
-            socketChannel.connect(new InetSocketAddress("127.0.0.1",8080));//Á¬½ÓµØÖ·
-            if(socketChannel.finishConnect())//Èç¹ûÁ¬½Ó×´Ì¬
+
+        	//æ‰“å¼€SocketChannelï¼š
+
+            socketChannel = SocketChannel.open();//é™æ€æ–¹æ³•è·å–å®ä¾‹
+
+            socketChannel.configureBlocking(false);//è®¾ç½®éé˜»å¡
+
+            socketChannel.connect(new InetSocketAddress("127.0.0.1",8080));//è¿æ¥åœ°å€
+
+            if(socketChannel.finishConnect())//å¦‚æœè¿æ¥çŠ¶æ€
+
             {
+
                 int i=0;
-                while(true)//±£³ÖÊı¾İÍêÕû
+
+                while(true)//ä¿æŒæ•°æ®å®Œæ•´
+
                 {
+
                     TimeUnit.SECONDS.sleep(1);
-                    //¶ÁÈ¡Êı¾İ£ºĞ´ÈëÊı¾İµ½Buffer(int bytesRead = fileChannel.read(buf);)
+
+                    //è¯»å–æ•°æ®ï¼šå†™å…¥æ•°æ®åˆ°Buffer(int bytesRead = fileChannel.read(buf);)
+
                     String info = "I'm "+i+++"-th information from client";
-                    buffer.clear();//ÏÈ½øĞĞÇåÀí
-                    //´ÓBufferÖĞ¶ÁÈ¡Êı¾İ£¨System.out.print((char)buf.get());£©
-                    /*´ÓChannelĞ´µ½Buffer (fileChannel.read(buf))
-                    Í¨¹ıBufferµÄput()·½·¨ buf.put(¡­)*/
+
+                    buffer.clear();//å…ˆè¿›è¡Œæ¸…ç†
+
+                    //ä»Bufferä¸­è¯»å–æ•°æ®ï¼ˆSystem.out.print((char)buf.get());ï¼‰
+
+                    /*ä»Channelå†™åˆ°Buffer (fileChannel.read(buf))
+
+                    é€šè¿‡Bufferçš„put()æ–¹æ³• buf.put(â€¦)*/
+
                     buffer.put(info.getBytes("utf-8"));
+
                     buffer.flip();
+
                     while(buffer.hasRemaining()){
+
                         System.out.println((char)buffer.get());
-                        /*×¢ÒâSocketChannel.write()·½·¨µÄµ÷ÓÃÊÇÔÚÒ»¸öwhileÑ­»·ÖĞµÄ¡£
-                         * Write()·½·¨ÎŞ·¨±£Ö¤ÄÜĞ´¶àÉÙ×Ö½Úµ½SocketChannel¡£ËùÒÔ£¬ÎÒÃÇÖØ¸´µ÷ÓÃwrite()Ö±µ½BufferÃ»ÓĞÒªĞ´µÄ×Ö½ÚÎªÖ¹¡£
-                        ·Ç×èÈûÄ£Ê½ÏÂ,read()·½·¨ÔÚÉĞÎ´¶ÁÈ¡µ½ÈÎºÎÊı¾İÊ±¿ÉÄÜ¾Í·µ»ØÁË¡£
-                        ËùÒÔĞèÒª¹Ø×¢ËüµÄint·µ»ØÖµ£¬Ëü»á¸æËßÄã¶ÁÈ¡ÁË¶àÉÙ×Ö½Ú¡£*/
+
+                        /*æ³¨æ„SocketChannel.write()æ–¹æ³•çš„è°ƒç”¨æ˜¯åœ¨ä¸€ä¸ªwhileå¾ªç¯ä¸­çš„ã€‚
+
+                         * Write()æ–¹æ³•æ— æ³•ä¿è¯èƒ½å†™å¤šå°‘å­—èŠ‚åˆ°SocketChannelã€‚æ‰€ä»¥ï¼Œæˆ‘ä»¬é‡å¤è°ƒç”¨write()ç›´åˆ°Bufferæ²¡æœ‰è¦å†™çš„å­—èŠ‚ä¸ºæ­¢ã€‚
+
+                        éé˜»å¡æ¨¡å¼ä¸‹,read()æ–¹æ³•åœ¨å°šæœªè¯»å–åˆ°ä»»ä½•æ•°æ®æ—¶å¯èƒ½å°±è¿”å›äº†ã€‚
+
+                        æ‰€ä»¥éœ€è¦å…³æ³¨å®ƒçš„intè¿”å›å€¼ï¼Œå®ƒä¼šå‘Šè¯‰ä½ è¯»å–äº†å¤šå°‘å­—èŠ‚ã€‚*/
+
                         socketChannel.write(buffer);
+
                     }
+
                 }
+
             }
+
         }
+
         catch (IOException | InterruptedException e)
+
         {
+
             e.printStackTrace();
+
         }
+
         finally{
+
             try{
+
                 if(socketChannel!=null){
-                	//¹Ø±Õ£º
+
+                	//å…³é—­ï¼š
+
                     socketChannel.close();
+
                 }
+
             }catch(IOException e){
+
                 e.printStackTrace();
+
             }
+
         }
+
     }
+
 }

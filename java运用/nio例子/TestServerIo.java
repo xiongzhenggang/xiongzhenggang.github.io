@@ -1,59 +1,112 @@
-/**
- * 
- */
+
 package com.xzg.cn.nio;
 
+
+
 import java.io.IOException;
+
 import java.io.InputStream;
+
 import java.net.ServerSocket;
+
 import java.net.Socket;
+
 import java.net.SocketAddress;
 
+
+
 /**
+
  * @author hasee
- * @TIME 2017Äê1ÔÂ3ÈÕ
- * ×¢ÒâÀàµÄÒş²ØºÍÊµÀı´´½¨
+
+ * @TIME 2017å¹´1æœˆ3æ—¥
+
+ * æ³¨æ„ç±»çš„éšè—å’Œå®ä¾‹åˆ›å»º
+
  */
+
 public class TestServerIo {
+
 	public static  void  main(String arg[]){
+
 		server();
+
 		}
+
 	public static void server(){
+
 	       ServerSocket serverSocket = null;
+
 	       InputStream in = null;
+
 	       try
+
 	       {
+
 	           serverSocket = new ServerSocket(80);
+
 	           int recvMsgSize = 0;
+
 	           byte[] recvBuf = new byte[1024];
+
 	           while(true){
+
 	               Socket clntSocket = serverSocket.accept();
-	               SocketAddress clientAddress = clntSocket.getRemoteSocketAddress();//»ñÈ¡¿Í»§¶Ë¶ÎµÄµØÖ·
+
+	               SocketAddress clientAddress = clntSocket.getRemoteSocketAddress();//è·å–å®¢æˆ·ç«¯æ®µçš„åœ°å€
+
 	               System.out.println("Handling client at "+clientAddress);
+
 	               in = clntSocket.getInputStream();
-	            /*   ·Ç×èÈûÄ£Ê½ÏÂ,read()·½·¨ÔÚÉĞÎ´¶ÁÈ¡µ½ÈÎºÎÊı¾İÊ±¿ÉÄÜ¾Í·µ»ØÁË¡£ËùÒÔĞèÒª¹Ø×¢ËüµÄint·µ»ØÖµ£¬Ëü»á¸æËßÄã¶ÁÈ¡ÁË¶àÉÙ×Ö½Ú¡£*/
+
+	            /*   éé˜»å¡æ¨¡å¼ä¸‹,read()æ–¹æ³•åœ¨å°šæœªè¯»å–åˆ°ä»»ä½•æ•°æ®æ—¶å¯èƒ½å°±è¿”å›äº†ã€‚æ‰€ä»¥éœ€è¦å…³æ³¨å®ƒçš„intè¿”å›å€¼ï¼Œå®ƒä¼šå‘Šè¯‰ä½ è¯»å–äº†å¤šå°‘å­—èŠ‚ã€‚*/
+
 	               while((recvMsgSize=in.read(recvBuf))!=-1){
+
 	                   byte[] temp = new byte[recvMsgSize];
+
 	                   System.arraycopy(recvBuf, 0, temp, 0, recvMsgSize);
+
 	                   System.out.println(new String(temp));
+
 	               }
+
 	           }
+
 	       }
+
 	       catch (IOException e)
+
 	       {
+
 	           e.printStackTrace();
+
 	       }
+
 	       finally{
+
 	           try{
+
 	               if(serverSocket!=null){
+
 	                   serverSocket.close();
+
 	               }
+
 	               if(in!=null){
+
 	                   in.close();
+
 	               }
+
 	           }catch(IOException e){
+
 	               e.printStackTrace();
+
 	           }
+
 	       }
+
 	   }
+
 }
