@@ -56,6 +56,8 @@
 
 3、![基于netty和zeekooper简单rpc](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/Rpc_Netty_zooKeeper.md).
 
+4、![ZookPeeper简单操作配置](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/zookeeper_简单操作.md).
+
 ``` markdown
 ### Maven
 ```
