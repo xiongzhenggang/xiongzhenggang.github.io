@@ -168,3 +168,70 @@ protected void doFilterInternal(HttpServletRequest request,
 ```
 * 具体客参考springmvc项目
 [springmvc基本功能使用实例](https://github.com/xiongzhenggang/spring-mvc-showcase) .
+
+## xss（跨站脚本）
+* 原理：
+跨站脚本（Cross site script，简称xss）是一种“HTML注入”，由于攻击的脚本多数时候是跨域的，所以称之为“跨域脚本”。
+
+我们常常听到“注入”（Injection），如SQL注入，那么到底“注入”是什么？注入本质上就是把输入的数据变成可执行的程序语句。SQL注入是如此，XSS也如此，只不过XSS一般注入的是恶意的脚本代码，这些脚本代码可以用来获取合法用户的数据，如Cookie信息。
+
+XSS从攻击原理上，分为三类：
+
+1. 反射型XSS
+
+    将用户输入“反射”回浏览器，即将用户的输入变成HTML传输回客户端。如：
+          Response.Write(“<script>alert(/xss/);</script>”)
+    就是一个典型的反射型XSS。
+
+2. 存储性XSS
+
+    存储性XSS本质上也是一种反射型XSS，但是它把攻击脚本放置在服务器端，一旦被注入，可被多人多次利用。如，发表博文，就可以引入存储性的XSS。
+
+3. DOM BASED XSS
+
+    如果用户的输入被用于修改原有HTML的DOM内容，就会引入这一类攻击。 
+
+    最典型的是输入的内容用于作为某个节点的innerHTML，如果不对输入作验证，则会被注入攻击代码。 
+
+    如下的一段脚本注入后，就会获取用户的Cookie
+```js    
+<script language=”javascript”>
+          var cockieInfo =window.cockie;
+          //send cockieInfo to luminji
+    </javascript>
+```
+* 应对策略:
+1. 在服务器段限制输入格式,输入类型，输入长度以及输入字符
+要注意避免使用一些有潜在危险的html标签，这些标签很容易嵌入一些恶意网页代码。如
+```html
+<img> <iframe><script><frameset><embed><object>< style>等。
+```
+注意，不要仅仅在客户端使用js代码加以验证。因为客户端的js脚本可以被绕过。
+2.  格式化输出。将输入的内容通过HttpUtility.HtmlEncode处理，这样就不能直接看出输出的内容。
+3. IE本身也有机制阻止跨站脚本
+等。
+### Spring MVC里面的预防：
+方法一：
+web.xml加上：
+```xml
+
+<context-param>
+   <param-name>defaultHtmlEscape</param-name>
+   <param-value>true</param-value>
+</context-param>
+```
+forms上加上
+```xml
+<spring:htmlEscape defaultHtmlEscape="true" />
+```
+方法二 是手动escape，例如用户可以输入：
+```xml
+<script>alert()</script> 或者输入<h2>abc<h2>，如果有异常，显然有xss漏洞。
+```
+首先添加一个jar包：commons-lang-2.5.jar ，然后在后台调用这些函数：StringEscapeUtils.escapeHtml(string); StringEscapeUtils.escapeJavaScript(string); StringEscapeUtils.escapeSql(string);
+前台js调用escape函数即可。
+方法三
+后台加Filter，对每个post请求的参数过滤一些关键字，替换成安全的，例如：< > ' " \ /  # &
+
+方法是实现一个自定义的HttpServletRequestWrapper，然后在Filter里面调用它，替换掉getParameter函数即可。
+
