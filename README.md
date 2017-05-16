@@ -65,7 +65,7 @@
 
 [3、java多线程](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程/使用callable多线程.md). 
 
-[4、socket问题一览](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/多线程/socket问题一览.md) .
+[4、socket问题一览](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/socket/socket问题一览.md) .
 
 ```markdown
 ### 第五章 java框架
