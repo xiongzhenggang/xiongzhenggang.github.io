@@ -69,3 +69,102 @@ protected  void configure(HttpSecurity httpSecurity) throws Exception {
 }
 }
 ```
+### 当然使用spring—security更方便，使用方法如下：
+* 本质上原理和上述一样。核心实现类在org.springframework.security.web.csrf.CsrfFilter的doFilterInternal方法：
+```java
+protected void doFilterInternal(HttpServletRequest request,
+			HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+// 先从tokenRepository中加载token  
+   CsrfToken csrfToken = tokenRepository.loadToken(request);  
+   final boolean missingToken = csrfToken == null;  
+   // 如果为空，则tokenRepository生成新的token，并保存到tokenRepository中  
+   if(missingToken) {  
+       CsrfToken generatedToken = tokenRepository.generateToken(request);  
+       // 默认的SaveOnAccessCsrfToken方法，记录tokenRepository，  
+       // tokenRepository，response，获取token时先将token同步保存到tokenRepository中  
+       csrfToken = new SaveOnAccessCsrfToken(tokenRepository, request, response, generatedToken);  
+   }  
+   // 将token写入request的attribute中，方便页面上使用  
+   request.setAttribute(CsrfToken.class.getName(), csrfToken);  
+   request.setAttribute(csrfToken.getParameterName(), csrfToken);  
+  
+   // 如果不需要csrf验证的请求，则直接下传请求（requireCsrfProtectionMatcher是默认的对象，对符合^(GET|HEAD|TRACE|OPTIONS)$的请求不验证）  
+   if(!requireCsrfProtectionMatcher.matches(request)) {  
+       filterChain.doFilter(request, response);  
+       return;  
+   }  
+  
+   // 从用户请求中获取token信息  
+   String actualToken = request.getHeader(csrfToken.getHeaderName());  
+   if(actualToken == null) {  
+       actualToken = request.getParameter(csrfToken.getParameterName());  
+   }  
+   // 验证，如果相同，则下传请求，如果不同，则抛出异常  
+   if(!csrfToken.getToken().equals(actualToken)) {  
+       if(logger.isDebugEnabled()) {  
+           logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));  
+       }  
+       if(missingToken) {  
+           accessDeniedHandler.handle(request, response, new MissingCsrfTokenException(actualToken));  
+       } else {  
+           accessDeniedHandler.handle(request, response, new InvalidCsrfTokenException(csrfToken, actualToken));  
+       }  
+       return;  
+   }  
+  
+   filterChain.doFilter(request, response); 
+}
+```
+* 使用步骤
+1. 在web.xml增加spring的代理过滤器
+```xml
+<filter>
+		<filter-name>csrfFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>csrfFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+```
+2. 在spring的配置文件servlet-context.xml中增加如下bean
+```xml
+<!--
+		CSRF protection. Here we only include the CsrfFilter instead of all of Spring Security.
+		Spring Security通过过滤器对csrf添加token
+	-->
+	
+	<bean id="csrfFilter" class="org.springframework.security.web.csrf.CsrfFilter">
+		<constructor-arg>
+		<!--HttpSessionCsrfTokenRepository是把token放到session中来存取. 默认headerName= "_csrf" headerName = "X-CSRF-TOKEN" -->
+			<bean class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
+		</constructor-arg>
+	</bean>
+	<!--
+		Provides automatic CSRF token inclusion when using Spring MVC Form tags or Thymeleaf. See
+		如果用的是spring mvc 的form标签，则配置此项时自动将crsf的token放入到一个hidden的input中，而不需要开发人员显式的写入form 
+	-->
+	<bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor"/>
+```
+ 
+<strong>至此上面的配置已经可以在使用mvc的form标签中自动使用而无需开发人员请自参与。但是如果是其他非form标签的请求的做法如下:</strong>
+首先获取token:
+```html
+    <meta name="_csrf" content="${_csrf.token}"/>  
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>  
+```
+在使用ajax发送的时候需要提前将token放到header中如下：
+```js
+// Include CSRF token as header in JQuery AJAX requests
+	// See http://docs.spring.io/spring-security/site/docs/3.2.x/reference/htmlsingle/#csrf-include-csrf-token-ajax
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	//ajaxSend() 方法在 AJAX 请求开始时执行函数。它是一个 Ajax 事件
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+```
+* 具体客参考springmvc项目
+[springmvc基本功能使用实例](https://github.com/xiongzhenggang/spring-mvc-showcase) .
