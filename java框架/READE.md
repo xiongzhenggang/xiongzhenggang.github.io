@@ -59,11 +59,11 @@
 4、[ZookPeeper简单操作配置](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/zookeeper_简单操作.md).
 
 ``` markdown
-### Maven
+# 构建工具
 ```
-1、[maven标签介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven/maven标签.xml).
+1、[maven标签介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/构建工具/maven标签.xml).
 
-2、[maven创建web项目完整教学docx文档下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/maven/maven学习.docx).
+2、[maven创建web项目完整教学docx文档下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/构建工具/maven学习.docx).
 
 ``` markdown
 ### redis
