@@ -7,4 +7,4 @@
 
 * 第一步首先搭建zk环境
 
- 具体参考![ZookPeeper简单使用步骤](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/zookeeper_简单操作.md)
+ 具体参考[ZookPeeper简单使用步骤](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/zookeeper_简单操作.md)
