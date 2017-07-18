@@ -26,8 +26,25 @@ Other mechanisms such as consul and etcd will continue to work as expected.
 and, when the it completes, remove the swarm container from the local machine.）
 * 执行后最后一行显示构建的token：259e8eec3ce0525e83d4f75878bf496d
 
+3. 运行swarm 的manager和agent
+启动swarm  Swarm manager 让后创建 代理加入到swarm集群中
+```sh
+docker run -d -p 3376:3376 -t -v ~/.docker/machine/machines/manager:/certs:ro swarm manage -H 0.0.0.0:3376
 
+  --tlsverify
+  --tlscacert=/certs/ca.pem
+  --tlscert=/certs/server.pem
+  --tlskey=/certs/server-key.pem
+  token://259e8eec3ce0525e83d4f75878bf496d
+  ```
+  命令解释：
+* -d (or --detach): 在后台运行 swarm 容器 并且打印 它的container ID 
+* -t:分配一个 pseudo-TTY终端
+* -p: 容器和主机端口映射 3376 
+* -v: 挂载本地卷(~/.docker/machine/machines/manager) 指定在容器的本地 (/certs) 使用只读方式 (ro)
 
+4. 运行agengt代理将他们加入到swarm集群中
+----版本问题
 
 
 
