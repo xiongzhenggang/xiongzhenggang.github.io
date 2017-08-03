@@ -14,9 +14,23 @@ configured the cluster to reschedule the instance on a new Node when needed
  ```
 kubectl get deployments
 ```
-为了避免直接将应用暴露出去，创建路由代理
+为了避免直接将应用暴露出去，创建路由代理，在master机器上执行
 ```sh
 kubectl proxy
 ```
+现在在另一台主机和集群创建完代理，在开一个master终端执行下面命令
+```sh
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME
+```
+解释：
+```
+We now have a connection between our host (the online terminal) and the Kubernetes cluster. The started proxy enables direct access to the API. The app runs inside a Pod (we'll cover the Pod concept in next module). Get the name of the Pod and store it in the POD_NAME environment variable:
+```
+查看：
+```
+curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/$POD_NAME/
+```
+* 这个url就是到pod的路由 可以看到一个名为kubernetes-bootcamp-390780338-9nrr4的pod
 
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
