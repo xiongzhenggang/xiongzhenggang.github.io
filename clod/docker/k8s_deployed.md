@@ -14,5 +14,9 @@ configured the cluster to reschedule the instance on a new Node when needed
  ```
 kubectl get deployments
 ```
+为了避免直接将应用暴露出去，创建路由代理
+```sh
+kubectl proxy
+```
 
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
