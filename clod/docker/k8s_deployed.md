@@ -1,4 +1,20 @@
 ## 接着上回部署k8s集群
+名词解释：
+```
+Deployment为Pod和Replica Set（下一代Replication Controller）提供声明式更新。
+
+你只需要在Deployment中描述你想要的目标状态是什么，Deployment controller就会帮你将Pod和Replica Set的实际状态改变到你的目标状态。你可以定义一个全新的Deployment，也可以创建一个新的替换旧的Deployment。
+
+一个典型的用例如下：
+
+使用Deployment来创建ReplicaSet。ReplicaSet在后台创建pod。检查启动状态，看它是成功还是失败。
+然后，通过更新Deployment的PodTemplateSpec字段来声明Pod的新状态。这会创建一个新的ReplicaSet，Deployment会按照控制的速率将pod从旧的ReplicaSet移动到新的ReplicaSet中。
+如果当前状态不稳定，回滚到之前的Deployment revision。每次回滚都会更新Deployment的revision。
+扩容Deployment以满足更高的负载。
+暂停Deployment来应用PodTemplateSpec的多个修复，然后恢复上线。
+根据Deployment 的状态判断上线是否hang住了。
+清除旧的不必要的ReplicaSet。
+```
 * 接下来创建部署
 1. 创建k8s部署平台 kubectl run 命令
 ```
