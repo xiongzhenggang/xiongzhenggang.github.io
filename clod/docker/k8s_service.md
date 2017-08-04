@@ -59,3 +59,4 @@ curl host01:$NODE_POR
 # 移除后确认应用是否还在
 kubectl exec -ti $POD_NAME curl localhost:8080
 ```
+接下来：在集群上运行多个应用实例
