@@ -66,6 +66,6 @@ root@kubernetes-bootcamp-390780338-9nrr4:/# curl localhost:8080
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-390780338-9nrr4 | v=1
 ```
 * 使用exit命令退出pod
-接下来
+接下来：https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/k8s_service.md
 </br>
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
