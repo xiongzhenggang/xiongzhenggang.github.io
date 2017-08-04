@@ -154,4 +154,4 @@ kubectl config use-context default-context
 ```sh
 kubectl get nodes
 ```
- 
+ 接下来https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/k8s_deployed.md
