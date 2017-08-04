@@ -25,3 +25,20 @@ API目前支持两种选择器：基于相等的和基于集合的。一个label
 3. 使用service暴露自己的应用在k8s集群上
 
 Kubernete Service 是一个定义了一组Pod的策略的抽象，我们也有时候叫做宏观服务。这些被服务标记的Pod都是（一般）通过label Selector决定的
+### 开始caozuo
+* 创建一个新的Service
+```sh
+# 查看
+kubectl get services
+# 创建
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+# 查看
+kubectl get services
+# 详细描述
+kubectl describe services/kubernetes-bootcamp
+# 创建一个环境变量
+export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT
+# 测试一下
+curl host01:$NODE_PORT
+```
