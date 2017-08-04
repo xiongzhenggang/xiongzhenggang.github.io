@@ -41,4 +41,21 @@ export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(i
 echo NODE_PORT=$NODE_PORT
 # 测试一下
 curl host01:$NODE_PORT
+# Deployment为Pod和Replica Set（下一代Replication Controller）提供声明式更新。
+kubectl describe deployment
+# 
+kubectl get pods -l run=kubernetes-bootcamp
+# 设置环境变量
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME
+# 设置标签
+kubectl label pod $POD_NAME app=v1
+# 详情
+kubectl describe pods $POD_NAME
+# 删除kubernetes-bootcamp service
+kubectl delete service -l run=kubernetes-bootcamp
+# 确认是否移除了相应的Service
+curl host01:$NODE_POR
+# 移除后确认应用是否还在
+kubectl exec -ti $POD_NAME curl localhost:8080
 ```
