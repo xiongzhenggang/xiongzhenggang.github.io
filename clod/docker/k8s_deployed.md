@@ -65,5 +65,5 @@ bin  boot  core  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  s
 root@kubernetes-bootcamp-390780338-9nrr4:/# curl localhost:8080
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-390780338-9nrr4 | v=1
 ```
-
+* 使用exit命令退出pod
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
