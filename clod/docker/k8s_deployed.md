@@ -33,4 +33,11 @@ curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/$POD_NAME/
 ```
 * 这个url就是到pod的路由 可以看到一个名为kubernetes-bootcamp-390780338-9nrr4的pod
 
+* 查看log
+```sh
+kubectl logs $POD_NAME #这里$POD_NAME为之前设置的环境变量
+```
+### 接下来可以在容器中执行命令
+
+
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
