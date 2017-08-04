@@ -38,6 +38,32 @@ curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/$POD_NAME/
 kubectl logs $POD_NAME #这里$POD_NAME为之前设置的环境变量
 ```
 ### 接下来可以在容器中执行命令
-
+exec 命令可以集群中执行相应操作
+例如：
+```
+[root@centos-master ~]# kubectl exec $POD_NAME env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=kubernetes-bootcamp-390780338-9nrr4
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_ADDR=10.254.0.1
+KUBERNETES_SERVICE_HOST=10.254.0.1
+KUBERNETES_SERVICE_PORT=443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT=tcp://10.254.0.1:443
+KUBERNETES_PORT_443_TCP=tcp://10.254.0.1:443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+NPM_CONFIG_LOGLEVEL=info
+NODE_VERSION=6.3.1
+HOME=/root
+```
+* 使用命令'kubectl exec -ti $POD_NAME bash'打开pod终端
+```
+[root@centos-master ~]# kubectl exec -ti $POD_NAME bash
+root@kubernetes-bootcamp-390780338-9nrr4:/#ls
+bin  boot  core  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  server.js	srv  sys  tmp  usr  var
+## 运行测试service.js如下：
+root@kubernetes-bootcamp-390780338-9nrr4:/# curl localhost:8080
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-390780338-9nrr4 | v=1
+```
 
 参考：https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/
