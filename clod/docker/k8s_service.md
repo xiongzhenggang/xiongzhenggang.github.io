@@ -59,4 +59,12 @@ curl host01:$NODE_POR
 # 移除后确认应用是否还在
 kubectl exec -ti $POD_NAME curl localhost:8080
 ```
+* 接下来可以执行扩容操作
+```sh
+ ## scale用于程序在负载加重或缩小时副本进行扩容或缩小，如前面创建的nginx有两个副本，可以轻松的使用scale命令对副本数进行扩展或缩小。
+ ## 扩展副本数到3：
+kubectl scale deployments/kubernetes-bootcamp --replicas=3
+ ## 重新缩减副本数到2：
+ kubectl scale deployments/kubernetes-bootcamp —replicas=2 
+```
 接下来：在集群上运行多个应用实例
