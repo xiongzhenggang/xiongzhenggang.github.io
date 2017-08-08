@@ -81,10 +81,6 @@ bin  boot  core  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  s
 root@kubernetes-bootcamp-390780338-9nrr4:/# curl localhost:8080
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-390780338-9nrr4 | v=1
 ```
-* 接下来可以执行扩容操作
-```sh
-kubectl scale deployments/kubernetes-bootcamp --replicas=2
-```
 * 使用exit命令退出pod
 接下来：https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/k8s_service.md
 </br>
