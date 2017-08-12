@@ -57,7 +57,7 @@ metadata:
   ```
   3. 创建一个pod使用配置文件存储在configmap中
   * 通过pod的yaml创建pod
-  ```yaml
+ ```yaml
   apiVersion: v1
 kind: Pod
 metadata:
@@ -95,7 +95,7 @@ kubectl create -f docs/user-guide/configmap/redis/redis-pod.yaml
 # 镜像拉取后查找/redis-master/redis.conf配置文件
 ```
 4. 查看是否配置生效
-```
+```sh
 kubectl exec -it redis redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
