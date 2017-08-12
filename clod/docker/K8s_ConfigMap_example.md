@@ -31,4 +31,6 @@ map[a:a
  b:b
 ]
 ```
+3. 开始redis的相关配置工作
+
 [k8s官网教程](https://kubernetes.io/docs/tutorials/configuration/configure-redis-using-configmap)
