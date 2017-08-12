@@ -67,4 +67,4 @@ kubectl scale deployments/kubernetes-bootcamp --replicas=3
  ## 重新缩减副本数到2：
  kubectl scale deployments/kubernetes-bootcamp —replicas=2 
 ```
-接下来：在集群上运行多个应用实例
+接下来：[发布应用、更新、回滚](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/k8s_updateApp.md)
