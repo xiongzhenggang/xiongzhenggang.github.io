@@ -86,3 +86,4 @@ Transfer-Encoding: chunked
 
 Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-390780338-wvvl8 | v=1
 ```
+[单机上使用Minikube搭建集群部署应用的操作](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube)
