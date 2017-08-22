@@ -60,3 +60,6 @@
 [22、中介模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Mediator.md) .
 
 [23、解释器模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/Interpreter.md) .
+
+* 额外添加的设计模式
+[24、对象池模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/object_pool.md) .
