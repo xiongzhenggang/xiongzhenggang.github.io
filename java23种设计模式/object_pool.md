@@ -44,7 +44,7 @@ public abstract class ObjectPool<T> {
 }
 ```
 * 定义池中存放的具体对象
-```
+```java
 public class Oliphaunt {
 	private static int counter = 1;
 	 private final int id;
@@ -71,7 +71,7 @@ public class Oliphaunt {
 }
 ```
 * 用户自己定义的对象池
-```
+```java
 public class OliphauntPool extends ObjectPool<Oliphaunt> {
 
 	  @Override
@@ -79,4 +79,52 @@ public class OliphauntPool extends ObjectPool<Oliphaunt> {
 	    return new Oliphaunt();
 	  }
 	}
+```
+* 测试使用结果
+```java
+public class App {
+	  /**
+	   * Program entry point
+	   * 
+	   * @param args command line args
+	   */
+	  public static void main(String[] args) {
+	    OliphauntPool pool = new OliphauntPool();
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt1 = pool.checkOut();
+	    System.out.println("Checked out:"+oliphaunt1);
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt2 = pool.checkOut();
+	    System.out.println("Checked out:"+oliphaunt2);
+	    Oliphaunt oliphaunt3 = pool.checkOut();
+	    System.out.println("Checked out:"+oliphaunt3);
+	    System.out.println(pool.toString());
+	    System.out.println("Checked out:"+oliphaunt1);
+	    pool.checkIn(oliphaunt1);
+	    System.out.println("Checked out:"+oliphaunt2);
+	    pool.checkIn(oliphaunt2);
+	    System.out.println(pool.toString());
+	    Oliphaunt oliphaunt4 = pool.checkOut();
+	    System.out.println("Checked out:"+oliphaunt4);
+	    Oliphaunt oliphaunt5 = pool.checkOut();
+	    System.out.println("Checked out:"+oliphaunt5);
+	    System.out.println(pool.toString());
+	  }
+}
+```
+* 结果如下：
+```
+Pool available=0 inUse=0
+Checked out:Oliphaunt id=1
+Pool available=0 inUse=1
+Checked out:Oliphaunt id=2
+Checked out:Oliphaunt id=3
+Pool available=0 inUse=3
+Checked out:Oliphaunt id=1
+Checked out:Oliphaunt id=2
+Pool available=2 inUse=1
+Checked out:Oliphaunt id=1
+Checked out:Oliphaunt id=2
+Pool available=0 inUse=3
+
 ```
