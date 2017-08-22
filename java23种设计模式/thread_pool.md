@@ -29,7 +29,7 @@ public abstract class Task {
 	  }
 	}
   ```
-  * 任务一
+* 任务一
 ```java
 public class PotatoPeelingTask extends Task {
 
@@ -45,8 +45,8 @@ public class PotatoPeelingTask extends Task {
 	  }
 	}
 ```
-  * 任务二
-  ```java
+* 任务二
+```java
   public class CoffeeMakingTask extends Task {
 
 	  private static final int TIME_PER_CUP = 100;
@@ -61,7 +61,7 @@ public class PotatoPeelingTask extends Task {
 	  }
 	}
   ```
-  * 执行任务的线程
+* 执行任务的线程
   ```java
   public class Worker implements Runnable {
 
@@ -92,7 +92,7 @@ public class PotatoPeelingTask extends Task {
 	  }
 	}
   ```
-  * 测试执行任务
+* 测试执行任务
   ```java
   public class App {
 	  
