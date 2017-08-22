@@ -63,3 +63,5 @@
 
 ###  额外添加的设计模式
 [24、对象池模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/object_pool.md) .
+
+[25、线程池使用模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/thread_pool.md).
