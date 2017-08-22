@@ -93,7 +93,7 @@ public class PotatoPeelingTask extends Task {
 	}
   ```
 * 测试执行任务
-  ```java
+```java
   public class App {
 	  
 	  /**
@@ -164,4 +164,5 @@ pool-1-thread-2: processing :CoffeeMakingTask id=13 timeMs=700
 pool-1-thread-1: processing :PotatoPeelingTask id=14 timeMs=800
 pool-1-thread-2: processing :PotatoPeelingTask id=15 timeMs=1000
 Program finished
+
 ```
