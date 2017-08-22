@@ -42,5 +42,41 @@ public abstract class ObjectPool<T> {
 	    return String.format("Pool available=%d inUse=%d", available.size(), inUse.size());
 	  }
 }
+```
+* 定义池中存放的具体对象
+```
+public class Oliphaunt {
+	private static int counter = 1;
+	 private final int id;
+	  /**
+	   * 构造方法，id区分创建的对象
+	   */
+	  public Oliphaunt() {
+	    id = counter++;
+	    try {
+	      Thread.sleep(1000);
+	    } catch (InterruptedException e) {
+	      e.printStackTrace();
+	    }
+	  }
 
+	  public int getId() {
+	    return id;
+	  }
+
+	  @Override
+	  public String toString() {
+	    return String.format("Oliphaunt id=%d", id);
+	  }
+}
+```
+* 用户自己定义的对象池
+```
+public class OliphauntPool extends ObjectPool<Oliphaunt> {
+
+	  @Override
+	  protected Oliphaunt create() {
+	    return new Oliphaunt();
+	  }
+	}
 ```
