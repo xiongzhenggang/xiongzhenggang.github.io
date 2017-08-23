@@ -1,6 +1,6 @@
 ## 容器的数据卷
 * 下图展示容器和卷的关系
-![容器主机和卷](/docker/image/types-of-mounts-volume.png)
+![容器主机和卷](/cloud/docker/image/types-of-mounts-volume.png)
 1. 创建卷
 * 有两种创建卷的标识 -v 或者 –mount 当然mount区别与v，就是他的参数更多
 创建 volume:
@@ -101,6 +101,37 @@ $ docker run -d \
   nginx:latest
   ### -v 略
 ```
+清除
+```sh
+$ docker container stop nginxtest
+$ docker container rm nginxtest
+$ docker volume rm nginx-vol
+```
 6. 使用volum驱动
-
-
+* 在使用docker volume create或者创建一个容器的时候创建volume的使用可以指定volume的驱动类型,比如vieux/sshfs
+* 下面需要一些准备工作
+```
+首先需要两台主机，并且是可以ssh连接互通的，
+在docker主机上安装vieux/sshfs插件
+###
+$ docker plugin install --grant-all-permissions vieux/sshfs
+```
+* 使用volume driver创建一个volume
+```sh
+## 如果两台主机共享相同的key配置可以省略密码，-o选项用于添加参数
+$ docker volume create --driver vieux/sshfs \
+  -o sshcmd=test@node2:/home/test \
+  -o password=testpassword \
+  sshvolume
+```
+* 也可以通过启动容器创建卷
+```sh
+## 本例指定ssh密码，如果两台主机共享key配置，可以省略。
+## 如果卷驱动要求通过选项，则需要使用--mount
+$ docker run -d \
+  --it \
+  --name sshfs-container \
+  --volume-driver vieux/sshfs \
+  --mount src=sshvolume,target=/app,volume-opt=sshcmd=test@node2:/home/test,volume-opt=password=testpassword \
+  nginx:latest
+```
