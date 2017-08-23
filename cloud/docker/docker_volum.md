@@ -135,3 +135,5 @@ $ docker run -d \
   --mount src=sshvolume,target=/app,volume-opt=sshcmd=test@node2:/home/test,volume-opt=password=testpassword \
   nginx:latest
 ```
+
+[官方文档](https://docs.docker.com/engine/admin/volumes/volumes/#create-a-volume-using-a-volume-driver)
