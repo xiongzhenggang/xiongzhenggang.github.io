@@ -2,7 +2,7 @@
 在windows下：
 <p>
 数据库安装在C:DOS命令窗口中输入 net start mysql（安装版）关闭：net stop mysql
-mysql非安装版：直接在bin中找到mysqld.exe双击或者 关闭：mysqladmin -uroot -p shutdown
+  非安装版：直接在bin中找到mysqld.exe双击或者 关闭：mysqladmin -uroot -p shutdown
 
 在D：cd D:\Tools\MySQL5.5.25\bin进入到mysql的bin目录下才可以输入 mysql -hlocalhost -uroot -p
 
