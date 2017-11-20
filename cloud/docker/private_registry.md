@@ -14,7 +14,7 @@ sudo yum install -y python-devel libevent-devel python-pip gcc xz-devel
 ```
 ```sh
 更新：pip install --upgrade pip
-pip install docker-registry
+安装仓库：pip install docker-registry
 ``
 ## 方法2
 ```sh
