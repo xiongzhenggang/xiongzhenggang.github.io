@@ -17,6 +17,11 @@ sudo yum install -y python-devel libevent-devel python-pip gcc xz-devel
 pip install --upgrade pip
 #安装仓库：
 pip install docker-registry
+# 遇到没有安装swig是安装swig
+yum install swig
+# 遇到没有安装openssl是安装
+yum install openssl-devel
+pip install m2crypto
 ```
 ## 方法2
 ```sh
