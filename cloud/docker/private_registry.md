@@ -1,14 +1,23 @@
 ## 使用私有镜像仓库
 1. 开启两个虚拟机。 （1）192.168.5.230作为registry 192.168.5.231作为docker运行节点之一
 2. 安装registry
-```sh
 ##方法1
+```sh
 sudo yum install -y python-devel libevent-devel python-pip gcc xz-devel
+``
 其中可能出现的问题pip命令无法运行
-可安装yum -y install python-pip  
+* 因为cnetos的源更新较慢，所以可以安装扩展源来解决，如下命令
+```sh
+安装扩展源：sudo yum -y install epel-release
+
+安装python-pip模块：sudo yum install python-pip
+```
+```sh
 更新：pip install --upgrade pip
 pip install docker-registry
+``
 ## 方法2
+```sh
 直接拉去
 docker run -d -v /home/xzg/registry:/var/lib/registry -p 5000:5000 --restart=always --name registry registry
 ##  /home/xzg/registry本机地址映射到docker容器中的/var/lib/registry
