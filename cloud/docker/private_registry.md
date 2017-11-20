@@ -4,9 +4,9 @@
 ##方法1
 ```sh
 sudo yum install -y python-devel libevent-devel python-pip gcc xz-devel
-``
+```
 其中可能出现的问题pip命令无法运行
-* 因为cnetos的源更新较慢，所以可以安装扩展源来解决，如下命令
+因为cnetos的源更新较慢，所以可以安装扩展源来解决，如下命令
 ```sh
 安装扩展源：sudo yum -y install epel-release
 
