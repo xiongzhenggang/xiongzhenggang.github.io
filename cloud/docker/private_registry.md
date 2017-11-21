@@ -22,6 +22,14 @@ yum install swig
 # 遇到没有安装openssl是安装
 yum install openssl-devel
 pip install m2crypto
+# 仍然出现问题手动安装解 M2Crypto
+# 升级swig
+wget -O swig-3.0.7.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz
+tar zxf swig-3.0.7.tar.gz
+cd swig-3.0.7
+./configure --prefix=/usr
+make && make install
+
 ```
 ## 方法2
 ```sh
