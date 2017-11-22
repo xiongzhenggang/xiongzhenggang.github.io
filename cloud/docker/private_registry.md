@@ -23,7 +23,7 @@ yum install swig
 yum install openssl-devel
 pip install m2crypto
 # 仍然出现问题手动安装解 M2Crypto，如下
-# 升级swig
+# 升级swig 因为swig-3.0.7有些bug回退到swig-3.0.4
 wget -O swig-3.0.4.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz
 tar zxf swig-3.0.4.tar.gz
 cd swig-3.0.4
