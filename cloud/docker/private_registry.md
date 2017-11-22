@@ -24,9 +24,9 @@ yum install openssl-devel
 pip install m2crypto
 # 仍然出现问题手动安装解 M2Crypto，如下
 # 升级swig
-wget -O swig-3.0.7.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz
-tar zxf swig-3.0.7.tar.gz
-cd swig-3.0.7
+wget -O swig-3.0.4.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz
+tar zxf swig-3.0.4.tar.gz
+cd swig-3.0.4
 ./configure --prefix=/usr
 make && make install
 # 手动安装 M2Crypto 0.22.3 （M2Crypto 0.22.3在centos7上安装会有一些问题需要借助脚本）
