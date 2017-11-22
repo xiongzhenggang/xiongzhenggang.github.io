@@ -22,15 +22,47 @@ yum install swig
 # 遇到没有安装openssl是安装
 yum install openssl-devel
 pip install m2crypto
-# 仍然出现问题手动安装解 M2Crypto
+# 仍然出现问题手动安装解 M2Crypto，如下
 # 升级swig
 wget -O swig-3.0.7.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.7.tar.gz
 tar zxf swig-3.0.7.tar.gz
 cd swig-3.0.7
 ./configure --prefix=/usr
 make && make install
-
+# 手动安装 M2Crypto 0.22.3 （M2Crypto 0.22.3在centos7上安装会有一些问题需要借助脚本）
+wget https://pypi.python.org/packages/source/M/M2Crypto/M2Crypto-0.22.3.tar.gz   #下载源码
+tar zxvf M2Crypto/M2Crypto-0.22.3.tar.gz                                                                              # 解压
+cd M2Crypto-0.22.3
 ```
+然后创建安装脚本，内容如下：
+```
+vim fedora_setup.sh
+#!/bin/sh
+# This script is meant to work around the differences on Fedora Core-based# distributions (Redhat, CentOS, ...) compared to other common Linux
+# distributions.
+#
+# Usage: ./fedora_setup.sh [setup.py options]
+#
+
+arch=`uname -m`
+for i in SWIG/_{ec,evp}.i; do
+  sed -i -e "s/opensslconf\./opensslconf-${arch}\./" "$i"
+done
+
+SWIG_FEATURES=-cpperraswarn python setup.py $*
+```
+然后为脚本添加执行权限，执行脚本，并安装M2Crypto 0.22.3
+```
+chmod +x fedora_setup.sh
+./fedora_setup.sh build
+python setup.py install
+```
+再次执行pip install docker-registry
+至此可以完成安装，需要注意的是私有仓库的配置文件
+config_sample.yml在以下路径 
+/usr/lib/python2.7/site-packages/config/config_sample.yml
+* 配置完成后启动服务，push镜像的时候又有如下错误：
+
 ## 方法2
 ```sh
 直接拉去
