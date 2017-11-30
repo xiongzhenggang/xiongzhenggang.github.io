@@ -46,8 +46,79 @@ docker run -d -p 3376:3376 -t -v ~/.docker/machine/machines/manager:/certs:ro sw
 4. 运行agengt代理将他们加入到swarm集群中
 ----版本问题
 
+## 新的版本使用swarm如下（适用于dokcer17.10）：
+* 新版本自带swarm，只需初始化即可
+```
+# 初始化swrm，并选取本机为master
+docker swarm init --advertise-addr $(hostname -i)
+```
+成功后显示如下信息：
+```
+Swarm initialized: current node (xf323rkhg80qy2pywkjkxqusp) is now a manager.
 
+To add a worker to this swarm, run the following command:
 
+    docker swarm join \
+    --token SWMTKN-1-089phhmfamjor1o1qj8s0l4wdhyvegphg6vtt9p3s8c35upltk-eecvhhtz1f2vpjhvc70v6v
+vzb \
+    10.0.50.3:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructi
+ons.
+```
+* 将其他主机加入swarm集群
+```
+ docker swarm join \
+    --token SWMTKN-1-089phhmfamjor1o1qj8s0l4wdhyvegphg6vtt9p3s8c35upltk-eecvhhtz1f2vpjhvc70v6v
+vzb \
+    10.0.50.3:2377
+ ```
+ * 查当前的集群node
+ ```
+ docker node ls
+ ```
+ * 创建一个 overlay网络
+ ```
+ docker network create -d overlay net1
+ ```
+ * 接下来使用一个mysql service
+```
+ docker service create \
+           --replicas 1 \
+           --name wordpressdb \
+           --network net1 \
+           --env MYSQL_ROOT_PASSWORD=mysql123 \
+           --env MYSQL_DATABASE=wordpress \
+          mysql:latest
+```
+* 查看一下当前的service
+```
+docker service ls 
+## 查看sevice状态
+docker service ps wordpressdb
+```
+* 创建 WordPress服务
+ 
+ ```
+ docker service create \
+           --replicas 4 \
+           --name wordpressapp \
+           --network net1 \
+           --env WORDPRESS_DB_HOST=wordpressdb \
+           --env WORDPRESS_DB_PASSWORD=mysql123 \
+          wordpress:latest
+ ```
+ 上面执行的“wordpressapp” 服务创建加入了，之前创建的网络 “net1”
+ *  Service Discovery 部分
+ ```
+ docker exec -it e71 ping wordpressapp
+ 
+ docker exec -it e71 ping wordpressapp.3.scia4v5i1znj378gujluad2ku
+ ```
+ 
+ 
+ 
+ 
 
 
 
