@@ -86,17 +86,28 @@ docker tag docker.io/swarm 192.168.5.230:5000/swarm
 * 推送
 ```sh
 docker push 192.168.5.230:5000/swarm
+##出现如下错误，表示没有配置https，可以特殊处理档期IP
+## The push refers to a repository [192.168.1.104:5000/busybox]
+## Get https://192.168.1.104:5000/v2/: http: server gave HTTP response to HTTPS client
+## 创建文件：vi /etc/docker/daemon.json   添加：{ "insecure-registries":["192.168.1.104:5000"]}
+```
+
+* 远程拉取
+```sh
+docker pull 192.168.5.230:5000/swarm
 ```
 * 删除本地镜像
 ```sh
 docker rmi 192.168.5.230/swarm
 ```
-* 远程拉取
-```sh
-docker pull 192.168.5.230:5000/swarm
-```
-查看
+查看档期拉取得镜像
 ```sh
 docker images
+```
+查看私有仓库镜像api
+```
+[root@localhost ~]# curl http://ip:5000/v2/_catalog
+{"repositories":["busybox"]}
+
 ```
 
