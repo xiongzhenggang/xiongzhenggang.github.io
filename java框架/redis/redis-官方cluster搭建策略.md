@@ -10,3 +10,11 @@ root     32113     1  0 00:36 ?        00:00:00 src/redis-server 0.0.0.0:7003 [c
 root     32125     1  0 00:36 ?        00:00:00 src/redis-server 0.0.0.0:7004 [cluster]
 root     32137     1  0 00:36 ?        00:00:00 src/redis-server 0.0.0.0:7005 [cluster]
 ```
+1. [官网](https://redis.io/download)下载redis，可参考官网安装方式
+```
+$ wget http://download.redis.io/releases/redis-4.0.6.tar.gz
+$ tar xzf redis-4.0.6.tar.gz
+$ cd redis-4.0.6
+$ make
+```
+
