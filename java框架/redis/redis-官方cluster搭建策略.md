@@ -45,7 +45,9 @@ appendonly yes
 ```
 4. 配置完成后依次启动
 
-```
+```sh
 src/redis-server redis-cluster/7000/redis.conf
-
+#或者后台启动
+nohup src/redis-server redis-cluster/7000/redis.conf > redis-cluster/7000/redis-server.out 2>&1 &
 ```
+5. 创建集群
