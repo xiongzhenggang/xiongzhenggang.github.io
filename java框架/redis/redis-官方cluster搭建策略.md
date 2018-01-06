@@ -17,4 +17,35 @@ $ tar xzf redis-4.0.6.tar.gz
 $ cd redis-4.0.6
 $ make
 ```
+2. 安装完成后，配置集群策略
+```
+# 集群配置文件
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7000
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7001
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7002
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7003
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7004
+[root@localhost redis-4.0.6]# mkdir redis-cluster/7005
+# 操被基础配置文件到创建的目录下
+cp redis.conf redis-cluster/7000
+touch redis-server.out  redis-cluster/7000
+#其他相同，并在每个文件下创建一个redis-server.out用于查看启动日志
+```
+3. 配置集群中的每一个redis service
+```
+[root@localhost redis-4.0.6]# vi redis-cluster/7000/redis.conf
+--------- 主要修改如下内容，其他redis service配置参照------------
+port 7000 #在不同的服务器和nodes-xx中，端口也不同
+cluster-enabled yes
+bind 0.0.0.0
+# daemonize yes #redis后台运行
+cluster-config-file nodes-7000.conf
+cluster-node-timeout 5000
+appendonly yes
+```
+4. 配置完成后依次启动
 
+```
+src/redis-server redis-cluster/7000/redis.conf
+
+```
