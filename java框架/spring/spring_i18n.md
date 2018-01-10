@@ -132,4 +132,23 @@ public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
         return new Result(true, msg, "返回数据");
 	}
 ```
-5.总结下，以上几种
+5.总结下，以上几种其实都是基于
+```xml
+<bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <!-- 国际化信息所在的文件名 -->                     
+    <property name="basename" value="messages/messages" />   
+    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
+    <property name="useCodeAsDefaultMessage" value="true" />         
+  </bean>
+```
+这里无非是读取messages目录下以messages开头的几种配置文件，借助MessageSource根据local读取相应的配置文件中的信息
+
+```xml
+Locale locale = new Locale("en", "US"); 
+        String message = msr.getMessage("msg",
+                new Object [] {"userDao"}, "Required", locale);
+        System.out.println(message);
+
+```
+所以其实控制local即选择相应的处理方式，而以上几种均是通过拦截器注入不同的local来实现，这里我们可以自己实现符合自己业务场景的实现方式
