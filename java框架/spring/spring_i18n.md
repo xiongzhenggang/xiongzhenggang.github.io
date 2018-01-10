@@ -93,4 +93,26 @@
         return new Result(true, msg, "返回数据");
 	}
 	```
+4. 基于url国际化方式
+配置如下,移除上述localeResolver的bean改为下面的：
+```xml
+<bean id="localeResolver" class="xx.xxx.xxx.UrlAcceptHeaderLocaleResolver"/>
+```
+UrlAcceptHeaderLocaleResolver为自定义实现，具体代码如下：
+```java
+public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
 
+    private Locale urlLocal;
+
+    public Locale resolveLocale(HttpServletRequest request) {
+        
+    	return urlLocal!=null?urlLocal:request.getLocale();
+    } 
+
+    public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+    	urlLocal = locale;
+    }
+  
+}
+```
+* 之后就可以在请求的URL后附上 locale=zh_CN 或 locale=en_US 如 http://xxxxxxxx?locale=zh_CN 来改变语言了
