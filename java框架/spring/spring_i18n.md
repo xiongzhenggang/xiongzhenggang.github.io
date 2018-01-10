@@ -22,6 +22,7 @@
         return new Result(true, msg, "返回数据");
 	}
 ```
+通过设置浏览器请求测试：http://localhost:8080/xxx/nation/test
 * 注意： 上述基于浏览器设置，根据浏览器的本地来确定message
 2. 基于session的国际化
 在项目中的源文件夹resources/messages中添加messages.properties、messages_zh_CN.properties、messages_en_US.properties三个文件，其中messages.properties、messages_zh_CN.properties里面添加msg="\u662F\u4E0D\u662F"为中文，messages_en_US.properties里面的为msg="ok"。
@@ -55,4 +56,22 @@
         return new Result(true, msg, "返回数据");
 	}
 ```
+通过设置浏览器请求测试：http://localhost:8080/xxx/nation/test?langType=zh 或者 http://localhost:8080/xxx/nation/test?langType=en
+3. 基于cookie，与session类似
+移除session国际化的设置
+```xml
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" /> 
+```
+添加cookie设置
+```xml
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	 <!-- 设置cookieName名称，可以根据名称通过js来修改设置，也可以像上面演示的那样修改设置，默认的名称为 类名+LOCALE（即：org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE-->
+    <property name="cookieName" value="lang"/>
+    <!-- 设置最大有效时间，如果是-1，则不存储，浏览器关闭后即失效，默认为Integer.MAX_INT-->
+    <property name="cookieMaxAge" value="100000" />
+    <!-- 设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见-->
+    <property name="cookiePath" value="/" />
+</bean>
+```
+
 
