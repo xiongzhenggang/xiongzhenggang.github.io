@@ -132,3 +132,4 @@ public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
         return new Result(true, msg, "返回数据");
 	}
 ```
+5.总结下，以上几种
