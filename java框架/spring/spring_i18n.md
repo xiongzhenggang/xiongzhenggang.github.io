@@ -95,10 +95,14 @@
 	```
 4. 基于url国际化方式
 配置如下,移除上述localeResolver的bean改为下面的：
+
 ```xml
 <bean id="localeResolver" class="xx.xxx.xxx.UrlAcceptHeaderLocaleResolver"/>
+
 ```
+
 UrlAcceptHeaderLocaleResolver为自定义实现，具体代码如下：
+
 ```java
 public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
 
