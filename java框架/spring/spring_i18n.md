@@ -144,7 +144,7 @@ public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
 ```
 这里无非是读取messages目录下以messages开头的几种配置文件，借助MessageSource根据local读取相应的配置文件中的信息
 
-```xml
+```java
 Locale locale = new Locale("en", "US"); 
         String message = msr.getMessage("msg",
                 new Object [] {"userDao"}, "Required", locale);
