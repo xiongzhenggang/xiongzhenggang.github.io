@@ -73,5 +73,24 @@
     <property name="cookiePath" value="/" />
 </bean>
 ```
+使用Controller测试
+```java
+@RequestMapping(value="/test",method={RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Result test(HttpServletRequest request, HttpServletResponse response,@RequestParam(value="langType", defaultValue="zh") String langType){
 
+        if(langType.equals("zh")){
+            Locale locale = new Locale("zh", "CN"); 
+            (new CookieLocaleResolver()).setLocale (request, response, locale);
+        }else if(langType.equals("en")){
+            Locale locale = new Locale("en", "US"); 
+            (new CookieLocaleResolver()).setLocale (request, response, locale);
+        }else 
+            (new CookieLocaleResolver()).setLocale (request, response, LocaleContextHolder.getLocale());
+      //从后台代码获取国际化信息
+        RequestContext requestContext = new RequestContext(request);
+        String msg = requestContext.getMessage("msg");
+        return new Result(true, msg, "返回数据");
+	}
+	```
 
