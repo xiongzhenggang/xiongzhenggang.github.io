@@ -92,7 +92,7 @@
         String msg = requestContext.getMessage("msg");
         return new Result(true, msg, "返回数据");
 	}
-	```
+```
 4. 基于url国际化方式
 配置如下,移除上述localeResolver的bean改为下面的：
 
