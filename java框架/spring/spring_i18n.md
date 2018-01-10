@@ -120,3 +120,15 @@ public class UrlAcceptHeaderLocaleResolver extends AcceptHeaderLocaleResolver {
 }
 ```
 * 之后就可以在请求的URL后附上 locale=zh_CN 或 locale=en_US 如 http://xxxxxxxx?locale=zh_CN 来改变语言了
+使用Controller测试，
+```java
+@RequestMapping(value="/test",method={RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Result test(HttpServletRequest request){
+ public Result test(HttpServletRequest request,Model model){           
+            //从后台代码获取国际化信息
+        RequestContext requestContext = new RequestContext(request);
+        String msg = requestContext.getMessage("msg");
+        return new Result(true, msg, "返回数据");
+	}
+```
