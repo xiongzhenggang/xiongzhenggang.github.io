@@ -49,5 +49,6 @@ service-servlet.xml：
 ```
 这样springmvc子容器就只加载controller，而不会加载其他bean了
 ---
-
+* 当然除此之外，如果主容器配置未加载到相应的bean当然会导致使用的时候找不到相应的bean
+* 在springmvc子容器中加载controller，如果还加载了其他的service等服务也可能导致事务失效，因为事务的配置一般在主容器中进行，子容器加载的服务bean就会失效
   
