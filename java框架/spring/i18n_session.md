@@ -22,4 +22,66 @@
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
   ```
+  3. spring中的session bean依赖于接口实现，下面是其接口和对应的实现类
+  ```java
+  public interface I18nSessionService {
+	
+	public void setRc(RequestContext rc);
+	
+	public String getMessage(String key); 
+	
+	public String getMessage(String key,Object info);
+	
+	public String getMessage(String key,Object...objects);
+}
+  ```
+  * 下面注解主要为设置作用域为session，注入messageSource组件，并提供RequestContext用于切换语言配置国际化
+  ```java
+  @Service
+@Scope(value = WebApplicationContext.SCOPE_SESSION,
+        proxyMode = ScopedProxyMode.INTERFACES)
+public class I18nSessionServiceImpl implements I18nSessionService {
+
+	@Autowired  
+	@Qualifier("messageSource")  
+	private MessageSource resources;
+	//前端设置切换语言是设置
+	RequestContext rc ;
+	
+	public RequestContext getRc() {
+		return rc;
+	}
+
+	@Override
+	public void setRc(RequestContext rc) {
+		this.rc = rc;
+	}
+
+	@Override
+	public String getMessage(String key) {
+		// TODO Auto-generated method stub
+		if(null != getRc()){
+			return getRc().getMessage(key);
+		}
+		return resources.getMessage(key, null, null);
+	}
+
+	@Override
+	public String getMessage(String key, Object info) {
+		// TODO Auto-generated method stub
+		if(null != getRc()){
+			return getRc().getMessage(key, new Object[]{info});
+		}
+		return resources.getMessage(key, new Object[]{info}, null);
+	}
+
+	@Override
+	public String getMessage(String key, Object... objects) {
+				if(null != getRc()){
+					return getRc().getMessage(key, objects);
+				}
+				return resources.getMessage(key, objects, null);
+	}
+}
+  ```
   
