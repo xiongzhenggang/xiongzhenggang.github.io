@@ -84,4 +84,38 @@ public class I18nSessionServiceImpl implements I18nSessionService {
 	}
 }
   ```
-  
+  4. 切换语言的Controller用于切换
+  ```java
+  @Resource
+ 	//注入I18nSessionService后在session作用域中更改local
+	private I18nSessionService i18nSessionService;
+
+	@RequestMapping(value = "/turnLanguage", method = { RequestMethod.POST, RequestMethod.GET })
+	public void TurnLanguage(HttpServletRequest request,
+			@RequestParam(value = "langType", defaultValue = "zh") String langType) {
+		if (langType.equals("zh")) {
+			Locale locale = new Locale("zh", "CN");
+			request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
+		} else if (langType.equals("en")) {
+			Locale locale = new Locale("en", "US");
+			request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
+		} else {
+			request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
+					LocaleContextHolder.getLocale());
+		}
+		RequestContext requestContext = new RequestContext(request);
+		i18nSessionService.setRc(requestContext);
+	}
+```
+ 5. 使用方式
+ ```java
+ @Resource
+	private I18nSessionService is;
+	@RequestMapping(value="/nation",method={RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Result test(HttpServletRequest request){//, @RequestParam(value="langType", defaultValue="zh") String langType
+		String msg = is.getMessage("argument.required","userDao");
+        return new Result(true, msg, "返回数据");
+	}
+```
+* 总结：以上就是基本实现过程，已经可以用了
