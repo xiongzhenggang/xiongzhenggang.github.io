@@ -84,7 +84,7 @@ public class I18nSessionServiceImpl implements I18nSessionService {
 	}
 }
   ```
-  4. 切换语言的Controller用于切换
+  4. 切换语言的controller用于切换
   ```java
   @Resource
  	//注入I18nSessionService后在session作用域中更改local
