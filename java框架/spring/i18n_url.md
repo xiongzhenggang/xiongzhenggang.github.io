@@ -175,4 +175,4 @@ public @ResponseBody
 		return new Result(true, is.getMessage("argument.required"), "");
 }
 ```
-* 总结：以上就是基本实现过程，已经可以用了
+* 总结：以上就是基本实现过程。在微服务中由于服务发现提供的服务模块会自适应调整所以不适合使用session 的方式处理国际化。这里使用request和url将粒度划分的更细，处理也更灵活
