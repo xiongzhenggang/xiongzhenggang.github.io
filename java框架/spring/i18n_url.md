@@ -9,6 +9,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<!-- 国际化信息所在的文件名 -->
 		<property name="basename" value="messages/messages" />
+		<property name="defaultEncoding" value="UTF-8"/> 
 		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称 -->
 		<property name="useCodeAsDefaultMessage" value="true" />
 	</bean>
