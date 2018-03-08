@@ -1,8 +1,8 @@
 ## java框架和中间件
 
-``` markdown
+
 ### Spring
-```
+
 1、[spring原理概括](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring/spring_ioc原理一语道之.md).
 
 2、[springmvc工程中静态资源无法导入解决办法](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring/springMVC工程静态资源无法导入解决办法.md).
@@ -22,6 +22,8 @@
 9、[spring IOC启动的源码分析](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring/分析spring_ioc工作原理.md).
 
 10、[spring security相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/spring/spring_securty.md)
+
+11、[spring国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/spring_i18n.md)
 
 ``` markdown
 ### Activiti
