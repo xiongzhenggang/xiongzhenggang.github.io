@@ -39,9 +39,9 @@
 6 、[activit 6 中使用自定义角色方案实现](https://github.com/xiongzhenggang/SpringBootLearn/blob/master/springboot-shiro/README.md)
 
 7、[activiti工作流doc教程下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/activiti完整教程.doc).
-``` markdown
+
 ### jsp内置对象
-```
+
 1、[session监听单点登录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/session监听单点登录.md).
 
 2、[同一个浏览器多个用户登录session相同问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/同一个浏览器多个用户登录session相同问题.md).
@@ -49,9 +49,9 @@
 3、[本地cookie自动登录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/jsp内置对象/本地cookie自动登录.md).
 
 
-``` markdown
+
 ### 负载均衡
-```
+
 1、[nginx作为和tomcat反向代理配置](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/nginx配置反向代理.md).
 
 2、[基于普通socket和反射的rpc](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/Rpc_Simple.md).
@@ -60,32 +60,32 @@
 
 4、[ZookPeeper简单操作配置](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/负载均衡/zookeeper_简单操作.md).
 
-``` markdown
+
 # 构建工具
-```
+
 1、[maven标签介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/构建工具/maven标签.xml).
 
 2、[maven创建web项目完整教学docx文档下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/构建工具/maven学习.docx).
 
-``` markdown
+
 ### redis
-```
+
 1、[redis相关介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/redis相关.md).
 
 2、[redis过期策略介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/redis过期策略.md).
 
 3、[aop策略实现redis缓存](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/ssm框架aop策略实现redis缓存.md).
 
-``` markdown
+
 ###   持久层
-```
+
 1、[Hibernate持久化主键生成策略等问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/Hibernate学习.md).
 
 2、[mybits相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/mybitis相关问题.md).
 
 3、[订单号生成策略](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/持久层/订单号生成策略.md).
 
-``` markdown
+
 ###  编码
-```
+
 1、[网络数据传递编码问题01](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/编码/网络数据传递编码问题.md).
