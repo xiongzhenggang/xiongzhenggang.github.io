@@ -25,9 +25,8 @@
 
 11、[spring国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/spring_i18n.md)
 
-``` markdown
 ### Activiti
-```
+
 1、[BPM2.0详细介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/BPMN_2.0.md).
 
 2、[BPMN2.0任务介绍](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/BPMN2_next.md).
@@ -36,9 +35,10 @@
 
 4、[BPMN2.0 doc版本下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/BPMN_2.0.doc).
 
-5、[activiti中解决自定义用户角色几种方案](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/Activiti解决API不友好的设计方案.md).
+5、[activiti 5中解决自定义用户角色几种方案](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/Activiti解决API不友好的设计方案.md).
+6 、[activit 6 中使用自定义角色方案实现](https://github.com/xiongzhenggang/SpringBootLearn/blob/master/springboot-shiro/README.md)
 
-6、[activiti工作流doc教程下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/activiti完整教程.doc).
+7、[activiti工作流doc教程下载](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/activiti/activiti完整教程.doc).
 ``` markdown
 ### jsp内置对象
 ```
