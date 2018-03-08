@@ -152,3 +152,7 @@ Locale locale = new Locale("en", "US");
 
 ```
 所以其实控制local即选择相应的处理方式，而以上几种均是通过拦截器注入不同的local来实现，这里我们可以自己实现符合自己业务场景的实现方式
+
+### 最后基于session和url的国际化转到如下
+[基于session国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/i18n_session.md)
+[基于url国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/i18n_url.md)
