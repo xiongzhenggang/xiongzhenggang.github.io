@@ -155,4 +155,5 @@ Locale locale = new Locale("en", "US");
 
 ### 最后基于session和url的国际化转到如下
 [基于session国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/i18n_session.md)
+
 [基于url国际化](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java%E6%A1%86%E6%9E%B6/spring/i18n_url.md)
