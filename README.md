@@ -96,6 +96,17 @@
 
 [3、k8初夜](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/k8s.md).
 
+[4、k8s使用configmap](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/K8s_ConfigMap_example.md)
+
+[5、k8s部署deployment](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/K8s_ConfigMap_example.md)
+
+[6、k8s使用service](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/k8s_service.md)
+
+[7、devlopment来更新应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/k8s_updateApp.md)
+
+[8、k8sPV使用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/k8s_pv.md)
+
+[9、docker私有镜像仓库](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/private_registry.md)
 ```markdown
 # 其他资源url
 ```
