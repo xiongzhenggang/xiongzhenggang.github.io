@@ -107,6 +107,8 @@
 [8、k8sPV使用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/k8s_pv.md)
 
 [9、docker私有镜像仓库](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/private_registry.md)
+
+[10、Jenkins](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/jenkins.md)
 ```markdown
 # 其他资源url
 ```
