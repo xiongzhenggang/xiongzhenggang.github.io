@@ -109,6 +109,9 @@
 [9、docker私有镜像仓库](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/private_registry.md)
 
 [10、Jenkins](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/jenkins.md)
+
+[11、k8s命令行指令](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/kubenctl_command.md)
+
 ```markdown
 # 其他资源url
 ```
