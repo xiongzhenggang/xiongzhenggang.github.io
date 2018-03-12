@@ -1,6 +1,6 @@
 # 说明:作为博客的学习记录
 ```markdown
-# 第一章 mysql基础操作
+第一章 mysql基础操作
 ```
 [1、mysql的登录操作权限相关问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql登录编码权限赋予.md) . 
 
@@ -18,7 +18,7 @@
 
 
 ```markdown
-# 第二章 jvm相关
+第二章 jvm相关
 ```
 [1、编译openjdk](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/编译openjdk.md) . 
 
@@ -27,7 +27,7 @@
 [3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu操作记录.md). 
 
 ```markdown
-# 第三章 数据结构和算法
+第三章 数据结构和算法
 ```
 [1.1、冒泡排序](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/部分排序/BubbleSort.md).
 
@@ -57,7 +57,7 @@
 
 
 ```markdown
-# 第四章 java运用
+第四章 java运用
 ```
 [1、nio相关实例](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/nio例子/NIO典型的Socket模型.md) .
 
@@ -68,18 +68,18 @@
 [4、socket问题一览](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java运用/socket/socket问题一览.md) .
 
 ```markdown
-### 第五章 java框架
+第五章 java框架
 ```
 
 [java框架目录](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/READE.md).
 
 ```markdown
-# 第六章 java23中设计模式
+第六章 java23中设计模式
 ```
 [java 23中设计模式](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java23种设计模式/design.md) .
 
 ```markdown
-# 第七章 web相关
+第七章 web相关
 ```
 [1、web中js应用](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/js部分.md). 
 
@@ -88,7 +88,7 @@
 [1、使用jQuery ztree](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/web相关/使用ztee后台数据展示.md) .
 
 ```markdown
-# 第八章 云平台和容器虚拟化
+第八章 云平台和容器虚拟化
 ```
 [1、安装使用docker容器构建springboot项目](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/clod/docker/docker容器运行springboot.md).
 
@@ -113,7 +113,7 @@
 [11、k8s命令行指令](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/kubenctl_command.md)
 
 ```markdown
-# 其他资源url
+其他资源url
 ```
 * netty和nio相关文章
 
