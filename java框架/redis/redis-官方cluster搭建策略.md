@@ -145,3 +145,4 @@ OK
 "bar"
 192.168.1.105:7002> exit
 ```
+[官方教程](https://redis.io/topics/cluster-tutorial)
