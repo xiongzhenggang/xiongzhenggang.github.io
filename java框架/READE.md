@@ -76,6 +76,8 @@
 
 3、[aop策略实现redis缓存](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/ssm框架aop策略实现redis缓存.md).
 
+4、[redis集群搭建](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/java框架/redis/redis-官方cluster搭建策略.md)
+
 
 ###   持久层
 
