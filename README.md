@@ -15,7 +15,7 @@
 [6、mysql主从同步步骤](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/mysql主从同步.md) .
 
 [7、关于设计表时应该注意的问题](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据库相关/关于设计表时应该注意的问题.md) .
-
+[8、 mysql锁以及引擎相关](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3/mysql%E9%94%81.md)
 
 ```markdown
 第二章 jvm相关
@@ -49,8 +49,6 @@
 
 [2.1、红黑树](
 https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/RBTree.md) .
-
-
 
 [3、Heap堆](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/数据结构/Heap堆.md) .
 
