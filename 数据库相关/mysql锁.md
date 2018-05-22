@@ -53,9 +53,9 @@ MySQL的表级锁有两种模式：表共享读锁（Table Read Lock）和表独
     <th> session_2</th> 
   </tr> 
   <tr> 
-    <th> 获得表film_text的WRITE锁定
-  mysql> lock table film_text write;
-  Query OK, 0 rows affected (0.00 sec)   </th> 
+    <th> 获得表film_text的WRITE锁定<br/>
+    mysql> lock table film_text write;
+     Query OK, 0 rows affected (0.00 sec) </th> 
     <th>                 </th>
   </tr> 
 </table>
