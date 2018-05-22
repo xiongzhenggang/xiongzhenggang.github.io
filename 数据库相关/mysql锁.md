@@ -59,7 +59,22 @@ Query OK, 0 rows affected (0.00 sec)
 才会继续                                              
 
 ```
+### 如何加表锁
 
+```
+MyISAM在执行查询语句（SELECT）前，会自动给涉及的所有表加读锁，在执行更新操作（UPDATE、DELETE、INSERT等）前，会自动给涉及的表加写锁，
+这个过程并不需要用户干预，因此，用户一般不需要直接用LOCK TABLE命令给MyISAM表显式加锁。在示例中，显式加锁基本上是为了方便而已，并非必须如此。
+给MyISAM表显示加锁，一般是为了在一定程度模拟事务操作，实现对某一时间点多个表的一致性读取。例如，有一个订单表orders，其中记录有各订单的总金额total，
+同时还有一个订单明细表order_detail，其中记录有各订单每一产品的金额小计 subtotal，假设我们需要检查这两个表的金额合计是否相符，可能就需要执行如下两条SQL：
+
+    Select sum(total) from orders;  
+    Select sum(subtotal) from order_detail;  
+    这时，如果不先给两个表加锁，就可能产生错误的结果，因为第一条语句执行过程中，order_detail表可能已经发生了改变。因此，正确的方法应该是：  
+    Lock tables orders read local, order_detail read local;  
+    Select sum(total) from orders;  
+    Select sum(subtotal) from order_detail;  
+    Unlock tables;  
+```
 
  
 
