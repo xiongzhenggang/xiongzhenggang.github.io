@@ -57,31 +57,20 @@ MySQL的表级锁有两种模式：表共享读锁（Table Read Lock）和表独
     mysql> lock table film_text write;</br>
      Query OK, 0 rows affected (0.00 sec) </th> 
     <th>                 </th>
-    <th>当前session对锁定表的查询、更新、插入操作都可以执行：</br>
-    mysql> select film_id,title from film_text where film_id = 1001;
-+---------+-------------+
-| film_id | title       |
-+---------+-------------+
-| 1001    | Update Test |
-+---------+-------------+
-1 row in set (0.00 sec)</br>
-mysql> insert into film_text (film_id,title) values(1003,'Test');</br>
-Query OK, 1 row affected (0.00 sec)</br>
-mysql> update film_text set title = 'Test' where film_id = 1001;</br>
-Query OK, 1 row affected (0.00 sec)</br>
-Rows matched: 1  Changed: 1  Warnings: 0</th>
-<th>其他session对锁定表的查询被阻塞，需要等待锁被释放：</br>
-mysql> select film_id,title from film_text where film_id = 1001;
-等待</th>
+
   </tr> 
 </table>
 
 |session_1     | session_2    |
 | --------      | -----:      |
-| 获得表film_text的WRITE锁定
+| 
+```获得表film_text的WRITE锁定
   mysql> lock table film_text write;
-  Query OK, 0 rows affected (0.00 sec)      |                   |
-|当前session对锁定表的查询、更新、插入操作都可以执行：
+  Query OK, 0 rows affected (0.00 sec)     
+``` 
+|                   |
+|
+```当前session对锁定表的查询、更新、插入操作都可以执行：
 mysql> select film_id,title from film_text where film_id = 1001;
 +---------+-------------+
 | film_id | title       |
@@ -94,7 +83,10 @@ Query OK, 1 row affected (0.00 sec)
 mysql> update film_text set title = 'Test' where film_id = 1001;
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0  
-| 其他session对锁定表的查询被阻塞，需要等待锁被释放：mysql> select film_id,title from film_text where film_id = 1001;等待  |
+```
+| 
+```其他session对锁定表的查询被阻塞，需要等待锁被释放：mysql> select film_id,title from film_text where film_id = 1001;等待```
+|
 
  
 
