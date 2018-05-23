@@ -1,5 +1,4 @@
-
-https://blog.csdn.net/tanga842428/article/details/52748531
+## mysql 锁详解
 
 1. 相对于其他的数据库而言，MySQL的锁机制比较简单，最显著的特点就是不同的存储引擎支持不同的锁机制。根据不同的存储引擎，MySQL中锁的特性可以大致归纳如下
 
@@ -165,3 +164,161 @@ InnoDB与MyISAM的最大不同有两点：一是支持事务（TRANSACTION）；
 可重复读（Repeatable read）                   事务级 	                          否 	   否 	       是
 可序列化（Serializable）                     最高级别，事务级 	                  否 	   否 	       否
   ```
+最后要说明的是：各具体数据库并不一定完全实现了上述4个隔离级别，例如，Oracle只提供Read committed和Serializable两个标准隔离级别，另外还提供自己定义的Read only隔离级别；SQL Server除支持上述ISO/ANSI SQL92定义的4个隔离级别外，还支持一个叫做“快照”的隔离级别，但严格来说它是一个用MVCC实现的Serializable隔离级别。MySQL 支持全部4个隔离级别，但在具体实现时，有一些特点，比如在一些隔离级别下是采用MVCC一致性读，但某些情况下又不是，这些内容在后面的章节中将会做进一步介绍。
+
+获取InnoDB行锁争用情况    
+可以通过检查InnoDB_row_lock状态变量来分析系统上的行锁的争夺情况：
+```
+    mysql> show status like 'innodb_row_lock%';  
+    +-------------------------------+-------+  
+    | Variable_name                 | Value |  
+    +-------------------------------+-------+  
+    | InnoDB_row_lock_current_waits | 0     |  
+    | InnoDB_row_lock_time          | 0     |  
+    | InnoDB_row_lock_time_avg      | 0     |  
+    | InnoDB_row_lock_time_max      | 0     |  
+    | InnoDB_row_lock_waits         | 0     |  
+    +-------------------------------+-------+  
+    5 rows in set (0.01 sec)  
+    如果发现锁争用比较严重，如InnoDB_row_lock_waits和InnoDB_row_lock_time_avg的值比较高，还可以通过设置InnoDB Monitors来进一步观察发生锁冲突的表、数据行等，并分析锁争用的原因。
+```
+```
+具体方法如下：  
+mysql> CREATE TABLE innodb_monitor(a INT) ENGINE=INNODB;  
+Query OK, 0 rows affected (0.14 sec)  
+然后就可以用下面的语句来进行查看：  
+mysql> Show innodb status\G;  
+*************************** 1. row ***************************  
+  Type: InnoDB  
+  Name:  
+Status:  
+…  
+…  
+------------  
+TRANSACTIONS  
+------------  
+Trx id counter 0 117472192  
+Purge done for trx's n:o < 0 117472190 undo n:o < 0 0  
+History list length 17  
+Total number of lock structs in row lock hash table 0  
+LIST OF TRANSACTIONS FOR EACH SESSION:  
+---TRANSACTION 0 117472185, not started, process no 11052, OS thread id 1158191456  
+MySQL thread id 200610, query id 291197 localhost root  
+---TRANSACTION 0 117472183, not started, process no 11052, OS thread id 1158723936  
+MySQL thread id 199285, query id 291199 localhost root  
+Show innodb status  
+…  
+监视器可以通过发出下列语句来停止查看：  
+mysql> DROP TABLE innodb_monitor;  
+Query OK, 0 rows affected (0.05 sec)
+```
+设置监视器后，在SHOW INNODB STATUS的显示内容中，会有详细的当前锁等待的信息，包括表名、锁类型、锁定记录的情况等，便于进行进一步的分析和问题的确定。打开监视器以后，默认情况下每15秒会向日志中记录监控的内容，如果长时间打开会导致.err文件变得非常的巨大，所以用户在确认问题原因之后，要记得删除监控表以关闭监视器，或者通过使用“--console”选项来启动服务器以关闭写日志文件。
+```
+InnoDB的行锁模式及加锁方法
+InnoDB实现了以下两种类型的行锁。
+
+    共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。
+    排他锁（X)：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。
+
+    意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。
+    意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。
+```
+上述锁模式的兼容情况具体如下表所示。
+```
+                                         InnoDB行锁模式兼容性列表
+              请求锁模式是否兼容当前锁模式                X    	IX   	S   	IS
+                              X 	                     冲突 	冲突 	冲突 	冲突
+                              IX                       冲突 	兼容 	冲突 	兼容
+                               S 	                     冲突 	冲突 	兼容 	兼容
+                              IS 	                     冲突 	兼容 	兼容 	兼容
+                                         
+```
+如果一个事务请求的锁模式与当前的锁兼容，InnoDB就将请求的锁授予该事务；反之，如果两者不兼容，该事务就要等待锁释放。
+意向锁是InnoDB自动加的，不需用户干预。对于UPDATE、DELETE和INSERT语句，InnoDB会自动给涉及数据集加排他锁（X)；对于普通SELECT语句，InnoDB不会加任何锁；事务可以通过以下语句显示给记录集加共享锁或排他锁。
+
+*共享锁（S）：SELECT * FROM table_name WHERE ... LOCK IN SHARE MODE。
+*排他锁（X)：SELECT * FROM table_name WHERE ... FOR UPDATE。
+
+用SELECT ... IN SHARE MODE获得共享锁，主要用在需要数据依存关系时来确认某行记录是否存在，并确保没有人对这个记录进行UPDATE或者DELETE操作。但是如果当前事务也需要对该记录进行更新操作，则很有可能造成死锁，对于锁定行记录后需要进行更新操作的应用，应该使用SELECT... FOR UPDATE方式获得排他锁。
+在如下表所示的例子中，使用了SELECT ... IN SHARE MODE加锁后再更新记录，看看会出现什么情况，其中actor表的actor_id字段为主键。
+```
+
+```
+
+InnoDB行锁实现方式
+*InnoDB行锁是通过给索引上的索引项加锁来实现的，这一点MySQL与Oracle不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁！
+在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发性能。下面通过一些实际例子来加以说明。
+
+（1）在不通过索引条件查询的时候，InnoDB确实使用的是表锁，而不是行锁。
+在如下所示的例子中，开始tab_no_index表没有索引：
+```
+    mysql> create table tab_no_index(id int,name varchar(10)) engine=innodb;  
+    Query OK, 0 rows affected (0.15 sec)  
+    mysql> insert into tab_no_index values(1,'1'),(2,'2'),(3,'3'),(4,'4');  
+    Query OK, 4 rows affected (0.00 sec)  
+    Records: 4  Duplicates: 0  Warnings: 0  
+ ```
+ InnoDB存储引擎的表在不使用索引时使用表锁例子
+ ```
+ ------------------------------------------------------------------------------------------------------
+ session_1 	                                                      session_2
+ mysql> set autocommit=0;                                         mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)                              Query OK, 0 rows affected (0.00 sec)
+mysql> select * from tab_no_index where id = 1 ;                  mysql> select * from tab_no_index where id = 2 ;
++------+------+                                                   +------+------+
+| id   | name |                                                   | id   | name |
++------+------+                                                   +------+------+
+| 1    | 1    |                                                   | 2    | 2    |
++------+------+                                                   +------+------+
+1 row in set (0.00 sec)                                           1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------
+mysql> select * from tab_no_index where id = 1 for update;
++------+------+
+| id   | name |
++------+------+
+| 1    | 1    |
++------+------+
+1 row in set (0.00 sec)
+---------------------------------------------------------------------------------------------
+                                                            mysql> select * from tab_no_index where id = 2 for update;
+                                                            等待..
+                                                            
+ 
+ ```
+在如上表所示的例子中，看起来session_1只给一行加了排他锁，但session_2在请求其他行的排他锁时，却出现了锁等待！原因就是在没有索引的情况下，InnoDB只能使用表锁。当我们给其增加一个索引后，InnoDB就只锁定了符合条件的行，如下表所示。
+创建tab_with_index表，id字段有普通索引：
+```
+mysql> create table tab_with_index(id int,name varchar(10)) engine=innodb;  
+Query OK, 0 rows affected (0.15 sec)  
+mysql> alter table tab_with_index add index id(id);  
+Query OK, 4 rows affected (0.24 sec)  
+Records: 4  Duplicates: 0  Warnings: 0 
+```
+   InnoDB存储引擎的表在使用索引时使用行锁例子 略。。。
+
+（2）由于MySQL的行锁是针对索引加的锁，不是针对记录加的锁，所以虽然是访问不同行的记录，但是如果是使用相同的索引键，是会出现锁冲突的。应用设计的时候要注意这一点。
+在如下表所示的例子中，表tab_with_index的id字段有索引，name字段没有索引：
+```
+    mysql> alter table tab_with_index drop index name;  
+    Query OK, 4 rows affected (0.22 sec)  
+    Records: 4  Duplicates: 0  Warnings: 0  
+    mysql> insert into tab_with_index  values(1,'4');  
+    Query OK, 1 row affected (0.00 sec)  
+    mysql> select * from tab_with_index where id = 1;  
+    +------+------+  
+    | id   | name |  
+    +------+------+  
+    | 1    | 1    |  
+    | 1    | 4    |  
+    +------+------+  
+    2 rows in set (0.00 sec)  
+```
+（3）当表有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行，另外，不论是使用主键索引、唯一索引或普通索引，InnoDB都会使用行锁来对数据加锁。
+在如下表所示的例子中，表tab_with_index的id字段有主键索引，name字段有普通索引：
+```
+    mysql> alter table tab_with_index add index name(name);  
+    Query OK, 5 rows affected (0.23 sec)  
+    Records: 5  Duplicates: 0  Warnings: 0  
+```
+
+https://blog.csdn.net/tanga842428/article/details/52748531
