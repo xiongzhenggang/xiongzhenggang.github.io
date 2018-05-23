@@ -52,11 +52,32 @@ MyISAM存储引擎的写阻塞读例子
    获得表film_text的WRITE锁定                                    |
 mysql> lock table film_text write;                              |
 Query OK, 0 rows affected (0.00 sec)                            |
----------------------------------------------------------------------------------------------------------------
-会导致其session阻塞知道session1 释放锁后释放锁：
-mysql> unlock tables;
-Query OK, 0 rows affected (0.00 sec)
-才会继续                                              
+--------------------------------------------------------------------------------------------------------------------------
+当前session可以查询该表记录                                         |其他session也可以查询该表的记录
+                                                                   |mysql> select film_id,title from film_text where film_id = 1001;
+                                                                   |1 row in set (0.00 sec)
+mysql> select film_id,title from film_text where film_id = 1001;   |
++---------+------------------+                                     |
+| film_id | title            |                                     |
++---------+------------------+                                     |
+| 1001    | ACADEMY DINOSAUR |                                     |
++---------+------------------+
+1 row in set (0.00 sec)
+------------------------------------------------------------------------------------------------------------------------------
+当前session不能查询没有锁定的表                                     |其他session更新锁定表会等待获得锁：
+mysql> select film_id,title from film where film_id = 1001;       |mysql> update film_text set title = 'Test' where fil
+ERROR 1100 (HY000): Table 'film' was not locked with LOCK TABLES  |m_id = 1001;          等待
+----------------------------------------------------------------------------------------------------------------------------
+当前session中插入或者更新锁定的表都会提示错误：                                           |
+mysql> insert into film_text (film_id,title) values(1002,'Test');                      |
+ERROR 1099 (HY000): Table 'film_text' was locked with a READ lock and can't be updated  |
+mysql> update film_text set title = 'Test' where film_id = 1001;                        |
+ERROR 1099 (HY000): Table 'film_text' was locked with a READ lock and can't be updated  |
+-----------------------------------------------------------------------------------------------------------------------------
+会导致其session阻塞知道session1 释放锁后释放锁：    |Session2获得锁，更新操作完成：
+mysql> unlock tables;                             |mysql> update film_text set title = 'Test' where film_id = 1001;
+Query OK, 0 rows affected (0.00 sec)              |Query OK, 1 row affected (1 min 0.71 sec)
+才会继续                                          |  Rows matched: 1  Changed: 1  Warnings: 0
 
 ```
 ### 如何加表锁
