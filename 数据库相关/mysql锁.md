@@ -326,10 +326,10 @@ Records: 4  Duplicates: 0  Warnings: 0
     <th>session_2</th>
   </tr>
   <tr>
-    <td>'mysql> set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)'</td>
-    <td>'mysql> set autocommit=0;
-Query OK, 0 rows affected (0.00 sec)'</td>
+    <td>mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)</td>
+    <td>mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)</td>
   </tr>
 </table>
 https://blog.csdn.net/tanga842428/article/details/52748531
