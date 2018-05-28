@@ -331,5 +331,18 @@ Query OK, 0 rows affected (0.00 sec)</td>
     <td>mysql> set autocommit=0;
 Query OK, 0 rows affected (0.00 sec)</td>
   </tr>
+   <tr>
+    <td>mysql>mysql> select * from tab_with_index where id = 1 for update;
++------+------+
+| id   | name |
++------+------+
+| 1    | 1    |
+| 1    | 4    |
++------+------+
+2 rows in set (0.00 sec)</td>
+    <td> </td>
+  </tr>
 </table>
+
+
 https://blog.csdn.net/tanga842428/article/details/52748531
