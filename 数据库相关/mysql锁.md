@@ -343,7 +343,21 @@ Query OK, 0 rows affected (0.00 sec)</td>
 </br>2 rows in set (0.00 sec)
      </td>
     <td> </td>
-     
+   <td></td>
+   <td>
+  Session_2使用name的索引访问记录，因为记录没有被索引，所以可以获得锁：
+mysql> select * from tab_with_index where name = '2' for update;
+</br>+------+------+
+</br>| id   | name |
+</br>+------+------+
+</br>| 2    | 2    |
+</br>+------+------+
+1 row in set (0.00 sec)
+  </td>
+ <td></td>
+ <td> 	
+由于访问的记录已经被session_1锁定，所以等待获得锁。：
+mysql> select * from tab_with_index where name = '4' for update;</td>
   </tr>
 </table>
 
