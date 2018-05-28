@@ -343,6 +343,8 @@ Query OK, 0 rows affected (0.00 sec)</td>
 </br>2 rows in set (0.00 sec)
      </td>
     <td> </td>
+ </tr>
+ <tr>
    <td></td>
    <td>
   Session_2使用name的索引访问记录，因为记录没有被索引，所以可以获得锁：
@@ -354,12 +356,52 @@ mysql> select * from tab_with_index where name = '2' for update;
 </br>+------+------+
 1 row in set (0.00 sec)
   </td>
+  </tr>
+  <tr>
  <td></td>
  <td> 	
 由于访问的记录已经被session_1锁定，所以等待获得锁。：
 mysql> select * from tab_with_index where name = '4' for update;</td>
   </tr>
+  </tr>
 </table>
 
+（4）即便在条件中使用了索引字段，但是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价来决定的，如果MySQL认为全表扫描效率更高，比如对一些很小的表，它就不会使用索引，这种情况下InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突时，别忘了检查SQL的执行计划，以确认是否真正使用了索引。
+
+
+在下面的例子中，检索值的数据类型与索引字段不同，虽然MySQL能够进行数据类型转换，但却不会使用索引，从而导致InnoDB使用表锁。通过用explain检查两条SQL的执行计划，我们可以清楚地看到了这一点。
+例子中tab_with_index表的name字段有索引，但是name字段是varchar类型的，如果where条件中不是和varchar类型进行比较，则会对name进行类型转换，而执行的全表扫描。
+
+```
+mysql> alter table tab_no_index add index name(name);  
+Query OK, 4 rows affected (8.06 sec)  
+Records: 4  Duplicates: 0  Warnings: 0  
+mysql> explain select * from tab_with_index where name = 1 \G  
+*************************** 1. row ***************************  
+           id: 1  
+  select_type: SIMPLE  
+        table: tab_with_index  
+         type: ALL  
+possible_keys: name  
+          key: NULL  
+      key_len: NULL  
+          ref: NULL  
+         rows: 4  
+        Extra: Using where  
+1 row in set (0.00 sec)  
+mysql> explain select * from tab_with_index where name = '1' \G  
+*************************** 1. row ***************************  
+           id: 1  
+  select_type: SIMPLE  
+        table: tab_with_index  
+         type: ref  
+possible_keys: name  
+          key: name  
+      key_len: 23  
+          ref: const  
+         rows: 1  
+        Extra: Using where  
+1 row in set (0.00 sec) 
+```
 
 https://blog.csdn.net/tanga842428/article/details/52748531
