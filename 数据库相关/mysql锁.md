@@ -320,5 +320,16 @@ Records: 4  Duplicates: 0  Warnings: 0
     Query OK, 5 rows affected (0.23 sec)  
     Records: 5  Duplicates: 0  Warnings: 0  
 ```
-
+<table border="1">
+  <tr>
+    <th>session_1</th>
+    <th>session_2</th>
+  </tr>
+  <tr>
+    <td>'mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)'</td>
+    <td>'mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)'</td>
+  </tr>
+</table>
 https://blog.csdn.net/tanga842428/article/details/52748531
