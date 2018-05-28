@@ -332,15 +332,18 @@ Query OK, 0 rows affected (0.00 sec)</td>
 Query OK, 0 rows affected (0.00 sec)</td>
   </tr>
    <tr>
-    <td>mysql>mysql> select * from tab_with_index where id = 1 for update;
-+------+------+
-| id   | name |
-+------+------+
-| 1    | 1    |
-| 1    | 4    |
-+------+------+
-2 rows in set (0.00 sec)</td>
+    <td>
+ mysql> select * from tab_with_index where id = 1 for update;
+</br>+------+------+
+</br>| id   | name |
+</br>+------+------+
+</br>| 1    | 1    |
+</br>| 1    | 4    |
+</br>+------+------+
+</br>2 rows in set (0.00 sec)
+     </td>
     <td> </td>
+     
   </tr>
 </table>
 
