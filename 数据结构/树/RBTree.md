@@ -4,9 +4,6 @@ package com.xzg.cn.test;
 
 /**
  * Java 语言: 红黑树
- *
- * @author skywang
- * @date 2013/11/07
  */
 
 public class RBTree<T extends Comparable<T>> {
