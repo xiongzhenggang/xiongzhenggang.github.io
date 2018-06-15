@@ -131,7 +131,7 @@ Configuration为容器启动时通过配置文件mybitis-config文件创建。�
 public class MapperMethod {
 //SqlCommand为封装mybitis执行接口中的方法名称以及执行类型（执行type通过xml映射文件比如<select><update>等）
   private final SqlCommand command;
-  //MethodSignature收集方法中的参数，核心方法为convertArgsToSqlCommandParam
+//MethodSignature收集方法中的参数，核心方法为convertArgsToSqlCommandParam（如果执行接口方法参数为null返回null，如果一个返回object，否则返回map）
   private final MethodSignature method;
   public MapperMethod(Class<?> mapperInterface, Method method, Configuration config) {
     this.command = new SqlCommand(config, mapperInterface, method);
@@ -149,6 +149,7 @@ public class MapperMethod {
     } else if (SqlCommandType.DELETE == command.getType()) {
       Object param = method.convertArgsToSqlCommandParam(args);
       result = rowCountResult(sqlSession.delete(command.getName(), param));
+      //查询操作的返回结果类型比较多，所以处理结果方法不同，稍后分析
     } else if (SqlCommandType.SELECT == command.getType()) {
       if (method.returnsVoid() && method.hasResultHandler()) {
         executeWithResultHandler(sqlSession, args);
@@ -174,80 +175,131 @@ public class MapperMethod {
   }
   
 //....其他方法
-
-
-
-//两个内部类
-public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
-      String statementName = mapperInterface.getName() + "." + method.getName();
-      MappedStatement ms = null;
-      if (configuration.hasStatement(statementName)) {
-        ms = configuration.getMappedStatement(statementName);
-      } else if (!mapperInterface.equals(method.getDeclaringClass())) { // issue #35
-        String parentStatementName = method.getDeclaringClass().getName() + "." + method.getName();
-        if (configuration.hasStatement(parentStatementName)) {
-          ms = configuration.getMappedStatement(parentStatementName);
-        }
-      }
-      if (ms == null) {
-        if(method.getAnnotation(Flush.class) != null){
-          name = null;
-          type = SqlCommandType.FLUSH;
-        } else {
-          throw new BindingException("Invalid bound statement (not found): " + statementName);
-        }
-      } else {
-        name = ms.getId();
-        type = ms.getSqlCommandType();
-        if (type == SqlCommandType.UNKNOWN) {
-          throw new BindingException("Unknown execution method for: " + name);
-        }
-      }
-    }
-  }
-  //MethodSignature内部类
-public static class MethodSignature {
-//
-    public Object convertArgsToSqlCommandParam(Object[] args) {
-      final int paramCount = params.size();
-      if (args == null || paramCount == 0) {
-        return null;
-      } else if (!hasNamedParameters && paramCount == 1) {
-        return args[params.keySet().iterator().next().intValue()];
-      } else {
-        final Map<String, Object> param = new ParamMap<Object>();
-        int i = 0;
-        for (Map.Entry<Integer, String> entry : params.entrySet()) {
-          param.put(entry.getValue(), args[entry.getKey().intValue()]);
-          // issue #71, add param names as param1, param2...but ensure backward compatibility
-          final String genericParamName = "param" + String.valueOf(i + 1);
-          if (!param.containsKey(genericParamName)) {
-            param.put(genericParamName, args[entry.getKey()]);
-          }
-          i++;
-        }
-        return param;
-      }
-    }
     
     //省略其他
-
-  }
-
 }
 ```
-
-可以发现，mybitis一个mapper接口之所以和xml中的id对应就是在mybitis动态代理时，基于mapper接口实现代理类，代理类的具体实现了xml的sql的执行
-上面Proxy.newProxyInstance 来实现切入sql的。他的实现在MapperProxy的 invoke 方法里面。看下invoke方法：
+7. 我们以上面的INSERT类型分析，其他除select返回类型比较多使用的处理封装返回结果的方法也比较多，其他删除，更新和新增相同
 ```java
-public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    if (Object.class.equals(method.getDeclaringClass())) {
-      return method.invoke(this, args);
+if (SqlCommandType.INSERT == command.getType()) {
+      Object param = method.convertArgsToSqlCommandParam(args);
+      result = rowCountResult(sqlSession.insert(command.getName(), param));
+    } 
+```
+8. 通过上面的源码可最终执行还是在SQLSession中执行，可查看mybitis默认实现类defaultSqlSession
+```java
+public class DefaultSqlSession implements SqlSession {
+
+  private Configuration configuration;
+  private Executor executor;
+
+  private boolean autoCommit;
+  private boolean dirty;
+
+  public DefaultSqlSession(Configuration configuration, Executor executor, boolean autoCommit) {
+    this.configuration = configuration;
+    this.executor = executor;
+    this.dirty = false;
+    this.autoCommit = autoCommit;
+  }
+
+  public DefaultSqlSession(Configuration configuration, Executor executor) {
+    this(configuration, executor, false);
+  }
+ 
+  @Override
+  public int insert(String statement) {
+    return insert(statement, null);
+  }
+
+  @Override
+  public int insert(String statement, Object parameter) {
+    return update(statement, parameter);
+  }
+
+  @Override
+  public int update(String statement) {
+    return update(statement, null);
+  }
+
+  @Override
+  public int update(String statement, Object parameter) {
+    try {
+      dirty = true;
+      MappedStatement ms = configuration.getMappedStatement(statement);
+      return executor.update(ms, wrapCollection(parameter));
+    } catch (Exception e) {
+      throw ExceptionFactory.wrapException("Error updating database.  Cause: " + e, e);
+    } finally {
+      ErrorContext.instance().reset();
     }
-    final MapperMethod mapperMethod = cachedMapperMethod(method);
-    return mapperMethod.execute(sqlSession, args);
+  }
+//省略其他方法
+}
+```
+9. insert方法最终调用的update方法中的executor.update(ms, wrapCollection(parameter))，接下来我们分析mybitis的执行器executor，下面为其实现类
+```java
+
+
+  private static final Log log = LogFactory.getLog(BaseExecutor.class);
+
+  protected Transaction transaction;
+  protected Executor wrapper;
+
+  protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
+  protected PerpetualCache localCache;
+  protected PerpetualCache localOutputParameterCache;
+  protected Configuration configuration;
+
+  protected int queryStack = 0;
+  private boolean closed;
+
+  protected BaseExecutor(Configuration configuration, Transaction transaction) {
+    this.transaction = transaction;
+    this.deferredLoads = new ConcurrentLinkedQueue<DeferredLoad>();
+    this.localCache = new PerpetualCache("LocalCache");
+    this.localOutputParameterCache = new PerpetualCache("LocalOutputParameterCache");
+    this.closed = false;
+    this.configuration = configuration;
+    this.wrapper = this;
+  }
+  @Override
+  public int update(MappedStatement ms, Object parameter) throws SQLException {
+    ErrorContext.instance().resource(ms.getResource()).activity("executing an update").object(ms.getId());
+    if (closed) {
+      throw new ExecutorException("Executor was closed.");
+    }
+    clearLocalCache();
+    return doUpdate(ms, parameter);
+  }
+  
+  //省略其他方法
   }
 ```
-代理执行sql的基本顺序是
 
-MapperMethod.execute() --> DefaultSqlSession.selectOne  -->  BaseExecutor.query  -->  SimpleExecutor.doQuery  --> SimpleStatementHandler.query -->  DefaultResultSetHandler.handleResultSets(Statement stmt)  
+10. 上面是通过执行结果后返回，xml文件的标签<insert>获取执行convertArgsToSqlCommandParam取得接口方法的参数，然后rowCountResult方法封装好对应的
+sql后执行，封装放回结果。下面是rowCountResult的实现如下：
+	
+```java
+ private Object rowCountResult(int rowCount) {
+    final Object result;
+    if (method.returnsVoid()) {
+      result = null;
+    } else if (Integer.class.equals(method.getReturnType()) || Integer.TYPE.equals(method.getReturnType())) {
+      result = Integer.valueOf(rowCount);
+    } else if (Long.class.equals(method.getReturnType()) || Long.TYPE.equals(method.getReturnType())) {
+      result = Long.valueOf(rowCount);
+    } else if (Boolean.class.equals(method.getReturnType()) || Boolean.TYPE.equals(method.getReturnType())) {
+      result = Boolean.valueOf(rowCount > 0);
+    } else {
+      throw new BindingException("Mapper method '" + command.getName() + "' has an unsupported return type: " + method.getReturnType());
+    }
+    return result;
+  }
+  //其他略
+```
+
+总结：代理执行查询sql的基本顺序是
+MapperMethod.execute() --> DefaultSqlSession.selectOne  -->  BaseExecutor.query  -->  SimpleExecutor.doQuery  --> SimpleStatementHandler.query -->  DefaultResultSetHandler.handleResultSets(Statement stmt) 
+
+
