@@ -206,22 +206,11 @@ public class DefaultSqlSession implements SqlSession {
   public DefaultSqlSession(Configuration configuration, Executor executor) {
     this(configuration, executor, false);
   }
- 
-  @Override
-  public int insert(String statement) {
-    return insert(statement, null);
-  }
 
   @Override
   public int insert(String statement, Object parameter) {
     return update(statement, parameter);
   }
-
-  @Override
-  public int update(String statement) {
-    return update(statement, null);
-  }
-
   @Override
   public int update(String statement, Object parameter) {
     try {
@@ -237,48 +226,79 @@ public class DefaultSqlSession implements SqlSession {
 //省略其他方法
 }
 ```
-9. insert方法最终调用的update方法中的executor.update(ms, wrapCollection(parameter))，接下来我们分析mybitis的执行器executor，下面为其实现类
+9. insert方法最终调用的update方法中的executor.update(ms, wrapCollection(parameter))，接下来我们分析mybitis的执行器executor，下面为其实现类BaseExecutor
 ```java
-
-
-  private static final Log log = LogFactory.getLog(BaseExecutor.class);
-
-  protected Transaction transaction;
-  protected Executor wrapper;
-
-  protected ConcurrentLinkedQueue<DeferredLoad> deferredLoads;
-  protected PerpetualCache localCache;
-  protected PerpetualCache localOutputParameterCache;
-  protected Configuration configuration;
-
-  protected int queryStack = 0;
-  private boolean closed;
-
-  protected BaseExecutor(Configuration configuration, Transaction transaction) {
-    this.transaction = transaction;
-    this.deferredLoads = new ConcurrentLinkedQueue<DeferredLoad>();
-    this.localCache = new PerpetualCache("LocalCache");
-    this.localOutputParameterCache = new PerpetualCache("LocalOutputParameterCache");
-    this.closed = false;
-    this.configuration = configuration;
-    this.wrapper = this;
-  }
   @Override
   public int update(MappedStatement ms, Object parameter) throws SQLException {
     ErrorContext.instance().resource(ms.getResource()).activity("executing an update").object(ms.getId());
     if (closed) {
       throw new ExecutorException("Executor was closed.");
     }
+    //新增更新操作清除本地缓存
     clearLocalCache();
+    //最终执行，BaseExecutor里的方法为抽象方法，可以查看具体实现SimpleExecutor
     return doUpdate(ms, parameter);
   }
   
   //省略其他方法
   }
 ```
+SimpleExecutor实现类查看doUpdate方法的具体实现如下：
+```java
+@Override
+  public int doUpdate(MappedStatement ms, Object parameter) throws SQLException {
+    Statement stmt = null;
+    try {
+    //获取配置
+      Configuration configuration = ms.getConfiguration();
+      //configuration中的方法newStatementHandler，并且根据MappedStatement ms的类型生成不同的StatementHandler（SimpleStatementHandler、PreparedStatementHandler、CallableStatementHandler）处理
+      StatementHandler handler = configuration.newStatementHandler(this, ms, parameter, RowBounds.DEFAULT, null, null);
+      //做相关的准备工作获取连接、事务、软解析等
+      newStatementHandler stmt = prepareStatement(handler, ms.getStatementLog());
+      //最终执行
+      return handler.update(stmt);
+    } finally {
+      closeStatement(stmt);
+    }
+  }
+  //Statement是jdbc最终执行器
+  private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+    Statement stmt;
+    Connection connection = getConnection(statementLog);
+    stmt = handler.prepare(connection);
+    handler.parameterize(stmt);
+    return stmt;
+  }
+```
+11. 继续分析handler.update(stmt)的方法具体实现，StatementHandler实现类之一的SimpleStatementHandler类中的方法如下：
+```java
+@Override
+  public int update(Statement statement) throws SQLException {
+  //获取封装后的sql语句
+    String sql = boundSql.getSql();
+   //获取执行的参数
+    Object parameterObject = boundSql.getParameterObject();
+    //获取主键的生成策略
+    KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
+    int rows;
+    if (keyGenerator instanceof Jdbc3KeyGenerator) {
+      statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+      rows = statement.getUpdateCount();
+      keyGenerator.processAfter(executor, mappedStatement, statement, parameterObject);
+    } else if (keyGenerator instanceof SelectKeyGenerator) {
+      statement.execute(sql);
+      rows = statement.getUpdateCount();
+      keyGenerator.processAfter(executor, mappedStatement, statement, parameterObject);
+    } else {
+      statement.execute(sql);
+      rows = statement.getUpdateCount();
+    }
+    return rows;
+  }
+ ```
 
-10. 上面是通过执行结果后返回，xml文件的标签<insert>获取执行convertArgsToSqlCommandParam取得接口方法的参数，然后rowCountResult方法封装好对应的
-sql后执行，封装放回结果。下面是rowCountResult的实现如下：
+12. 上面是通过执行结果后返回，xml文件的标签<insert>获取执行convertArgsToSqlCommandParam取得接口方法的参数，然后rowCountResult方法封装好对应的
+sql后执行，封装放回结果。下面是rowCountResult的实现如下，查询的返回封装可自行查看。
 	
 ```java
  private Object rowCountResult(int rowCount) {
