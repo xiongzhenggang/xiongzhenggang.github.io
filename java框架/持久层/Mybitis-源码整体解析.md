@@ -12,6 +12,18 @@
 2. 使用
 1） 第一种直接将使用mybitis的api接口实现如下：
 原理：Java动态代理，Mybatis通过这种方式实现了我们通过getMapper方式得到的Dao接口，可以直接通过接口的没有实现的方法来执行sql。getMapper方法到底做了什么。
+这里配置的SqlSessionFactoryBean生成sqlSessionFactory
+```xml
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- configLocation：用于指定Mybatis的配置文件位置 -->
+		<property name="configLocation"
+			value="classpath:config/mybatis-config.xml" />
+		<!-- 所有配置的mapper文件 -->
+		<property name="mapperLocations" value="classpath:cn/abcsys/cloud/devops/web/mapper/*.xml"></property>
+	</bean>
+```
+直接接口使用的api方式
 ```java
 @Autowired
 	private SqlSessionFactory sqlSessionFactory;
