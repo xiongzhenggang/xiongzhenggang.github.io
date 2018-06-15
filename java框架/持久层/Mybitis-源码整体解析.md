@@ -129,8 +129,9 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 Configuration为容器启动时通过配置文件mybitis-config文件创建。具体加载配置文件以及生成配置类暂不叙述了
 ```java
 public class MapperMethod {
-
+//SqlCommand为封装mybitis执行接口中的方法名称以及执行类型（执行type通过xml映射文件比如<select><update>等）
   private final SqlCommand command;
+  //MethodSignature收集方法中的参数，核心方法为convertArgsToSqlCommandParam
   private final MethodSignature method;
   public MapperMethod(Class<?> mapperInterface, Method method, Configuration config) {
     this.command = new SqlCommand(config, mapperInterface, method);
@@ -174,6 +175,65 @@ public class MapperMethod {
   
 //....其他方法
 
+
+
+//两个内部类
+public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
+      String statementName = mapperInterface.getName() + "." + method.getName();
+      MappedStatement ms = null;
+      if (configuration.hasStatement(statementName)) {
+        ms = configuration.getMappedStatement(statementName);
+      } else if (!mapperInterface.equals(method.getDeclaringClass())) { // issue #35
+        String parentStatementName = method.getDeclaringClass().getName() + "." + method.getName();
+        if (configuration.hasStatement(parentStatementName)) {
+          ms = configuration.getMappedStatement(parentStatementName);
+        }
+      }
+      if (ms == null) {
+        if(method.getAnnotation(Flush.class) != null){
+          name = null;
+          type = SqlCommandType.FLUSH;
+        } else {
+          throw new BindingException("Invalid bound statement (not found): " + statementName);
+        }
+      } else {
+        name = ms.getId();
+        type = ms.getSqlCommandType();
+        if (type == SqlCommandType.UNKNOWN) {
+          throw new BindingException("Unknown execution method for: " + name);
+        }
+      }
+    }
+  }
+  //MethodSignature内部类
+public static class MethodSignature {
+//
+    public Object convertArgsToSqlCommandParam(Object[] args) {
+      final int paramCount = params.size();
+      if (args == null || paramCount == 0) {
+        return null;
+      } else if (!hasNamedParameters && paramCount == 1) {
+        return args[params.keySet().iterator().next().intValue()];
+      } else {
+        final Map<String, Object> param = new ParamMap<Object>();
+        int i = 0;
+        for (Map.Entry<Integer, String> entry : params.entrySet()) {
+          param.put(entry.getValue(), args[entry.getKey().intValue()]);
+          // issue #71, add param names as param1, param2...but ensure backward compatibility
+          final String genericParamName = "param" + String.valueOf(i + 1);
+          if (!param.containsKey(genericParamName)) {
+            param.put(genericParamName, args[entry.getKey()]);
+          }
+          i++;
+        }
+        return param;
+      }
+    }
+    
+    //省略其他
+
+  }
+
 }
 ```
 
@@ -188,4 +248,6 @@ public Object invoke(Object proxy, Method method, Object[] args) throws Throwabl
     return mapperMethod.execute(sqlSession, args);
   }
 ```
+代理执行sql的基本顺序是
 
+MapperMethod.execute() --> DefaultSqlSession.selectOne  -->  BaseExecutor.query  -->  SimpleExecutor.doQuery  --> SimpleStatementHandler.query -->  DefaultResultSetHandler.handleResultSets(Statement stmt)  
