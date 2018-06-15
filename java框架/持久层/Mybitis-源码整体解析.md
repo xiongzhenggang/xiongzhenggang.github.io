@@ -278,12 +278,14 @@ SimpleExecutor实现类查看doUpdate方法的具体实现如下：
     String sql = boundSql.getSql();
    //获取执行的参数
     Object parameterObject = boundSql.getParameterObject();
-    //获取主键的生成策略
+    //获取主键的生成策略，主键生成策略mybitis主要两种这里暂不赘述
     KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
     int rows;
     if (keyGenerator instanceof Jdbc3KeyGenerator) {
       statement.execute(sql, Statement.RETURN_GENERATED_KEYS);
+      //返回更新结果的数量
       rows = statement.getUpdateCount();
+      //原理就是获得数据库的记录条数，然后加1，作为返回参数的值返回
       keyGenerator.processAfter(executor, mappedStatement, statement, parameterObject);
     } else if (keyGenerator instanceof SelectKeyGenerator) {
       statement.execute(sql);
@@ -296,8 +298,9 @@ SimpleExecutor实现类查看doUpdate方法的具体实现如下：
     return rows;
   }
  ```
+ 最终执行为实现java中sql包下statement接口的实现类（根据当前的数据源）， statement.execute()方法
 
-12. 上面是通过执行结果后返回，xml文件的标签<insert>获取执行convertArgsToSqlCommandParam取得接口方法的参数，然后rowCountResult方法封装好对应的
+12. 上面是通过执行结果后返回，xml文件的标签<insert>获取执行convertArgsToSqlCommandParam取得接口方法的参数，最终回到第6步骤，中的方法rowCountResult方法封装好对应的，查询的实现方法多种不再赘述。
 sql后执行，封装放回结果。下面是rowCountResult的实现如下，查询的返回封装可自行查看。
 	
 ```java
@@ -320,6 +323,25 @@ sql后执行，封装放回结果。下面是rowCountResult的实现如下，查
 ```
 
 总结：代理执行查询sql的基本顺序是
-MapperMethod.execute() --> DefaultSqlSession.selectOne  -->  BaseExecutor.query  -->  SimpleExecutor.doQuery  --> SimpleStatementHandler.query -->  DefaultResultSetHandler.handleResultSets(Statement stmt) 
+MapperMethod.execute() --> DefaultSqlSession.update  -->  BaseExecutor.update  -->  SimpleExecutor.update  --> SimpleStatementHandler.update -->  Statement.execute()
+其中 Statement.execute()的Statement为java定义jdbc的接口具体实现根据不同的数据源不同，例如我使用阿里的DruidPooledStatement来执行，方法源码如下：
+```java
+  @Override
+    public final boolean execute(String sql, String columnNames[]) throws SQLException {
+        checkOpen();
+
+        incrementExecuteCount();
+        transactionRecord(sql);
+
+        conn.beforeExecute();
+        try {
+            return stmt.execute(sql, columnNames);
+        } catch (Throwable t) {
+            throw checkException(t);
+        } finally {
+            conn.afterExecute();
+        }
+    }
+```
 
 
