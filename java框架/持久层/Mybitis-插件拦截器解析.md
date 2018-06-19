@@ -265,8 +265,6 @@ public class PageHelper implements Interceptor {
     public static void orderBy(String orderBy) {
         OrderByHelper.orderBy(orderBy);
     }
-
- 
     public Object intercept(Invocation invocation) throws Throwable {
         if (autoDialect) {
             initSqlUtil(invocation);
@@ -328,9 +326,9 @@ public class PageHelper implements Interceptor {
     }
 }
 ```
-上面的注解@Interceptors注解会返回一个key为Executor，value为集合(这个集合只有一个元素，也就是Method实例，这个Method实例就是Executor接口的query方法，且这个方法带有MappedStatement、RowBounds、ResultHandler、ResultHandler、RowBounds、Object类型的参数)。这个Method实例是根据 @Signature的method和args属性得到的。如果args参数跟type类型的method方法对应不上，那么将会抛出异常。
+上面的注解@Interceptors注解会返回一个key为Executor，value为集合(这个集合只有一个元素，也就是Method实例，这个Method实例就是Executor接口的query方法，且这个方法带有MappedStatement、RowBounds、ResultHandler、Object类型的参数)。这个Method实例是根据 @Signature的method和args属性得到的。如果args参数跟type类型的method方法对应不上，那么将会抛出异常。
 
-getAllInterfaces方法
+Plugin类的getAllInterfaces方法
 ```java
  private static Class<?>[] getAllInterfaces(Class<?> type, Map<Class<?>, Set<Method>> signatureMap) {
     Set<Class<?>> interfaces = new HashSet<Class<?>>();
@@ -352,6 +350,7 @@ getAllInterfaces方法解释：根据目标实例target(这个target就是之前
 
 比如MyBatis官网的例子，当Configuration调用newExecutor方法的时候，由于Executor接口的update(MappedStatement ms, Object parameter)方法被拦截器被截获。因此最终返回的是一个代理类Plugin，而不是Executor。这样调用方法的时候，如果是个代理类，那么会执行：
 
+Plugin类的invoke
 ```java
 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
