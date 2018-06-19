@@ -328,7 +328,7 @@ public class PageHelper implements Interceptor {
     }
 }
 ```
-上面的注解@Interceptors注解会返回一个key为Executor，value为集合(这个集合只有一个元素，也就是Method实例，这个Method实例就是Executor接口的query方法，且这个方法带有MappedStatement和Object类型的参数)。这个Method实例是根据 @Signature的method和args属性得到的。如果args参数跟type类型的method方法对应不上，那么将会抛出异常。
+上面的注解@Interceptors注解会返回一个key为Executor，value为集合(这个集合只有一个元素，也就是Method实例，这个Method实例就是Executor接口的query方法，且这个方法带有MappedStatement、RowBounds、ResultHandler、ResultHandler、RowBounds、Object类型的参数)。这个Method实例是根据 @Signature的method和args属性得到的。如果args参数跟type类型的method方法对应不上，那么将会抛出异常。
 
 getAllInterfaces方法
 ```java
