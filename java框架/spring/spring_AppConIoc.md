@@ -20,80 +20,126 @@ FileSystemXmlApplicationContext调用的构造函数如下：
 	
 	public FileSystemXmlApplicationContext(String[] configLocations, boolean refresh, ApplicationContext parent)
 			throws BeansException {
-
+//调用父类容器的构造方法(super(parent)方法)为容器设置好Bean资源加载器。
 		super(parent);
+//再调用父类AbstractRefreshableConfigApplicationContext的setConfigLocations(configLocations)方法设置Bean定义资源文件的定位路径。
 		setConfigLocations(configLocations);
+		//是否刷新容器
 		if (refresh) {
 			refresh();
 		}
 	}
 
 ```
+追踪FileSystemXmlApplicationContext的继承体系,其父类的父类AbstractApplicationContext中初始化IoC容器所做的主要源码如下：
+```java
+public abstract class AbstractApplicationContext extends DefaultResourceLoader  
+        implements ConfigurableApplicationContext, DisposableBean {  
+    //静态初始化块，在整个容器创建过程中只执行一次  
+    static {  
+        //为了避免应用程序在Weblogic8.1关闭时出现类加载异常加载问题，加载IoC容  
+       //器关闭事件(ContextClosedEvent)类  
+        ContextClosedEvent.class.getName();  
+    }  
+    //FileSystemXmlApplicationContext调用父类构造方法调用的就是该方法  
+    public AbstractApplicationContext(ApplicationContext parent) {  
+        this.parent = parent;  
+        this.resourcePatternResolver = getResourcePatternResolver();  
+    }  
+    //获取一个Spring Source的加载器用于读入Spring Bean定义资源文件  
+    protected ResourcePatternResolver getResourcePatternResolver() {  
+        // AbstractApplicationContext继承DefaultResourceLoader，也是一个S  
+        //Spring资源加载器，其getResource(String location)方法用于载入资源  
+        return new PathMatchingResourcePatternResolver(this);  
+    }   
+……  
+}
+```
+AbstractApplicationContext构造方法中调用PathMatchingResourcePatternResolver的构造方法创建Spring资源加载器：
+```java
+public PathMatchingResourcePatternResolver(ResourceLoader resourceLoader) {  
+        Assert.notNull(resourceLoader, "ResourceLoader must not be null");  
+        //设置Spring的资源加载器  
+        this.resourceLoader = resourceLoader;  
+} 
+```
+设置容器的资源加载器之后，接下来FileSystemXmlApplicationContet执行setConfigLocations方法通过调用其父类AbstractRefreshableConfigApplicationContext的方法进行对Bean定义资源文件的定位，该方法的源码如下：
+```java
+	 //处理单个资源文件路径为一个字符串的情况  
+    public void setConfigLocation(String location) {  
+       //String CONFIG_LOCATION_DELIMITERS = ",; /t/n";  
+       //即多个资源文件路径之间用” ,; /t/n”分隔，解析成数组形式  
+        setConfigLocations(StringUtils.tokenizeToStringArray(location, CONFIG_LOCATION_DELIMITERS));  
+    }  
 
+    //解析Bean定义资源文件的路径，处理多个资源文件字符串数组  
+     public void setConfigLocations(String[] locations) {  
+        if (locations != null) {  
+            Assert.noNullElements(locations, "Config locations must not be null");  
+            this.configLocations = new String[locations.length];  
+            for (int i = 0; i < locations.length; i++) {  
+                // resolvePath为同一个类中将字符串解析为路径的方法  
+                this.configLocations[i] = resolvePath(locations[i]).trim();  
+            }  
+        }  
+        else {  
+            this.configLocations = null;  
+        }  
+    } 
+```
+通过这两个方法的源码我们可以看出，我们既可以使用一个字符串来配置多个Spring Bean定义资源文件，也可以使用字符串数组，即下面两种方式都是可以的：
+
+a.    ClasspathResource res = new ClasspathResource(“a.xml,b.xml,……”);
+
+多个资源文件路径之间可以是用” ,; /t/n”等分隔。
+
+b.    ClasspathResource res = new ClasspathResource(newString[]{“a.xml”,”b.xml”,……});
+
+至此，Spring IoC容器在初始化时将配置的Bean定义资源文件定位为Spring封装的Resource。
+
+* AbstractApplicationContext的refresh函数载入Bean定义过程：
+Spring IoC容器对Bean定义资源的载入是从refresh()函数开始的，refresh()是一个模板方法，refresh()方法的作用是：在创建IoC容器前，如果已经有容器存在，则需要把已有的容器销毁和关闭，以保证在refresh之后使用的是新建立起来的IoC容器。refresh的作用类似于对IoC容器的重启，在新建立好的容器中对容器进行初始化，对Bean定义资源进行载入
+
+FileSystemXmlApplicationContext通过调用其父类AbstractApplicationContext的refresh()函数启动整个IoC容器对Bean定义的载入过程：
 
 ``` java
-@Override
-	public void refresh() throws BeansException, IllegalStateException {
-		synchronized (this.startupShutdownMonitor) {
-			// Prepare this context for refreshing.
-			prepareRefresh();
-
-			// Tell the subclass to refresh the internal bean factory.
-			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
-
-			// Prepare the bean factory for use in this context.
-			prepareBeanFactory(beanFactory);
-
-			try {
-				// Allows post-processing of the bean factory in context subclasses.
-				postProcessBeanFactory(beanFactory);
-
-				// Invoke factory processors registered as beans in the context.
-				invokeBeanFactoryPostProcessors(beanFactory);
-
-				// Register bean processors that intercept bean creation.
-				registerBeanPostProcessors(beanFactory);
-
-				// Initialize message source for this context.
-				initMessageSource();
-
-				// Initialize event multicaster for this context.
-				initApplicationEventMulticaster();
-
-				// Initialize other special beans in specific context subclasses.
-				onRefresh();
-
-				// Check for listener beans and register them.
-				registerListeners();
-
-				// Instantiate all remaining (non-lazy-init) singletons.
-				finishBeanFactoryInitialization(beanFactory);
-
-				// Last step: publish corresponding event.
-				finishRefresh();
-			}
-
-			catch (BeansException ex) {
-				if (logger.isWarnEnabled()) {
-					logger.warn("Exception encountered during context initialization - " +
-							"cancelling refresh attempt: " + ex);
-				}
-
-				// Destroy already created singletons to avoid dangling resources.
-				destroyBeans();
-
-				// Reset 'active' flag.
-				cancelRefresh(ex);
-
-				// Propagate exception to caller.
-				throw ex;
-			}
-
-			finally {
-				// Reset common introspection caches in Spring's core, since we
-				// might not ever need metadata for singleton beans anymore...
-				resetCommonCaches();
-			}
-		}
-	}
+public void refresh() throws BeansException, IllegalStateException {  
+       synchronized (this.startupShutdownMonitor) {  
+           //调用容器准备刷新的方法，获取容器的当时时间，同时给容器设置同步标识  
+           prepareRefresh();  
+           //告诉子类启动refreshBeanFactory()方法，Bean定义资源文件的载入从  
+          //子类的refreshBeanFactory()方法启动  
+           ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();  
+           //为BeanFactory配置容器特性，例如类加载器、事件处理器等  
+           prepareBeanFactory(beanFactory);  
+           try {  
+               //为容器的某些子类指定特殊的BeanPost事件处理器  
+               postProcessBeanFactory(beanFactory);  
+               //调用所有注册的BeanFactoryPostProcessor的Bean  
+               invokeBeanFactoryPostProcessors(beanFactory);  
+               //为BeanFactory注册BeanPost事件处理器.  
+               //BeanPostProcessor是Bean后置处理器，用于监听容器触发的事件  
+               registerBeanPostProcessors(beanFactory);  
+               //初始化信息源，和国际化相关.  
+               initMessageSource();  
+               //初始化容器事件传播器.  
+               initApplicationEventMulticaster();  
+               //调用子类的某些特殊Bean初始化方法  
+               onRefresh();  
+               //为事件传播器注册事件监听器.  
+               registerListeners();  
+               //初始化所有剩余的单态Bean.  
+               finishBeanFactoryInitialization(beanFactory);  
+               //初始化容器的生命周期事件处理器，并发布容器的生命周期事件  
+               finishRefresh();  
+           }  
+           catch (BeansException ex) {  
+               //销毁以创建的单态Bean  
+               destroyBeans();  
+               //取消refresh操作，重置容器的同步标识.  
+               cancelRefresh(ex);  
+               throw ex;  
+           }  
+       }  
+   }
 ```
