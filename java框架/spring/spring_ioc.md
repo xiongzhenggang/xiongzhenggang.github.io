@@ -191,11 +191,41 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 }
 ```
+* 简单的基础的ioc分析
+XmlBeanFactory(IOC)的整个流程:
+
+```java
+public class XmlBeanFactory extends DefaultListableBeanFactory{
+     private final XmlBeanDefinitionReader reader; 
+
+     public XmlBeanFactory(Resource resource)throws BeansException{
+         this(resource, null);
+     }  
+     public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory)
+          throws BeansException{
+         super(parentBeanFactory);
+         this.reader = new XmlBeanDefinitionReader(this);
+         this.reader.loadBeanDefinitions(resource);
+    }
+ }
+```
+上面可分解如下：
+```java
+//根据Xml配置文件创建Resource资源对象，该对象中包含了BeanDefinition的信息
+ ClassPathResource resource =new ClassPathResource("application-context.xml");
+//创建DefaultListableBeanFactory
+ DefaultListableBeanFactory factory =new DefaultListableBeanFactory();
+//创建XmlBeanDefinitionReader读取器，用于载入BeanDefinition。之所以需要BeanFactory作为参数，是因为会将读取的信息回调配置给factory
+ XmlBeanDefinitionReader reader =new XmlBeanDefinitionReader(factory);
+//XmlBeanDefinitionReader执行载入BeanDefinition的方法，最后会完成Bean的载入和注册。完成后Bean就成功的放置到IOC容器当中，以后我们就可以从中取得Bean来使用
+ reader.loadBeanDefinitions(resource);
+ ```
+
 1. bean的初始化过程
 容器的初始化包括BeanDefinition的Resource定位、载入和注册这三个基本的过程。我们以ApplicationContext为例讲解，ApplicationContext系列容器也许是我们最熟悉的，因为web项目中使用的XmlWebApplicationContext就属于这个继承体系，还有ClasspathXmlApplicationContext等
 
 ```
-1afterPropertiesSet与init-method
+afterPropertiesSet与init-method
 
 (1)、init-method方法，初始化bean的时候执行，可以针对某个具体的bean进行配置。init-method需要在applicationContext.xml配置文档中bean的定义里头写明。例如：<bean id="TestBean" class="nju.software.xkxt.util.TestBean" init-method="init"></bean>
 这样，当TestBean在初始化的时候会执行TestBean中定义的init方法。  
@@ -207,36 +237,8 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 2. ApplicationContext允许上下文嵌套，通过保持父上下文可以维持一个上下文体系。对于bean的查找可以在这个上下文体系中发生，首先检查当前上下文，其次是父上下文，逐级向上，这样为不同的Spring应用提供了一个共享的bean定义环境。
 使用手动加载spring bean的方式：
 
-```java
-//根据Xml配置文件创建Resource资源对象，该对象中包含了BeanDefinition的信息
- ClassPathResource resource =new ClassPathResource("application-context.xml");
-//创建DefaultListableBeanFactory
- DefaultListableBeanFactory factory =new DefaultListableBeanFactory();
-//创建XmlBeanDefinitionReader读取器，用于载入BeanDefinition。之所以需要BeanFactory作为参数，是因为会将读取的信息回调配置给factory
- XmlBeanDefinitionReader reader =new XmlBeanDefinitionReader(factory);
-//XmlBeanDefinitionReader执行载入BeanDefinition的方法，最后会完成Bean的载入和注册。完成后Bean就成功的放置到IOC容器当中，以后我们就可以从中取得Bean来使用
- reader.loadBeanDefinitions(resource);
- ```
-XmlBeanFactory的源码:
+[applicationContext的典型的Ioc分析](https://github.com/xiongzhenggang/xiongzhenggang.github.io/edit/master/java%E6%A1%86%E6%9E%B6/spring/spring_AppConIoc.md)
 
-```java
-public class XmlBeanFactory extends DefaultListableBeanFactory{
-
-
-     private final XmlBeanDefinitionReader reader; 
-
-     public XmlBeanFactory(Resource resource)throws BeansException{
-         this(resource, null);
-     }
-     
-     public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory)
-          throws BeansException{
-         super(parentBeanFactory);
-         this.reader = new XmlBeanDefinitionReader(this);
-         this.reader.loadBeanDefinitions(resource);
-    }
- }
-```
 3 Spring bean作用域与生命周期
 实例化。Spring通过new关键字将一个Bean进行实例化，JavaBean都有默认的构造函数，因此不需要提供构造参数。填入属性。Spring根据xml文件中的配置通过调用Bean中的setXXX方法填入对应的属性。事件通知。Spring依次检查Bean是否实现了BeanNameAware、BeanFactoryAware、ApplicationContextAware、BeanPostProcessor、InitializingBean接口，如果有的话，依次调用这些接口。使用。应用程序可以正常使用这个Bean了。销毁。如果Bean实现了DisposableBean接口，就调用其destroy方法。
 
