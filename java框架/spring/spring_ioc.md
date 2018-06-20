@@ -1,6 +1,4 @@
-http://www.zhihu.com/question/21346206/answer/101789659
-
-
+#### spring IOC核心详解
 * <p>原理其实就是通过反射解析类及其类的各种信息，包括构造器、方法及其参数，属性。然后将其封装成bean定义信息类、constructor信息类、method信息类、property信息类，最终放在一个map里，也就是所谓的container、池等等，其实就是个map。当写好配置文件，启动项目后，框架会先按照你的配置文件找到那个要scan的包，然后解析包里面的所有类，找到所有含有@bean，@service等注解的类，利用反射解析它们，包括解析构造器，方法，属性等等，然后封装成各种信息类放到一个map里。每当你需要一个bean的时候，框架就会从container找是不是有这个类的定义啊？如果找到则通过构造器new出来（这就是控制反转，不用你new,框架帮你new），再在这个类找是不是有要注入的属性或者方法，比如标有@autowired的属性，如果有则还是到container找对应的解析类，new出对象，并通过之前解析出来的信息类找到setter方法，然后用该方法注入对象（这就是依赖注入）。
 </p>
 	BeanFactory和BeanDefinition，一个是IOC的核心工厂接口，一个是IOC的bean定义接口，上章提到说我们无法让BeanFactory持有一个Map<String,Object>来完成bean工厂的功能，是因为spring的初始化是可以控制的，可以到用的时候才将bean实例化供开发者使用，除非我们将bean的lazy-init属性设置为true，初始化bean工厂时采用延迟加载。
@@ -78,8 +76,6 @@ public class XmlBeanFactory extends DefaultListableBeanFactory{
     }
  }
 ```
-
-
 3 Spring bean作用域与生命周期
 实例化。Spring通过new关键字将一个Bean进行实例化，JavaBean都有默认的构造函数，因此不需要提供构造参数。填入属性。Spring根据xml文件中的配置通过调用Bean中的setXXX方法填入对应的属性。事件通知。Spring依次检查Bean是否实现了BeanNameAware、BeanFactoryAware、ApplicationContextAware、BeanPostProcessor、InitializingBean接口，如果有的话，依次调用这些接口。使用。应用程序可以正常使用这个Bean了。销毁。如果Bean实现了DisposableBean接口，就调用其destroy方法。
 
