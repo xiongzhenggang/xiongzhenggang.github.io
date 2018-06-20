@@ -3,7 +3,9 @@
 </p>
 	BeanFactory和BeanDefinition，一个是IOC的核心工厂接口，一个是IOC的bean定义接口，上章提到说我们无法让BeanFactory持有一个Map<String,Object>来完成bean工厂的功能，是因为spring的初始化是可以控制的，可以到用的时候才将bean实例化供开发者使用，除非我们将bean的lazy-init属性设置为true，初始化bean工厂时采用延迟加载。
 	当写好配置文件，启动项目后，框架会先按照你的配置文件找到那个要scan的包，然后解析包里面的所有类，找到所有含有@bean，@service等注解的类，利用反射解析它们，包括解析构造器，方法，属性等等，然后封装成各种信息类放到一个map里。每当你需要一个bean的时候，框架就会从container找是不是有这个类的定义啊？如果找到则通过构造器new出来（这就是控制反转，不用你new,框架帮你new），再在这个类找是不是有要注入的属性或者方法，比如标有@autowired的属性，如果有则还是到container找对应的解析类，new出对象，并通过之前解析出来的信息类找到setter方法，然后用该方法注入对象（这就是依赖注入）。如果其中有一个类container里没找到，则抛出异常，比如常见的spring无法找到该类定义，无法wire的异常。还有就是嵌套bean则用了一下递归，container会放到servletcontext里面，每次reQuest从servletcontext找这个container即可，不用多次解析类定义。如果bean的scope是singleton，则会重用这个bean不再重新创建，将这个bean放到一个map里，每次用都先从这个map里面找
+	
 * 最基本的IOC容器接口BeanFactory
+
 ```java
 public interface BeanFactory {    
      
@@ -31,8 +33,10 @@ public interface BeanFactory {
     
  }
 ```
+
 1. bean的初始化过程
 容器的初始化包括BeanDefinition的Resource定位、载入和注册这三个基本的过程。我们以ApplicationContext为例讲解，ApplicationContext系列容器也许是我们最熟悉的，因为web项目中使用的XmlWebApplicationContext就属于这个继承体系，还有ClasspathXmlApplicationContext等
+
 ```
 1afterPropertiesSet与init-method
 
@@ -42,9 +46,9 @@ public interface BeanFactory {
 (3)、BeanPostProcessor，针对所有Spring上下文中所有的bean，可以在配置文档applicationContext.xml中配置一个BeanPostProcessor，然后对所有的bean进行一个初始化方法之前和之后的代理。BeanPostProcessor接口中有两个方法： postProcessBeforeInitialization和postProcessAfterInitialization。前者postProcessBeforeInitialization在实例化及依赖注入完成后、在任何初始化代码（比如配置文件中的init-method）调用之前调用；后者postProcessAfterInitialization在初始化代码调用之后调用
  postProcessBeforeInitialization方法在bean初始化之前执行， postProcessAfterInitialization方法在bean初始化之后执行。
  ```
+ 
 2. ApplicationContext允许上下文嵌套，通过保持父上下文可以维持一个上下文体系。对于bean的查找可以在这个上下文体系中发生，首先检查当前上下文，其次是父上下文，逐级向上，这样为不同的Spring应用提供了一个共享的bean定义环境。
 使用手动加载spring bean的方式：
-```java
 
 ```java
 //根据Xml配置文件创建Resource资源对象，该对象中包含了BeanDefinition的信息
