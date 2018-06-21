@@ -250,3 +250,53 @@ protected final void refreshBeanFactory() throws BeansException {
        }  
    }
 ```
+这个方法中，先判断BeanFactory是否存在，如果存在则先销毁beans并关闭beanFactory，接着创建DefaultListableBeanFactory，并调用loadBeanDefinitions(beanFactory)装载bean
+
+5. AbstractRefreshableApplicationContext子类的loadBeanDefinitions方法：
+AbstractRefreshableApplicationContext中只定义了抽象的loadBeanDefinitions方法，容器真正调用的是其子类AbstractXmlApplicationContext对该方法的实现，AbstractXmlApplicationContext的主要源码如下：
+```java
+public abstract class AbstractXmlApplicationContext extends AbstractRefreshableConfigApplicationContext {  
+   // ……  
+    //实现父类抽象的载入Bean定义方法  
+    @Override  
+    protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throws BeansException, IOException {  
+        //创建XmlBeanDefinitionReader，即创建Bean读取器，并通过回调设置到容器中去，容  器使用该读取器读取Bean定义资源  
+        XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);  
+        //为Bean读取器设置Spring资源加载器，AbstractXmlApplicationContext的  
+        //祖先父类AbstractApplicationContext继承DefaultResourceLoader，因此，容器本身也是一个资源加载器  
+       beanDefinitionReader.setResourceLoader(this);  
+       //为Bean读取器设置SAX xml解析器  
+       beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));  
+       //当Bean读取器读取Bean定义的Xml资源文件时，启用Xml的校验机制  
+       initBeanDefinitionReader(beanDefinitionReader);  
+       //Bean读取器真正实现加载的方法  
+       loadBeanDefinitions(beanDefinitionReader);  
+   }  
+   //Xml Bean读取器加载Bean定义资源  
+   protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {  
+       //获取Bean定义资源的定位  
+       Resource[] configResources = getConfigResources();  
+       if (configResources != null) {  
+           //Xml Bean读取器调用其父类AbstractBeanDefinitionReader读取定位  
+           //的Bean定义资源  
+           reader.loadBeanDefinitions(configResources);  
+       }  
+       //如果子类中获取的Bean定义资源定位为空，则获取FileSystemXmlApplicationContext构造方法中setConfigLocations方法设置的资源  
+       String[] configLocations = getConfigLocations();  
+       if (configLocations != null) {  
+           //Xml Bean读取器调用其父类AbstractBeanDefinitionReader读取定位  
+           //的Bean定义资源  
+           reader.loadBeanDefinitions(configLocations);  
+       }  
+   }  
+   //这里又使用了一个委托模式，调用子类的获取Bean定义资源定位的方法  
+   //该方法在ClassPathXmlApplicationContext中进行实现，对于我们  
+   //举例分析源码的FileSystemXmlApplicationContext没有使用该方法  
+   protected Resource[] getConfigResources() {  
+       return null;  
+   }
+   //……  
+}
+```
+Xml Bean读取器(XmlBeanDefinitionReader)调用其父类AbstractBeanDefinitionReader的 reader.loadBeanDefinitions方法读取Bean定义资源。
+由于我们使用FileSystemXmlApplicationContext作为例子分析，因此getConfigResources的返回值为null，因此程序执行reader.loadBeanDefinitions(configLocations)分支。
