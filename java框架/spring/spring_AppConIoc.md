@@ -300,3 +300,5 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 ```
 Xml Bean读取器(XmlBeanDefinitionReader)调用其父类AbstractBeanDefinitionReader的 reader.loadBeanDefinitions方法读取Bean定义资源。
 由于我们使用FileSystemXmlApplicationContext作为例子分析，因此getConfigResources的返回值为null，因此程序执行reader.loadBeanDefinitions(configLocations)分支。
+
+6. AbstractBeanDefinitionReader读取Bean定义资源：
