@@ -27,6 +27,7 @@
 
 [3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu操作记录.md). 
 
+[4、jvmti之初见](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/jvmti之初见.md). 
 ```markdown
 第三章 数据结构和算法
 ```
@@ -125,6 +126,7 @@ https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/%E6%95%B0
 
 [2、一篇详细介绍NIO](http://www.iteye.com/magazines/132-Java-NIO).
 
+[3、netty系列源码详解](https://www.jianshu.com/p/6c80e8ae7094).
 ### Author 熊正刚
 
 github设置博客样式模板[repository settings](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
