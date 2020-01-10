@@ -28,6 +28,9 @@
 [3、unbuntu取消桌面](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/unbuntu操作记录.md). 
 
 [4、jvmti之初见](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm相关/jvmti之初见.md). 
+
+[4、jvmti—agent第二种实现](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/jvm%E7%9B%B8%E5%85%B3/jvmti%E7%AC%AC%E4%BA%8C%E7%A7%8DAgent%E5%AE%9E%E7%8E%B0.md). 
+
 ```markdown
 第三章 数据结构和算法
 ```
