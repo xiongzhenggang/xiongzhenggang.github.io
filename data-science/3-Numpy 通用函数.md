@@ -85,7 +85,7 @@ array([[  1,   2,   4],
 
 ##### 数组算术
 NumPy的ufunc使用起来非常自然，因为它们利用了Python的本机算术运算符。可以使用标准的加，减，乘和除法：
-```ipy
+```ipyno
 In [27]: x = np.arange(4)
     ...: print("x     =", x)
     ...: print("x + 5 =", x + 5)
@@ -137,3 +137,21 @@ Out[33]: array([2, 1, 0, 1, 2])
 Out[36]: array([2.23606798, 3.60555128, 6.70820393])
 ```
 #### 三角函数
+NumPy提供了大量有用的函数，三角函数是对数据科学家最有用的一些函数。我们将从定义一个角度数组开始：
+从0-pi 截取三个点
+```
+In [45]: theta = np.linspace(0, np.pi, 3)
+In [46]: theta
+Out[46]: array([0.        , 1.57079633, 3.14159265])
+# 计算 o pi/2 和 pi 的sin cos tan 值
+In [47]: print("sin(theta) = ", np.sin(theta))
+    ...: print("cos(theta) = ", np.cos(theta))
+    ...: print("tan(theta) = ", np.tan(theta))
+sin(theta) =  [0.0000000e+00 1.0000000e+00 1.2246468e-16]
+cos(theta) =  [ 1.000000e+00  6.123234e-17 -1.000000e+00]
+tan(theta) =  [ 0.00000000e+00  1.63312394e+16 -1.22464680e-16]
+```
+同样也可以计算反三角函数 np.arcsin(x) np.arccos(x) np.arctan(x)
+
+#### 指数和对数
+
