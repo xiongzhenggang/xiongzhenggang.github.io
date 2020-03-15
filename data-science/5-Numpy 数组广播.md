@@ -40,4 +40,6 @@ array([[0, 1, 2],
 ```
 就像我们拉伸或广播一个值以匹配另一个值的形状一样，这里拉伸了a和b以匹配一个通用形状，结果是一个二维数组！
 下图显示了这些示例的几何形状（可以在附录中找到生成该图的代码，并改编自astroML文档中发布的源）。
+![图片.png](https://jakevdp.github.io/PythonDataScienceHandbook/figures/02.05-broadcasting.png)
+
 
