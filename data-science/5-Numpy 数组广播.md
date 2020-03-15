@@ -42,4 +42,4 @@ array([[0, 1, 2],
 下图显示了这些示例的几何形状（可以在附录中找到生成该图的代码，并改编自astroML文档中发布的源）。
 ![图片.png](https://jakevdp.github.io/PythonDataScienceHandbook/figures/02.05-broadcasting.png)
 
-
+这些图中额外的内存实际上并没有在操作过程中分配.这里时为了从概念理解。
