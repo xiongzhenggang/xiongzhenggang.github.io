@@ -128,3 +128,45 @@ In [32]: a+M
 ValueError                                Traceback (most recent call last)
 <ipython-input-32-60afc280ce5f> in <module>
 ```
+*此处可能存在的混乱：可以想象通过将a的形状用右边而不是左边的形状填充来使a和M兼容。但这不是广播规则的工作方式！这种灵活性在某些情况下可能有用，但可能会导致歧义。如果想要右侧填充，则可以通过重塑数组来明确地做到这一点（我们将使用《 NumPy数组基础》中引入的np.newaxis关键字）：
+```py
+# 将a变换 成3*1的数组和M广播
+In [34]: a[:, np.newaxis].shape
+Out[34]: (3, 1)
+
+In [35]: M + a[:, np.newaxis]
+Out[35]: 
+array([[1., 1.],
+       [2., 2.],
+       [3., 3.]])
+```
+*同样除了+ 还可以用于其他函数例如log等
+### 广播操作练习
+
+在上一节中，我们看到ufunc允许NumPy用户消除显式编写慢速Python循环的需要。广播扩展了此功能。一个常见的示例是将数据阵列居中时。假设您有一个包含10个观测值的数组，每个观测值包含3个值。，我们将其存储在10×3数组中：
+```py
+In [43]: a=np.arange(9).reshape((3,3))
+In [44]: a
+Out[44]:         
+array([[0, 1, 2],
+       [3, 4, 5],
+       [6, 7, 8]])
+#我们可以使用第一维上的均值合计来计算每个特征的均值：
+In [46]: a.mean(0)
+Out[46]: array([3., 4., 5.])
+```
+###绘制二维函数
+广播非常有用的一个地方是基于二维函数显示图像。如果我们要定义一个函数z= f（x，y），可以使用广播来计算整个网格中的函数
+```py
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import numpy as np
+#我们将使用Matplotlib绘制此二维数组（这些工具将在“密度和轮廓图”中进行全面讨论）：
+import matplotlib.pyplot as plt
+x=np.linspace(0,5,50)
+y=np.linspace(0,5,50)[:,np.newaxis]
+z=np.sin(x)**2 + np.cos(6+y*x)*np.cos(x)
+plt.imshow(z, origin='lower', extent=[0, 5, 0, 5],cmap='viridis')
+plt.colorbar();
+plt.show()  #关键的地方
+```
