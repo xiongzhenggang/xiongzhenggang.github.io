@@ -157,6 +157,7 @@ Out[46]: array([3., 4., 5.])
 ```
 ###绘制二维函数
 广播非常有用的一个地方是基于二维函数显示图像。如果我们要定义一个函数z= f（x，y），可以使用广播来计算整个网格中的函数
+这里我们用py代码执行
 ```py
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -170,3 +171,4 @@ plt.imshow(z, origin='lower', extent=[0, 5, 0, 5],cmap='viridis')
 plt.colorbar();
 plt.show()  #关键的地方
 ```
+![z函数图像.png](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/data-science/image/Figure_1.png)
