@@ -12,7 +12,7 @@ Python的默认实现（CPython）执行某些操作的速度非常慢。这是�
 ```
 * Python的相对呆板缓慢的操作，通常可以体现在一些重复的小操作中，下面展示
 
-```ipyno
+```py
 In [1]: import numpy as np
 In [2]: np.random.seed(0)
 In [3]: def compute_rec(values):
@@ -46,7 +46,7 @@ In [8]: %timeit compute_rec(big_arr)
 
 比较下面两种操作：
 
-```ipyno
+```py
 In [9]: compute_rec(values)
 Out[9]: array([0.16666667, 1.        , 0.25      , 0.25      , 0.125     ])
 
@@ -55,21 +55,21 @@ Out[10]: array([0.16666667, 1.        , 0.25      , 0.25      , 0.125     ])
 ···
 说明可以直接除法操作可以直接作用再数组上，那我们再比较下对大数组操作的耗时时间
 
-```ipyno
+```py
 In [15]: %timeit (1.0 / big_arr)
 5.25 ms ± 129 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 ```
 * 执行时间几乎降低了三个数量级
 
 NumPy中的矢量化操作是通过ufunc实现的，其主要目的是对NumPy数组中的值快速执行重复的操作。 Ufunc非常灵活–在我们看到标量和数组之间的操作之前.我们也可以在两个数组之间进行操作：
-```ipyno
+```py
 In [18]: np.arange(5) / np.arange(1,6)
 # 每个对应的元素想除，要保证两个数组size保持一致
 Out[18]: array([0.        , 0.5       , 0.66666667, 0.75      , 0.8       ])
 ```
 
 而且ufunc操作不仅限于一维数组-它们还可以作用于多维数组：
-```ipyno
+```py
 In [26]: x = np.arange(9).reshape((3, 3))
     ...: 2 ** x
 Out[26]: 
@@ -85,7 +85,7 @@ array([[  1,   2,   4],
 
 ##### 数组算术
 NumPy的ufunc使用起来非常自然，因为它们利用了Python的本机算术运算符。可以使用标准的加，减，乘和除法：
-```ipyno
+```py
 In [27]: x = np.arange(4)
     ...: print("x     =", x)
     ...: print("x + 5 =", x + 5)
@@ -114,7 +114,7 @@ In [32]: np.add(x,2)
 Out[32]: array([2, 3, 4, 5])
 ```
 下面时numpy的操作符对应的方法
-```
+```py
 + 	np.add 	Addition (e.g., 1 + 1 = 2)
 - 	np.subtract 	Subtraction (e.g., 3 - 2 = 1)
 - 	np.negative 	Unary negation (e.g., -2)
@@ -125,21 +125,21 @@ Out[32]: array([2, 3, 4, 5])
 % 	np.mod 	Modulus/remainder (e.g., 9 % 4 = 1)
 ```
 #### 绝对值
-```ipy
+```py
 In [33]: x = np.array([-2, -1, 0, 1, 2])
     ...: abs(x)
 Out[33]: array([2, 1, 0, 1, 2])
 ```
 * 这里的abs就是np.absolute的别名，也可以使用np.absolute(x)或者np.abs(x)
  当数组为复数时，绝对值则取的时复数的模（大小）
- ```ipy
+ ```py
  In [36]: np.abs(x)
 Out[36]: array([2.23606798, 3.60555128, 6.70820393])
 ```
 #### 三角函数
 NumPy提供了大量有用的函数，三角函数是对数据科学家最有用的一些函数。我们将从定义一个角度数组开始：
 从0-pi 截取三个点
-```
+```py
 In [45]: theta = np.linspace(0, np.pi, 3)
 In [46]: theta
 Out[46]: array([0.        , 1.57079633, 3.14159265])
@@ -155,7 +155,7 @@ tan(theta) =  [ 0.00000000e+00  1.63312394e+16 -1.22464680e-16]
 
 #### 指数和对数
 
-```ipyno
+```py
 In [49]: x = [1, 2, 3]
     ...: print("x     =", x)
     ...: print("e^x   =", np.exp(x))
@@ -187,7 +187,7 @@ log(1 + x) = [0.         0.0009995  0.00995033 0.09531018]
 NumPy具有更多可用的ufunc，包括双曲三角函数，按位算术等等。通过查看NumPy文档，可以发现很多功能。
 
 子模块scipy.special是另一个更专业和晦涩的功能。如果要在数据上计算一些晦涩的数学函数，可在scipy.special中实现它。有太多函数无法列出所有功能，但以下代码片段显示了可能在统计上下文中出现的几个功能：
-```ipyno
+```py
 ##伽玛函数（广义阶乘）和相关函数
 
 In [56]: x = [1, 3, 4]
@@ -214,7 +214,7 @@ erfinv(x) = [0.         0.27246271 0.73286908        inf]
 
 #### 指定输出
 
-```
+```py
 # x数组乘以2 输出到y数组，此时x数组还是原来的值
 In [61]: x = np.arange(4)
     ...: y = np.empty(4)
@@ -234,7 +234,7 @@ Out[86]: array([ 1.,  2.,  4.,  8., 16.])
 
  
 对于二进制ufunc，可以直接从对象中计算出一些有趣的聚合。例如，如果我们想通过特定操作来简化数组，则可以使用任何ufunc的reduce方法。将给定操作，重复应用于数组元素，直到仅保留单个结果为止。如下在add ufunc上调用reduce会返回数组中所有元素的总和
-```ipyno
+```py
 # 相加聚合
 In [98]: x = np.arange(5)
     ...: np.add.reduce(x)
@@ -255,7 +255,7 @@ Out[102]: array([ 1,  2,  6, 24], dtype=int32)
 
 任何ufunc都可以使用外部方法来计算两个不同输入的所有对的输出。这样一来，就可以执行创建乘法表之类的操作：
 
-```ipyno
+```py
 # 相当于矩阵相乘（1，2，3，4，5）*（1，2，3，4，5）
 In [103]: x = np.arange(1, 6)
      ...: np.multiply.outer(x, x)

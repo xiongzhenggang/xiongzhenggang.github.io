@@ -11,7 +11,7 @@ python这种灵活性是要付出一定的代价：要允许这些灵活的类�
 
  
 Python提供了几种不同的选项来将数据存储在高效的固定类型数据缓冲区中。内置的数组模块（自Python 3.3起可用）可用于创建统一类型的密集数组：
-```ipyno
+```py
 In [12]: 
     ...: import array
     ...: L = list(range(10))
@@ -30,7 +30,7 @@ In [15]: np.array([1,3,5,9])
 Out[15]: array([1, 3, 5, 9])
 ```
 与Python列表不同的是，NumPy限于所有包含相同类型的数组。如果类型不匹配，则NumPy将在可能的情况下向上转换（此处，向上转换为浮点型整数）甚至会转换Unicode类型如下：
-```ipyno
+```py
 
 In [16]: np.array([1,3,5,'3'])
 Out[16]: array(['1', '3', '5', '3'], dtype='<U11')
@@ -42,7 +42,7 @@ In [18]: np.array([1, 2, 3, 4], dtype='float32')
 Out[18]: array([1., 2., 3., 4.], dtype=float32)
 ```
 另外numpy的array还可以创建多维数组
-```ipyno
+```py
 In [19]: np.array([range(i,i+4) for i in [1,2,3]])
 Out[19]: 
 array([[1, 2, 3, 4],
@@ -50,7 +50,7 @@ array([[1, 2, 3, 4],
        [3, 4, 5, 6]])
 ```
 特别是对于较大的数组，使用内置在NumPy中使用常规从头开始创建数组会更有效率。下面几个例子说明
-```ipyno
+```py
 In [20]: # 长度为10，默认填充0的int类型数组
     ...: np.zeros(10, dtype=int)
 Out[20]: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -100,12 +100,12 @@ array([[1, 0],
 NumPy数组包含单个类型的值。因为NumPy是用C内置的，所以C，Fortran和其他相关语言的用户会熟悉这些类型。
 
 > 在创建NumPy 数据可以指定类型
-```ipyno
+```py
 In [39]: np.zeros(3,dtype='int8')
 Out[39]: array([0, 0, 0], dtype=int8)
 ```
 或者用numpy指定
-```ipyno
+```py
 In [40]: np.zeros(3,dtype=np.int8)
 Out[40]: array([0, 0, 0], dtype=int8)
 ```
