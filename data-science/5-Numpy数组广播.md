@@ -40,7 +40,7 @@ array([[0, 1, 2],
 ```
 就像我们拉伸或广播一个值以匹配另一个值的形状一样，这里拉伸了a和b以匹配一个通用形状，结果是一个二维数组！
 下图显示了这些示例的几何形状（可以在附录中找到生成该图的代码，并改编自astroML文档中发布的源）。
-![图片.png](../image/02.05-broadcasting.png)
+![图片.png](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/data-science/image/02.05-broadcasting.png)
 
 这些图中额外的内存实际上并没有在操作过程中分配.这里时为了从概念理解。
 

@@ -13,6 +13,5 @@ selection = X[indices]  # fancy indexing here
 print(selection)
 plt.scatter(X[:, 0], X[:, 1], alpha=0.3)
 plt.scatter(selection[:, 0], selection[:, 1],
-            facecolor='none', s=200);
-
+            facecolor='green', s=100);
 plt.show()
