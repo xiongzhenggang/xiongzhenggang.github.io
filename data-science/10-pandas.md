@@ -114,3 +114,211 @@ Out[21]:
 dtype: int64
 ```
 ### DataFrame 作为numpy的通用数组
+ 
+如果Series是具有灵活索引的一维数组的类似物，则DataFrame是具有灵活行索引和灵活列名的二维数组的类似物。就像您将二维数组视为对齐的一维列的有序序列一样，也可以将DataFrame视为对齐的Series对象的序列。在这里，“对齐”是指它们共享相同的索引。
+
+为了演示这一点，我们首先构建一个新的SEries：
+```py
+In [4]: area_dict = {'California': 423967, 'Texas': 695662, 'New York': 141297,
+   ...:              'Florida': 170312, 'Illinois': 149995}
+In [5]: area=pd.Series(area_dict)
+In [6]: area
+Out[6]: 
+California    423967
+Texas         695662
+New York      141297
+Florida       170312
+Illinois      149995
+dtype: int64
+In [7]: population_dict = {'California': 38332521,
+   ...:                    'Texas': 26448193,
+   ...:                    'New York': 19651127,
+   ...:                    'Florida': 19552860,
+   ...:                    'Illinois': 12882135}
+   ...: population = pd.Series(population_dict)
+   ...: population
+Out[7]: 
+California    38332521
+Texas         26448193
+New York      19651127
+Florida       19552860
+Illinois      12882135
+dtype: int64
+```
+现在我们将这两个Series合并成为一个数组
+```py
+In [8]: states = pd.DataFrame({'population':population,'area':area})
+In [9]: states
+Out[9]: 
+            population    area
+California    38332521  423967
+Texas         26448193  695662
+New York      19651127  141297
+Florida       19552860  170312
+Illinois      12882135  149995
+```
+与Series对象类似，DataFrame具有index属性，该属性可访问索引标签：
+```py
+In [10]: states.index
+Out[10]: Index(['California', 'Texas', 'New York', 'Florida', 'Illinois'], dtype='object')
+
+In [11]: states.columns
+Out[11]: Index(['population', 'area'], dtype='object')
+# 类似数组访问
+In [12]: states['area']['New York']
+Out[12]: 141297
+```
+ 
+因此，可以将DataFrame视为二维NumPy数组的一般化，其中行和列都具有用于访问数据的一般化索引。
+### DataFrame作为特殊字典
+ 
+同样，我们也可以将DataFrame视为字典的一种特殊形式。在字典将键映射到值的地方，DataFrame将列名称映射到一系列列数据。例如，要求'area'属性返回包含我们之前看到的区域的Series对象：
+```py
+In [13]: states['area']
+Out[13]: 
+California    423967
+Texas         695662
+New York      141297
+Florida       170312
+Illinois      149995
+Name: area, dtype: int64
+#
+In [15]: states[:'New York']
+Out[15]: 
+            population    area
+California    38332521  423967
+Texas         26448193  695662
+New York      19651127  141297
+```
+* 可能出现的混乱点：在二维NumPy数组中，data [0]将返回第一行。对于DataFrame，data ['col0']将返回第一列。因此，最好将DataFrames视为广义字典，而不是广义数组，尽管两种查看情况的方法都可能有用。我们将探索在数据索引和选择中为DataFrames索引的更灵活的方法。
+### 构建DataFrame 对象
+Pandas DataFrame 的创建方式有很多种，这里给出几种常用的
+1. 从单个的Series 对象创建
+```py
+In [16]: pd.DataFrame(population, columns=['population'])
+Out[16]: 
+            population
+California    38332521
+Texas         26448193
+New York      19651127
+Florida       19552860
+Illinois      12882135
+```
+2. 从字典列表
+```py
+In [18]: data=[{'a':i,'b':i*2 }for i in range(6)]
+In [19]: data
+Out[19]: 
+[{'a': 0, 'b': 0},
+ {'a': 1, 'b': 2},
+ {'a': 2, 'b': 4},
+ {'a': 3, 'b': 6},
+ {'a': 4, 'b': 8},
+ {'a': 5, 'b': 10}]
+## 
+In [20]: pd.DataFrame(data)
+Out[20]: 
+   a   b
+0  0   0
+1  1   2
+2  2   4
+3  3   6
+4  4   8
+5  5  10
+```
+即使缺少字典中的某些键，Pandas也会用NaN（即“非数字”）值填充它们：
+```py
+In [21]: pd.DataFrame([{'a':2,'b':'dd'},{'c':'cc','b':2}])
+Out[21]: 
+     a   b    c
+0  2.0  dd  NaN
+1  NaN   2   cc
+```
+3. 从Series的字典中创建
+```py
+In [22]: pd.DataFrame({'population': population,
+    ...:               'area': area})
+Out[22]: 
+            population    area
+California    38332521  423967
+Texas         26448193  695662
+New York      19651127  141297
+Florida       19552860  170312
+Illinois      12882135  149995
+```
+4. 从numpy的二维数组中创建
+
+```py
+In [24]: pd.DataFrame(np.random.rand(3,2),columns=['zhangsan','lisi'],index=['语文','数学','英语'])
+Out[24]: 
+    zhangsan      lisi
+语文  0.097589  0.247104
+数学  0.471053  0.078950
+英语  0.697091  0.657466
+```
+5. 从NumPy结构化数组
+```py
+In [25]: A = np.zeros(3, dtype=[('A', 'i8'), ('B', 'f8')])
+
+In [26]: A
+Out[26]: array([(0, 0.), (0, 0.), (0, 0.)], dtype=[('A', '<i8'), ('B', '<f8')])
+
+In [27]: pd.DataFrame(A)
+Out[27]: 
+   A    B
+0  0  0.0
+1  0  0.0
+2  0  0.0
+```
+### Pandas的索引对象
+在这里我们已经看到Series和DataFrame对象都包含一个显式索引，该索引使您可以引用和修改数据。该Index对象本身就是一个有趣的结构，可以将其视为不可变数组或有序集（从技术上讲是多集，因为Index对象可能包含重复值）。这些视图在Index对象上可用的操作中产生了一些有趣的结果。作为一个简单的示例，让我们从整数列表构造一个Index：
+
+```py
+In [28]: ind=pd.Index([1,3,4])
+In [29]: ind
+Out[29]: Int64Index([1, 3, 4], dtype='int64')
+```
+#### Index 作为不可变数组
+
+```py
+In [30]: ind[:2]
+Out[30]: Int64Index([1, 3], dtype='int64')
+In [31]: ind[0]
+Out[31]: 1
+# 我们来修改试试
+In [32]: ind[0]=8
+## 结果会抛出异常
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-32-1dec7051a402> in <module>
+----> 1 ind[0]=8
+
+f:\softinstall\python\lib\site-packages\pandas\core\indexes\base.py in __setitem__(self, key, value)
+   3908
+   3909     def __setitem__(self, key, value):
+-> 3910         raise TypeError("Index does not support mutable operations")
+   3911
+   3912     def __getitem__(self, key):
+
+TypeError: Index does not support mutable operations
+
+```
+这种不变性使得在多个DataFrame和数组之间共享索引更加安全，而不会因无意间修改索引而产生副作用。
+#### 索引作为有序集
+Pandas对象旨在促进诸如跨数据集的联接之类的操作，这取决于集合算术的许多方面。 Index对象遵循Python的内置set数据结构使用的许多约定，因此可以用熟悉的方式计算并集，交集，差值和其他组合：
+```py
+In [33]: indA = pd.Index([1, 3, 5, 7, 9])
+    ...: indB = pd.Index([2, 3, 5, 7, 11])
+
+In [34]: indA & indB
+Out[34]: Int64Index([3, 5, 7], dtype='int64')
+
+In [35]: indA | indB
+Out[35]: Int64Index([1, 2, 3, 5, 7, 9, 11], dtype='int64')
+# 
+In [36]: indA ^ indB
+Out[36]: Int64Index([1, 2, 9, 11], dtype='int64')
+# 也可以通过对象接口方法实现
+In [37]: indA.intersection(indB)
+Out[37]: Int64Index([3, 5, 7], dtype='int64')
+```
