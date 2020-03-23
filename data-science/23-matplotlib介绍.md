@@ -1,5 +1,6 @@
 ## Matplotlib可视化
- 
+**由于作图使用你较多，为方便后续更多会使用ipython得notebook方式**
+
 现在，我们将深入研究Matplotlib软件包，以便在Python中进行可视化。 Matplotlib是一个基于NumPy数组的多平台数据可视化库，旨在与更广泛的SciPy堆栈配合使用。它由John Hunter于2002年构思，最初是IPython的补丁，用于通过IPython命令行通过gnuplot启用交互式MATLAB样式的绘图。 IPython的创建者Fernando Perez当时正忙于完成他的博士学位，并让John知道他几个月来都没有时间来审查补丁。 John以此为依据自行提出，Matplotlib程序包诞生了，2003年发布了0.1版。当它被选为太空望远镜科学研究所的绘图程序包（即哈勃望远镜背后的人们），这为Matplotlib的发展提供了财政支持，并大大扩展了其功能。
 Matplotlib最重要的功能之一就是它能够与许多操作系统和图形后端完美兼容。 Matplotlib支持数十种后端和输出类型，这意味着无论使用哪种操作系统或所需的输出格式，都可以依靠它来工作。这种跨平台，从所有人到所有人的方法一直是Matplotlib的强大优势之一。它导致了庞大的用户基础，进而导致了活跃的开发人员基础以及Matplotlib的强大工具和在科学Python世界中的普遍存在。
 然而，近年来，Matplotlib的界面和样式已开始显示其年龄。 R语言中的ggplot和ggvis等较新的工具，以及基于D3js和HTML5 canvas的Web可视化工具包，通常会使Matplotlib显得笨拙而过时。不过，我认为我们不能忽视Matplotlib作为经过良好测试的跨平台图形引擎的优势。最新的Matplotlib版本使设置新的全局绘图样式相对容易，人们一直在开发新的软件包，这些软件包基于其强大的内部组件通过更清洁，更现代的API驱动Matplotlib。例如， Seaborn（与Seaborn一起在可视化中讨论），[ggpy](http://yhat.github.io/ggpy/)，[HoloViews](http://holoviews.org/)，[Altair](http://altair-viz.github.io/)甚至Pandas本身都可以用作Matplotlib API的包装器。即使有这样的包装器，深入了解Matplotlib的语法以调整最终绘图输出仍然经常有用。因此，我相信Matplotlib本身仍将是数据可视化堆栈的重要组成部分，即使新工具意味着社区逐渐不再直接使用Matplotlib API也是如此。
