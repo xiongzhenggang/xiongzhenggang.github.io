@@ -121,6 +121,10 @@ https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/%E6%95%B0
 [11、k8s命令行指令](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/cloud/docker/kubenctl_command.md)
 
 ```markdown
+[python data science](https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/data-science/READE.md)
+```
+
+```markdown
 其他资源url
 ```
 * netty和nio相关文章
@@ -133,4 +137,3 @@ https://github.com/xiongzhenggang/xiongzhenggang.github.io/blob/master/%E6%95%B0
 ### Author 熊正刚
 
 github设置博客样式模板[repository settings](https://github.com/xiongzhenggang/xiongzhenggang.github.blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
